@@ -75,7 +75,7 @@
     "@ngx-translate/http-loader": "2.0.1",
     "@ngx-translate/core": "9.1.1",
     "@types/core-js": "0.9.36",
-    "@types/jasmine": "2.5.38",
+    "@types/jasmine": "^2.5.51",
     "@types/jasminewd2": "2.0.3",
     "@types/node": "7.0.7",
     "@types/bootstrap": "3.3.32",
