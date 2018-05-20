@@ -1,150 +1,193 @@
-import { Component, OnInit } from '@angular/core';
-import * as Chartist from 'chartist';
+import { Component, OnInit, OnDestroy  } from '@angular/core';
+import { ISubscription } from "rxjs/Subscription";
+import { PersistenceService } from 'angular-persistence';
+import {TranslateService} from '@ngx-translate/core';
+import { StorageType } from 'angular-persistence';
+import { GlobalService } from '../service/global.service';
+import { IPersistenceContainer } from 'angular-persistence';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'dashboard-cmp',
+  templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent implements OnInit {
-
-  constructor() { }
-  startAnimationForLineChart(chart){
-      let seq: any, delays: any, durations: any;
-      seq = 0;
-      delays = 80;
-      durations = 500;
-
-      chart.on('draw', function(data) {
-        if(data.type === 'line' || data.type === 'area') {
-          data.element.animate({
-            d: {
-              begin: 600,
-              dur: 700,
-              from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-              to: data.path.clone().stringify(),
-              easing: Chartist.Svg.Easing.easeOutQuint
-            }
-          });
-        } else if(data.type === 'point') {
-              seq++;
-              data.element.animate({
-                opacity: {
-                  begin: seq * delays,
-                  dur: durations,
-                  from: 0,
-                  to: 1,
-                  easing: 'ease'
-                }
-              });
-          }
-      });
-
-      seq = 0;
-  };
-  startAnimationForBarChart(chart){
-      let seq2: any, delays2: any, durations2: any;
-
-      seq2 = 0;
-      delays2 = 80;
-      durations2 = 500;
-      chart.on('draw', function(data) {
-        if(data.type === 'bar'){
-            seq2++;
-            data.element.animate({
-              opacity: {
-                begin: seq2 * delays2,
-                dur: durations2,
-                from: 0,
-                to: 1,
-                easing: 'ease'
-              }
-            });
-        }
-      });
-
-      seq2 = 0;
-  };
-  ngOnInit() {
-      /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
-
-      const dataDailySalesChart: any = {
-          labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-          series: [
-              [12, 17, 7, 17, 23, 18, 38]
-          ]
-      };
-
-     const optionsDailySalesChart: any = {
-          lineSmooth: Chartist.Interpolation.cardinal({
-              tension: 0
-          }),
-          low: 0,
-          high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: { top: 0, right: 0, bottom: 0, left: 0},
-      }
-
-      var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
-
-      this.startAnimationForLineChart(dailySalesChart);
 
 
-      /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
+export class DashboardComponent {
 
-      const dataCompletedTasksChart: any = {
-          labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
-          series: [
-              [230, 750, 450, 300, 280, 240, 200, 190]
-          ]
-      };
+    public tErrors: string;
+	public tBalance: number;
+	public tBlock: number;
+	public tConnections: number;
+	public tNetType: string;
+	public tWalletVersion: number;
+	public tBlockStatus: string;
+	
+	public cBlock: number;
+	public cBlockMax: number;
+	
+	
+	private subscription2: ISubscription;
+	private lastNum: any;
+	
+    private tErrorsSs: ISubscription;
+	private tBalanceSs: ISubscription;
+	private tBlockSs: ISubscription;
+	private tConnectionsSs: ISubscription;
+	private tNetTypeSs: ISubscription;
+	private tWalletVersionSs: ISubscription;
+	private tBlockStatusSs: ISubscription;	
+	private tBlockMaxSs: ISubscription;
+	
+	private container: IPersistenceContainer;
+	
+	constructor(translate: TranslateService, public persistenceService: PersistenceService, private globalService:GlobalService) 
+	{
+    	this.tErrors = "";
+		this.tBalance = 0;
+		this.tBlock = 0;
+		this.tConnections = 0;
+		this.tNetType = "";
+		this.tWalletVersion = 0;
+		this.tBlockStatus = "";
+		
+        translate.setDefaultLang('en');
+		
+        this.container = persistenceService.createContainer(
+            'org.CHIMAERA.global',
+            {type: StorageType.LOCAL, timeout: 220752000000}
+        );		
+ 
+		var lang =  this.container.get('lang');
+		
+		if(lang == undefined || lang == null)
+		{
+			lang = "en";
+		}
+		
+        translate.use(lang);		
+		
+	}
+	
+	
+	GetDecimalCount(num)
+	{
+        var precision =  this.container.get('precision');
+		
+		if(precision == null || precision == undefined)
+		{
+			precision  =0;
+		}		
+		
+		if(precision == 0)
+		{
+			return num.toFixed(8);
+		}
+		if(precision == 1)
+		{
+			return (num * 1000).toFixed(5);
+		}
+		if(precision == 2)
+		{
+			return (num * 1000000).toFixed(2);
+		}
+		
+	}
+	
+	updateBalance(num)
+	{
+		this.lastNum = num;
+		this.tBalance = this.GetDecimalCount(num);
+	}
+	
+	checkBlockProgression()
+	{
+		 this.tBlock = this.cBlock;
+		 this.tBlockStatus = this.cBlock + "/" + this.cBlockMax;
+	}
+	
+	
+	currenctChangedEventFired()
+	{
+		this.updateBalance(this.lastNum);
+	}
 
-     const optionsCompletedTasksChart: any = {
-          lineSmooth: Chartist.Interpolation.cardinal({
-              tension: 0
-          }),
-          low: 0,
-          high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: { top: 0, right: 0, bottom: 0, left: 0}
-      }
 
-      var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
+	
+	ngOnDestroy()
+	{
+	 this.subscription2.unsubscribe();
+	 
+     this.tErrorsSs.unsubscribe();
+	 this.tBalanceSs.unsubscribe();
+	 this.tBlockSs.unsubscribe();
+	 this.tConnectionsSs.unsubscribe();
+	 this.tNetTypeSs.unsubscribe();
+	 this.tWalletVersionSs.unsubscribe();
+	 this.tBlockStatusSs.unsubscribe();	 
+	 this.tBlockMaxSs.unsubscribe();	
+	}
+	
+    ngOnInit()
+	{ 
+       
+     this.tErrorsSs = this.globalService.tErrorsChanged$.subscribe
+	 (
+        value => {
+        this.tErrors = value;
+     });	
 
-      // start animation for the Completed Tasks Chart - Line Chart
-      this.startAnimationForLineChart(completedTasksChart);
+     this.tBalanceSs = this.globalService.tBalanceChanged$.subscribe
+	 (
+        value => {
+		this.updateBalance(value);
+     });	
 
+     this.tBlockSs = this.globalService.tBlockChanged$.subscribe
+	 (
+        value => {
+        this.cBlock = value;
+		this.checkBlockProgression();
+		
+     });	
 
+     this.tConnectionsSs = this.globalService.tConnectionsChanged$.subscribe
+	 (
+        value => {
+        this.tConnections = value;
+     });	
+	 
+     this.tNetTypeSs = this.globalService.tNetTypeChanged$.subscribe
+	 (
+        value => {
+        this.tNetType = value;
+     });	 
 
-      /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
+     this.tWalletVersionSs = this.globalService.tWalletVersionChanged$.subscribe
+	 (
+        value => {
+        this.tWalletVersion = value;
+     });	
 
-      var datawebsiteViewsChart = {
-        labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-        series: [
-          [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
+     this.tBlockStatusSs = this.globalService.tBlockStatusChanged$.subscribe
+	 (
+        value => {
+        this.tBlockStatus = value;
+     });	
 
-        ]
-      };
-      var optionswebsiteViewsChart = {
-          axisX: {
-              showGrid: false
-          },
-          low: 0,
-          high: 1000,
-          chartPadding: { top: 0, right: 5, bottom: 0, left: 0}
-      };
-      var responsiveOptions: any[] = [
-        ['screen and (max-width: 640px)', {
-          seriesBarDistance: 5,
-          axisX: {
-            labelInterpolationFnc: function (value) {
-              return value[0];
-            }
-          }
-        }]
-      ];
-      var websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
-
-      //start animation for the Emails Subscription Chart
-      this.startAnimationForBarChart(websiteViewsChart);
-  }
-
+     this.tBlockMaxSs = this.globalService.tBlockMaxChanged$.subscribe
+	 (
+        value => {
+        this.cBlockMax = value;
+		this.checkBlockProgression();
+     });		 
+	   
+	   
+     this.subscription2 = this.globalService.curerencyChanged$.subscribe
+	 (
+        value => {
+        this.currenctChangedEventFired();
+     });	
+	  
+	  
+    }
 }

@@ -1,7 +1,73 @@
 {
-  "PAGES": {
-      "HOME": {
-          "TITLE": "App works !"
-      }
+  "LEFTMENU": {
+    "OVERVIEW": "Overview",
+    "ADDRESSES": "Addresses",
+	"TRANSACTIONS": "Transactions",
+	"SETTINGS": "Settings",
+	"NAMECOIN": "Chimaera",
+	"SEND": "Send",
+	"CONSOLE": "Console",
+	"EXIT": "Exit"
+  },
+   "SOVERVIEW": {
+    "OVERVIEW": "Overview",
+    "BALANCE": "Balance",
+	"BLOCK": "Block",
+	"CONNECTIONS": "Connections",
+	"NETTYPE": "Net Type",
+	"WALLETVERSION": "Wallet Version",
+	"BLOCKPROGRESSION": "Block Progression"
+  },
+   "SSETTINGS": {
+    "CONNECTIONSETTINGS": "Connection Settings",
+    "HOSTADDRESS": "Host Address",
+	"PORT": "Port",
+	"USERNAME": "User Name",
+	"PASSWORD": "Password"
+  },
+   "SADDRESSES": {
+    "SENDINGADDRESSES": "Sending Addresses",
+    "ADDSENDINGADDRESSES": "Add Sending Addresses",
+	"ADDRESSLABEL": "Address Label",
+	"ADDRESS": "Address",
+	"INSERT": "Insert",
+    "RECEIVINGADDRESSES": "Receiving Addresses",
+    "GENERATERECEIVINGADDRESS": "Generate Receiving Address",
+	"GENERATE": "Generate",
+	"PLEASEFILLTHELABLE": "Please, fill the label",
+	"ADDRESSNOTVALID": "Address is not valid",
+    "LABEL": "Label",
+    "FILLTHEADDRESS": "Please, fill the address",
+	"SEARCHADDRESSES": "Search addresses"	
+  },
+   "SSEND": {
+    "SENDPAYMENT": "Send Payment",
+	"PAYTOADDRESS": "Pay To Address",
+    "OPTIONALCOMMENT": "Optional Comment",
+	"AMOUNTVALUE": "Amount Value",
+	"MAKEPAYMENT": "Make Payment",
+	"SUBSTRACTFEEFROMAMOUNT": "Substract fee from amount?",
+    "WRONGADDRESS": "Wrong Address"
+  },
+   "STRANSACTIONS": {
+    "TRANSACTIONHISTORY": "Transaction History",
+	"ADDRESS": "Address",
+	"NAME": "Name",
+	"CATEGORY": "Category",
+	"AMOUNT": "Amount",
+	"SEARCHTRANSACTIONS": "Search transactions"
+  },
+   "SCONSOLE": {
+    "SEND": "Send"
+  },
+   "SCHIMAERA": {
+    "ACCOUNTNAME": "Chimaera Name",
+	"VALUE": "Name Value",
+	"ADDRESS": "Address",
+	"TITLE": "Existing Wallet Names",
+	"SEARCHTRANSACTIONS": "Search Names",
+	"CREATENAME": "Add New Name",
+	"NAME": "Name",
+	"SUBMIT": "Submit"
   }
 }

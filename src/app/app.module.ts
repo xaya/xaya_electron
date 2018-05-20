@@ -19,6 +19,15 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ElectronService } from './providers/electron.service';
 import { WebviewDirective } from './directives/webview.directive';
 
+import { SidebarModule } from './sidebar/sidebar.module';
+import { FooterModule } from './shared/footer/footer.module';
+import { NavbarModule} from './shared/navbar/navbar.module';
+import { PagesnavbarModule} from './shared/pagesnavbar/pagesnavbar.module';
+import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
+import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
+
+
+import { GlobalService } from './service/global.service';
 
 import {
   MatButtonModule,
@@ -58,12 +67,15 @@ export function HttpLoaderFactory(http: HttpClient) {
 	HttpClientModule,
     HttpModule,
     ComponentsModule,
-    RouterModule,
+    RouterModule.forRoot(AppRoutingModule, {useHash: true}),
+    SidebarModule,
+    NavbarModule,
+    FooterModule,
+    PagesnavbarModule,	
     MatButtonModule,
     MatRippleModule,
     MatInputModule,
     MatTooltipModule,
-    AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     }),
@@ -77,18 +89,11 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   declarations: [
     AppComponent,
-    DashboardComponent,
-    UserProfileComponent,
-    TableListComponent,
-    TypographyComponent,
-    IconsComponent,
-    MapsComponent,
-    NotificationsComponent,
-    UpgradeComponent,
-	WebviewDirective
+    AdminLayoutComponent,
+	AuthLayoutComponent
 
   ],
-  providers: [ElectronService],
+  providers: [ElectronService, GlobalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

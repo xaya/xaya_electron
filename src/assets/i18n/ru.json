@@ -1,0 +1,73 @@
+{
+  "LEFTMENU": {
+    "OVERVIEW": "Обзор",
+    "ADDRESSES": "Адреса",
+	"TRANSACTIONS": "Транзакции",
+	"SETTINGS": "Настройки",
+	"NAMECOIN": "Chimaera",
+	"SEND": "Отправить",
+	"CONSOLE": "Консоль",
+	"EXIT": "Выход"
+  },
+  "SOVERVIEW": {
+    "OVERVIEW": "Обзор",
+    "BALANCE": "Баланс",
+	"BLOCK": "Блок",
+	"CONNECTIONS": "Соединений",
+	"NETTYPE": "Тип сети",
+	"WALLETVERSION": "Версия кошелька",
+	"BLOCKPROGRESSION": "Прогресс блоков"
+  },
+   "SSETTINGS": {
+    "CONNECTIONSETTINGS": "Настройки Соединения",
+    "HOSTADDRESS": "Адрес Хоста",
+	"PORT": "Порт",
+	"USERNAME": "Имя Пользователя",
+	"PASSWORD": "Пароль"
+  },
+   "SADDRESSES": {
+    "SENDINGADDRESSES": "Адреса Отправки",
+    "ADDSENDINGADDRESSES": "Добавить адрес Отправки",
+	"ADDRESSLABEL": "Название Адреса",
+	"ADDRESS": "Адрес",
+	"INSERT": "Вставить",
+    "RECEIVINGADDRESSES": "Адреса Получения",
+    "GENERATERECEIVINGADDRESS": "Сгенерировать адрес Получения",
+	"GENERATE": "Сгенерировать",
+	"PLEASEFILLTHELABLE": "Пожалуйста, заполните название",
+	"ADDRESSNOTVALID": "Адрес не прошёл подтверждение",
+    "LABEL": "Название",
+    "FILLTHEADDRESS": "Пожалуйста, заполните адрес",
+	"SEARCHADDRESSES": "Поиск по адресам"	
+  },
+   "SSEND": {
+    "SENDPAYMENT": "Выслать Оплату",
+	"PAYTOADDRESS": "Адрес Оплаты",
+    "OPTIONALCOMMENT": "Необязательный Комментарий",
+	"AMOUNTVALUE": "Сумма",
+	"MAKEPAYMENT": "Произвести Оплату",
+	"SUBSTRACTFEEFROMAMOUNT": "Вычесть пошлину из общей суммы?",
+    "WRONGADDRESS": "Неверный Адрес"
+  },
+   "STRANSACTIONS": {
+    "TRANSACTIONHISTORY": "История Транзакций",
+	"ADDRESS": "Адрес",
+	"NAME": "Имя",
+	"CATEGORY": "Категория",
+	"AMOUNT": "Количество",
+	"SEARCHTRANSACTIONS": "Поиск по транзакциям"
+  },
+   "SCONSOLE": {
+    "SEND": "Отправить"
+  },
+   "SCHIMAERA": {
+    "ACCOUNTNAME": "Имя Химеры",
+	"VALUE": "Значение",
+	"ADDRESS": "Адрес",
+	"TITLE": "Существующие имена кошелька",
+	"SEARCHTRANSACTIONS": "Поиск по именам",
+	"CREATENAME": "Добавить Новое Имя",
+	"NAME": "Имя",
+	"SUBMIT": "Добавить"
+  }
+}

@@ -1,0 +1,69 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="content">
+                        <h4 class="title">{{'SSEND.SENDPAYMENT' | translate }}</h4><br>
+						    <div class="content">
+							
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">{{'SSEND.PAYTOADDRESS' | translate }}</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" [value]="this.address" (input)="this.address = $event.target.value">
+                                    </div>
+                                </div>
+                            </fieldset>								
+							<br>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">{{'SSEND.OPTIONALCOMMENT' | translate }}</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" [value]="this.label" (input)="this.label = $event.target.value">
+                                    </div>
+                                </div>
+                            </fieldset>		
+							<br>
+							
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">{{'SSEND.AMOUNTVALUE' | translate }}</label>
+                                    <div class="col-sm-9">
+									
+									    <div class="col-sm-9">
+                                        <input type="number" class="form-control" [value]="this.amount" (input)="this.amount = $event.target.value" style = "width:80%;">
+										</div>
+										
+										<div class="col-sm-3">
+										<select name="cities" class="selectpicker" [ngModel]="this.currency" (ngModelChange)="this.currency = $event" data-title="NMC" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+											<option value="nmc" selected="selected">CHI</option>
+											<option value="mnmc">mCHI</option>
+											<option value="unmc">μCHI</option>
+										</select>	
+                                        </div>										
+                                    </div>
+                                </div>
+								
+							
+								
+                            </fieldset>								
+							<br>
+							
+                            <button type="submit" class="btn btn-fill btn-info" (click)="makeThePayment(); $event.stopPropagation();">{{'SSEND.MAKEPAYMENT' | translate }}</button>
+
+                            <div class="checkbox" style = "display: inline;">
+                                    <input id="checkbox21" type="checkbox" [ngModel]="this.fee" (ngModelChange)="this.fee = $event">
+                                    <label for="checkbox21">
+                                        {{'SSEND.SUBSTRACTFEEFROMAMOUNT' | translate }}
+                                    </label>
+                            </div>						  							
+							
+						    </div>
+                    </div> 
+                </div>
+            </div>		
+        </div>
+    </div>
+</div>
