@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject }    from 'rxjs/BehaviorSubject';
 import * as Client from 'bitcoin-core';
-import { ISubscription } from "rxjs/Subscription";
-import { Component, OnInit, OnDestroy  } from '@angular/core';
+import { Component, OnDestroy  } from '@angular/core';
 import {Http} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import { PersistenceService } from 'angular-persistence';
 import { StorageType } from 'angular-persistence';
 import { IPersistenceContainer } from 'angular-persistence';
+import {TranslateService} from '@ngx-translate/core';
+import * as _lodash from "lodash";
 
 
 declare var $:any;
@@ -15,11 +16,10 @@ declare var swal:any;
 
 
 @Injectable()
-export class GlobalService {
+export class GlobalService implements OnDestroy {
 
   public client: Client;
-  private subscription: ISubscription;
-   private container: IPersistenceContainer;
+  public container: IPersistenceContainer;
 
 
   private _tErrorsChange = new BehaviorSubject("");
@@ -48,9 +48,22 @@ export class GlobalService {
     this._currencyChange.next(todo);
   }
 
+  
+  async walletBackUp(path)
+  {
+      const response = await this.client.backupwallet(path).catch(function(e) 
+	  {
+		     swal("Error", e, "error")
+			 return [];
+      });	  
+	  
+	  
+	  swal("Back Up Done", "" + path)
+  }
+  
   async getNameList()
   {
-      const response = await this.client.Name_List().catch(function(e) 
+      const response = await this.client.name_list().catch(function(e) 
 	  {
 		     swal("Error", e, "error")
 			 return [];
@@ -64,7 +77,7 @@ export class GlobalService {
 		  trObj.push(nObj);
 	  }
 	  
-      const response2 = await this.client.Name_Pending().catch(function(e) 
+      const response2 = await this.client.name_pending().catch(function(e) 
 	  {
 		     swal("Error", e, "error")
 			 return [];
@@ -83,6 +96,19 @@ export class GlobalService {
 	return trObj;	  
   }
   
+  async getNewAddress(label)
+  {
+      const response = await this.client.getnewaddress(label).catch(function(e) 
+	  {
+		     swal("Error", e, "error")
+			 return [];
+      });	
+
+	  return response;
+	  
+  }
+  
+  
   async getTransactions()
   {
 	  
@@ -92,25 +118,25 @@ export class GlobalService {
 			 return [];
       });	
 
-      var trObj = [];
-     
-	  for(var s =0; s < response.length;s++)
-	  {
-		  var nObj = [response[s].address, response[s].name, response[s].category, response[s].amount];
-		  trObj.push(nObj);
-	  }
-	  
-	  
-	return trObj;
+	return response;
   }
   
+
   getOverviewInfo()
   {
+
+	  //Could not be connected yet, but zeroMQ my trigger this functions
+	  if(this.client == null || this.client == undefined)
+	  {
+          console.log('skipping as null');
+		  return;
+	  }
+	  
+
 	  var err = this._tErrorsChange;
 	  this.client.getBlockchainInfo().then(
 	  (help) =>  
 	  {
-
 		  this._tBlockChange.next(help.blocks);
 
           this._tBlockMaxChange.next(help.blocks * help.verificationprogress);
@@ -152,11 +178,14 @@ export class GlobalService {
          err3.next(e);
       });
 	  
+	  
+	  console.log("getting overview, expecting screen to redraw");
+	  
   }  
   
   async AddNewName(nname, nvalue)
   {
-      const response = await this.client.Name_Register(nname, nvalue).catch(function(e) 
+      const response = await this.client.name_register(nname, nvalue).catch(function(e) 
 	  {
 		     console.log(e);
 		     swal("Error", e.message, "error")
@@ -201,16 +230,27 @@ export class GlobalService {
 	 return JSON.stringify(response);  	  
   }
   
-  async insertReceivingAddress(label) :Promise<string>
+  async listLabels()
   {
-      const response = await this.client.getNewAddress(label).catch(function(e) 
+      const response = await this.client.listlabels().catch(function(e) 
 	  {
-		     swal("Error", e, "error")
+		     swal("Error", JSON.stringify(e), "error")
 			 return false;
       });	
 
 	 return response;  
   }  
+  
+  async getAddressesByLabel (label)
+  {
+      const response = await this.client.getaddressesbylabel(label).catch(function(e) 
+	  {
+		     swal("Error", JSON.stringify(e), "error")
+			 return false;
+      });	
+
+	 return response;  
+  }    
   
   async insertSendingAddress(address, label): Promise<boolean> 
   {
@@ -224,57 +264,243 @@ export class GlobalService {
 
   }
   
+  
+  shutDown()
+  {
+	  
+	if(this.client == null || this.client == undefined)
+	{
+	  window.require('electron').remote.getCurrentWindow().close();
+	  return;
+	}
+
+
+	var _that = this;
+	this.client.stop().then(
+	  (help) =>  
+	  {
+		  
+		  window.require('electron').remote.getCurrentWindow().close();
+	  }
+	).catch(function(e) {
+		 
+		  window.require('electron').remote.getCurrentWindow().close();
+		 
+	});		  
+  }
+  
   ngOnDestroy()
   {
-    this.subscription.unsubscribe();
+	
+	  this.client.stop().then(
+		  (help) =>  
+		  {
+			 
+		  }
+	  ).catch(function(e) {
+		    
+	  });	  
   }
   
   reconnectTheClient()
   {
-   var host =  this.container.get('host');
+	  
+    var userAgent = navigator.userAgent.toLowerCase();
+    if (userAgent.indexOf(' electron/') == -1) 
+	{
+       return;
+    }	  
+	  
+	  
+	  
+    const path = window.require('path');
+	let basepath = window.require('electron').remote.app.getAppPath();
+    let filename = path.join(basepath, '../daemon/datadir/.cookie');
+	const fs = window.require('fs');
+	
+	console.log("cookies:" + filename);
+	
+	let _that = this;
+	if (!fs.existsSync(filename)) 
+	{
+		
+		let filename2 = path.join(basepath, '../daemon/datadir/testnet/.cookie');
+		if (fs.existsSync(filename2)) 
+	    {
+			filename = filename2;
+		}
+		else
+		{
+		
+			setTimeout(function() {
+				
+				_that.reconnectTheClient();
+			}, 500);		
+			 return;
+		}
+    }	  
+	  
+	  
+    let host =  this.container.get('host');
 		
 	if(host == undefined || host == null)
 	{
 			host = "127.0.0.1";
 	}  
 	
-	var port =  this.container.get('port');
+	let port =  this.container.get('port');
 		
 	if(port == undefined || port == null)
 	{
 			port = 18396;
 	}  	
   
-	var username = this.container.get('username');
-	var passwordField = this.container.get('password');
-  
-   this.client = new Client({ network: 'mainnet', host: host, password: passwordField, port: port, username: username});
-   
-   
-   
-   this.getOverviewInfo();
+
+    let contents = "";
+	fs.readFile(filename, 'utf8', function(err, data) 
+	{
+		if (err) throw err;
+		contents = data;
+
+		let pData = contents.split(":");
+		
+		
+		
+		setTimeout(function() 
+		{
+		console.log("All loaded, safely connect to RPC now" + pData[0] + "|" +  pData[1]);
+		_that.client = new Client({ network: 'mainnet', host: host, password: pData[1], port: port, username: pData[0]});
+		
+			setTimeout(function() 
+			{
+			_that.getOverviewInfo();
+			}, 1000);
+		
+		}, 1000);		
+						
+	  
+	});   
+	
+
 	  
   }
-	  
-	  
+	    
   
-  constructor(private http: Http, private persistenceService: PersistenceService) 
+  constructor(private http: Http, public persistenceService: PersistenceService, public translate: TranslateService) 
   { 
   
-   
-    let timer = Observable.timer(5000,5000);
-    this.subscription = timer.subscribe(t=> 
-	{
-		this.getOverviewInfo();
+    //We need to inject custom methods into bitcoin-core library
+	
+	var _methods = {
+		
+		getnewaddress: {
+		version: '>=0.8.0'
+		},
+		listlabels: {
+		version: '>=0.8.0'
+		},
+		getaddressesbylabel: {
+		version: '>=0.8.0'
+		},
+		backupwallet: {
+		version: '>=0.8.0'
+		},
+		name_register: {
+		version: '>=0.8.0'
+		},
+		name_list: {
+		version: '>=0.8.0'
+		},
+		name_pending: {
+		version: '>=0.8.0'
+		}			
 	}
-	);	
 
+	
+	
+	
+	_lodash.forOwn(_methods, (range, method) => 
+	{
+    Client.prototype[method] = _lodash.partial(Client.prototype.command, method.toLowerCase());
+    });
+    
+   
+  
+    //Zeromq will not work in browser, outside electron
+    var userAgent = navigator.userAgent.toLowerCase();
+    if (userAgent.indexOf(' electron/') == -1) 
+	{
+  
+    }
+    else
+	{
+         var zmq = require('zeromq');
+		var subscriber = zmq.socket('sub');
+		var _that = this;
+		
+		subscriber.on('message', function() 
+		{
+		  var msg = [];
+		  Array.prototype.slice.call(arguments).forEach(function(arg) 
+		  {
+				msg.push(arg.toString());
+		  });
+
+		  //TODO; Extract actuall message and just pass it as argument;
+		  _that.getOverviewInfo();
+		  
+		})
+		 
+		subscriber.connect('tcp://127.0.0.1:28332');
+		console.log('zeromq connected to port 28332');
+		 
+		subscriber.subscribe('rawtx');
+		
+		//TODO maybe use those later
+		/*
+		subscriber.subscribe('hashtx');
+		subscriber.subscribe('rawblock');
+		subscriber.subscribe('hashblock');*/	
+
+		window.require('electron').remote.getCurrentWindow().on('close', () => 
+		{
+			   _that.client.stop().then(
+					  (help) =>  
+					  {
+
+
+					  }
+				  ).catch(function(e) {
+
+
+						 
+				  });	   
+		})	
+
+		
+	}
+		
+		 
+
+	translate.setDefaultLang('en');
+	
 	this.container = persistenceService.createContainer(
 		'org.CHIMAERA.global',
 		{type: StorageType.LOCAL, timeout: 220752000000}
-	);	
-  
-    this.reconnectTheClient();
+	);		
+
+	var lang = this.container.get('lang');
+	
+	if(lang == undefined || lang == null)
+	{
+		lang = "en";
+	}
+	
+	translate.use(lang);
+	 
+	 
+	this.reconnectTheClient();
+
   }
 
 }

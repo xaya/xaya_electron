@@ -2,6 +2,10 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
+import { GlobalService}     from '../../service/global.service';
+
+
+declare var $: any;
 
 @Component({
   selector: 'app-navbar',
@@ -12,18 +16,90 @@ export class NavbarComponent implements OnInit {
     private listTitles: any[];
     location: Location;
       mobile_menu_visible: any = 0;
-    private toggleButton: any;
     private sidebarVisible: boolean;
+    public precisionText: string;
+	
 
-    constructor(location: Location,  private element: ElementRef, private router: Router) {
-      this.location = location;
-          this.sidebarVisible = false;
+    constructor(location:Location, private element : ElementRef, private globalService: GlobalService, private router: Router) 
+	{
+        this.location = location;
+        this.sidebarVisible = false;
+	
+		
+		var precision =  this.globalService.container.get('precision');
+		
+		if(precision == null || precision == undefined)
+		{
+			precision  =0;
+		}
+		
+		this.setPrecision(precision);
     }
+	
+	setPrecision(precision)
+	{
+		if(precision == 0)
+		{
+			this.precisionText = " NMC";
+			this.globalService.container.set('precision', 0);
+		}
+		if(precision == 1)
+		{
+			this.precisionText = " mNMC";	
+            this.globalService.container.set('precision', 1);				
+		}
+		if(precision == 2)
+		{
+			this.precisionText = " μNMC";
+			this.globalService.container.set('precision', 2);
+		}		
+	}
+	
+	setCoinPrecision(precision)
+	{
+		$('#coinNavBar').click();
+		this.setPrecision(precision);	
+		this.globalService.announceCurrencyChange("nexty");
+		
+	}
+	
+	
+	setLangEN()
+	{
+		this.globalService.container.set('lang', 'en');
+		
+		$('#langsNavBar').click();
+		 window.location.reload();
+	}
+	
+	setLangRU()
+	{
+		this.globalService.container.set('lang', 'ru');
+		
+		$('#langsNavBar').click();
+		 window.location.reload();
+	}
+	
+    ngAfterViewInit()
+    {
+        var lang =  this.globalService.container.get('lang');
+		
+		if(lang == 'ru')
+		{
+			$('#langdrop').removeClass();
+			$('#langdrop').addClass("flag-icon flag-icon-ru");
+		}
+		else
+		{
+			$('#langdrop').removeClass();
+			$('#langdrop').addClass("flag-icon flag-icon-gb");
+		}
 
-    ngOnInit(){
+    }	
+
+   ngOnInit(){
       this.listTitles = ROUTES.filter(listTitle => listTitle);
       const navbar: HTMLElement = this.element.nativeElement;
-      this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
       this.router.events.subscribe((event) => {
         this.sidebarClose();
          var $layer: any = document.getElementsByClassName('close-layer')[0];
@@ -35,25 +111,19 @@ export class NavbarComponent implements OnInit {
     }
 
     sidebarOpen() {
-        const toggleButton = this.toggleButton;
-        const body = document.getElementsByTagName('body')[0];
-        setTimeout(function(){
-            toggleButton.classList.add('toggled');
-        }, 500);
 
+        const body = document.getElementsByTagName('body')[0];
         body.classList.add('nav-open');
 
         this.sidebarVisible = true;
     };
     sidebarClose() {
         const body = document.getElementsByTagName('body')[0];
-        this.toggleButton.classList.remove('toggled');
         this.sidebarVisible = false;
         body.classList.remove('nav-open');
     };
     sidebarToggle() {
-        // const toggleButton = this.toggleButton;
-        // const body = document.getElementsByTagName('body')[0];
+
         var $toggle = document.getElementsByClassName('navbar-toggler')[0];
 
         if (this.sidebarVisible === false) {

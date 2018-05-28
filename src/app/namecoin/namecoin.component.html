@@ -2,80 +2,69 @@
     <div class="container-fluid">
         <div class="row">
 
-<div class="col-md-12">
-                <div class="card">
-                    <div class="content">
-                        <h4 class="title">{{'SCHIMAERA.CREATENAME' | translate }}</h4><br>
-						    <div class="content">
-							
-                            <fieldset>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">{{'SCHIMAERA.NAME' | translate }}</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" [value]="this.nname" (input)="this.nname = $event.target.value">
-                                    </div>
-                                </div>
-                            </fieldset>								
-							<br>
-                            <fieldset>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">{{'SCHIMAERA.VALUE' | translate }}</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" [value]="this.nvalue" (input)="this.nvalue = $event.target.value">
-                                    </div>
-                                </div>
-                            </fieldset>		
-							<br>
-							
-							
-
-                            <button type="submit" class="btn btn-fill btn-info" (click)="submitTheName(); $event.stopPropagation();">{{'SCHIMAERA.SUBMIT' | translate }}</button>
-					  							
-							
-						    </div>
-                    </div> 
-                </div>
-            </div>				
-		
-		
-		
-		
-                <div class="col-md-12">
-                <div class="card">
-                    <div class="content">
-                        <h4 class="title">{{'SCHIMAERA.TITLE' | translate }}</h4><br>
-                        <div class="toolbar">
-                        </div>
-                        <div class="fresh-datatables">
-                            <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                                <thead>
-                                    <tr>
-                                      <th>{{ dataTable.headerRow[0] }}</th>
-                                      <th>{{ dataTable.headerRow[1] }}</th>
-									  <th>{{ dataTable.headerRow[2] }}</th>
-									  <th>{{ dataTable.headerRow[3] }}</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                      <th>{{ dataTable.footerRow[0] }}</th>
-                                      <th>{{ dataTable.footerRow[1] }}</th>
-									  <th>{{ dataTable.footerRow[2] }}</th>
-									  <th>{{ dataTable.footerRow[3] }}</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    <tr *ngFor="let row of dataTable.dataRows">
-                                        <td>{{row[0]}}</td>
-                                        <td>{{row[1]}}</td>
-										<td>{{row[2]}}</td>
-										<td>{{row[3]}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+			<div class="col-md-12">
+				<div class="card">
+				  <div class="card-header card-header-danger">
+					  <h4 class="card-title">{{'SCHIMAERA.CREATENAME' | translate }}</h4>
+					  <p class="card-category"></p>
+				  </div>
+				  <div class="card-body">
+					  <form name = "addressform">
+						  <div class="row">
+							  <div class="col-md-12">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="{{'SCHIMAERA.NAME' | translate }}"  [value]="this.nname" (input)="this.nname = $event.target.value">
+								  </mat-form-field>
+							  </div>
+							  <div class="col-md-12">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="{{'SCHIMAERA.VALUE' | translate }}"  [value]="this.nvalue" (input)="this.nvalue = $event.target.value">
+								  </mat-form-field>
+							  </div>								  
+						  </div>
+						  <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="submitTheName(); $event.stopPropagation();">{{'SCHIMAERA.SUBMIT' | translate }}</button>
+						  <div class="clearfix"></div>
+					  </form>
+				  </div>
+			  </div>
+			</div>			
+	
+            <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title ">{{'SCHIMAERA.TITLE' | translate }}</h4>
+                      <p class="card-category"></p>
+                  </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table">
+                              <thead class=" text-primary">
+                                  <th>
+                                      {{'SCHIMAERA.ACCOUNTNAME' | translate }}
+                                  </th>
+                                  <th>
+                                      {{'SCHIMAERA.VALUE' | translate }}
+                                  </th>
+                                  <th>
+                                      {{'SCHIMAERA.ADDRESS' | translate }}
+                                  </th>								  
+                              <tbody>
+                                  <tr *ngFor="let row of nameAddressTableData">
+                                      <td>
+                                          {{row.name}}
+                                      </td>
+                                      <td>
+                                          {{row.value}}
+                                      </td>
+                                      <td>
+                                          {{row.address}}
+                                      </td>									  
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
             </div>
 
 			

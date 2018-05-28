@@ -56,6 +56,11 @@
 @import "core/responsive";
 
 
+.copyright
+{
+	 font-family: 'Orbitron';
+}
+
 .navbar
 {
   -webkit-app-region: drag;
@@ -69,10 +74,10 @@
 
 .sidebar
 {
-	overflow:auto;
+	overflow:hidden;
 }
 
-.navbar-right
+.navRightMargin
 {
   -webkit-app-region: no-drag;	
 }
@@ -87,11 +92,6 @@
 	cursor: pointer;
 }
 
-.adminbgimg
-{
-background-image: url(../../assets/img/full-screen-image-3.jpg);
-}
-
 .alogoimg
 {
   background-image: url(../../assets/img/angular2-logo-white.png);
@@ -100,3 +100,46 @@ background-image: url(../../assets/img/full-screen-image-3.jpg);
   background-size: contain;
 }
 
+.navRightMargin
+{
+	margin-right: 20px;
+}
+
+.mainNoMarginButPad
+{
+	margin-top: 0px;
+	padding-top:140px;
+}
+
+.main-panel .main-content
+{
+margin-top: -70px;
+min-height: calc(100vh - 303px);
+}
+
+.footer
+{
+margin-top: -70px;
+}
+
+.NMC
+{
+	color: #ff0000 !important;
+	font-family: 'Orbitron' !important;
+}
+
+#langstop
+{
+ -webkit-app-region: no-drag;	
+ margin-right: 40px;
+}
+
+.langsbutton
+{
+	background-color: #ff0000;
+}
+
+.langsbutton:hover
+{
+	background-color: #ff2222;
+}

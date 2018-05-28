@@ -22,8 +22,8 @@
     "CONNECTIONSETTINGS": "Connection Settings",
     "HOSTADDRESS": "Host Address",
 	"PORT": "Port",
-	"USERNAME": "User Name",
-	"PASSWORD": "Password"
+	"SUBMIT": "Submit",
+	"BACKUP": "Backup"
   },
    "SADDRESSES": {
     "SENDINGADDRESSES": "Sending Addresses",

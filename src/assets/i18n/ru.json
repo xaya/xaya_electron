@@ -22,8 +22,9 @@
     "CONNECTIONSETTINGS": "Настройки Соединения",
     "HOSTADDRESS": "Адрес Хоста",
 	"PORT": "Порт",
-	"USERNAME": "Имя Пользователя",
-	"PASSWORD": "Пароль"
+	"SUBMIT": "Применить",
+	"BACKUP": "Резервная Копия"
+
   },
    "SADDRESSES": {
     "SENDINGADDRESSES": "Адреса Отправки",

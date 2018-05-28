@@ -1,23 +1,30 @@
 <div class="main-content">
     <div class="container-fluid">
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card ">
-                    <div class="header">
-                        <h4 class="title">{{'SOVERVIEW.OVERVIEW' | translate }}</h4>
-                        <p class="category">{{'SOVERVIEW.BALANCE' | translate }}: {{this.tBalance}}</p>
-						<p class="category">{{'SOVERVIEW.BLOCK' | translate }} #: {{this.tBlock}}</p>
-						<p class="category">{{'SOVERVIEW.CONNECTIONS' | translate }}: {{this.tConnections}}</p>
-						<p class="category">{{'SOVERVIEW.NETTYPE' | translate }}: {{this.tNetType}}</p>
-						<p class="category">{{'SOVERVIEW.WALLETVERSION' | translate }}: {{this.tWalletVersion}}</p>
-						<p class="category">{{'SOVERVIEW.BLOCKPROGRESSION' | translate }}: {{this.tBlockStatus}}</p>
-                    </div>
-                    <div class="content">
-                        {{this.tErrors}}
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="card">
+          <div class="card-header card-header-danger">
+              <h3 class="card-title">{{'SOVERVIEW.OVERVIEW' | translate }}</h3>
+              <p class="card-category">
+              </p>
+          </div>
+        <div class="card-body">	
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card card-stats">
+						<div class="card-header">
+							<h4 class="card-title">{{'SOVERVIEW.OVERVIEW' | translate }}</h4>
+							<p class="card-category">{{'SOVERVIEW.BALANCE' | translate }}: {{this.tBalance}}</p>
+							<p class="card-category">{{'SOVERVIEW.BLOCK' | translate }} #: {{this.tBlock}}</p>
+							<p class="card-category">{{'SOVERVIEW.CONNECTIONS' | translate }}: {{this.tConnections}}</p>
+							<p class="card-category">{{'SOVERVIEW.NETTYPE' | translate }}: {{this.tNetType}}</p>
+							<p class="card-category">{{'SOVERVIEW.WALLETVERSION' | translate }}: {{this.tWalletVersion}}</p>
+							<p class="card-category">{{'SOVERVIEW.BLOCKPROGRESSION' | translate }}: {{this.tBlockStatus}}</p>
+						</div>
+						<div class="card-foote">
+							{{this.tErrors}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
     </div>
 </div>

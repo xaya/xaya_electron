@@ -1,15 +1,15 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
+		
             <div class="col-md-12">
 
                 <div class="card">
-                    <div class="header">
-                        <legend>{{'SSETTINGS.CONNECTIONSETTINGS' | translate }}</legend>
-                    </div>
-                    <div class="content">
-                       
-
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title ">{{'SSETTINGS.CONNECTIONSETTINGS' | translate }}</h4>
+                      <p class="card-category"></p>
+                  </div>
+                     <div class="card-body">
                             <fieldset>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">{{'SSETTINGS.HOSTADDRESS' | translate }}</label>
@@ -30,29 +30,12 @@
                                 </div>
                             </fieldset>
 
-                            <fieldset>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">{{'SSETTINGS.USERNAME' | translate }}</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" [value]="this.username" (input)="this.username = $event.target.value">
-                                    </div>
-                                </div>
-                            </fieldset>				
 
-                            <fieldset>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">{{'SSETTINGS.PASSWORD' | translate }}</label>
-                                    <div class="col-sm-9">
-                                        <input type="password" class="form-control"  [value]="this.passwordField" (input)="this.passwordField = $event.target.value">
-                                    </div>
-                                </div>
-                            </fieldset>									
-
-                          
-						    <button type="submit" class="btn btn-fill btn-info" (click)="updateSettingsDetails(); $event.stopPropagation();">Submit</button>
+                          <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="updateSettingsDetails(); $event.stopPropagation();">{{'SSETTINGS.SUBMIT' | translate }}</button>
+                          <div class="clearfix"></div>
 						  
-                       
-
+						  <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="backUpWallet(); $event.stopPropagation();">{{'SSETTINGS.BACKUP' | translate }}</button>
+                          <div class="clearfix"></div>
                     </div>
                 </div>
 

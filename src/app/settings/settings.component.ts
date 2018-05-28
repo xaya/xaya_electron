@@ -1,10 +1,6 @@
 import { Component, OnInit, OnDestroy  } from '@angular/core';
 import { ISubscription } from "rxjs/Subscription";
-import { PersistenceService } from 'angular-persistence';
-import {TranslateService} from '@ngx-translate/core';
-import { StorageType } from 'angular-persistence';
 import { GlobalService } from '../service/global.service';
-import { IPersistenceContainer } from 'angular-persistence';
 
 
 declare var $:any;
@@ -22,75 +18,52 @@ export class SettingsComponent {
 
 
     public host: string  = "";
-	public username: string  = "";
-	public passwordField: string  = "";
     public port: number  = 0;
 
-	
-	
-	private container: IPersistenceContainer;
-	
-	constructor(translate: TranslateService, public persistenceService: PersistenceService, private globalService:GlobalService) 
+
+	constructor(private globalService:GlobalService) 
 	{
 
-        this.container = persistenceService.createContainer(
-            'org.CHIMAERA.global',
-            {type: StorageType.LOCAL, timeout: 220752000000}
-        );		
-	
-        translate.setDefaultLang('en');
- 
-		var lang =  this.container.get('lang');
-		
-		if(lang == undefined || lang == null)
+		this.host =  this.globalService.container.get('host');
+			
+		if( this.host == undefined ||  this.host == null)
 		{
-			lang = "en";
-		}
+				 this.host = "127.0.0.1";
+		}  
 		
-        translate.use(lang);	
-		
-	
-
-    this.host =  this.container.get('host');
-		
-	if( this.host == undefined ||  this.host == null)
-	{
-			 this.host = "127.0.0.1";
-	}  
-	
-    this.port =  this.container.get('port');
-		
-	if(this.port == undefined || this.port == null)
-	{
-			this.port = 8336;
-	}  	
+		this.port =  this.globalService.container.get('port');
+			
+		if(this.port == undefined || this.port == null)
+		{
+				this.port = 8336;
+		}  	
   
-    this.username = this.container.get('username');
-    this.passwordField = this.container.get('password');		
+
+	}
+	
+	backUpWallet()
+	{
+		window.require('electron').remote.dialog.showOpenDialog({title: 'Select backup destination', filters: [{name: 'Wallet Data', extensions: ['dat']}],  properties: ['promptToCreate']}, (filePath) => {
+			
+		if (filePath === undefined)
+		{
+			swal("Error", "You didn't select a file", "error");
+			return;
+		}
+			
+			
+		this.globalService.walletBackUp(filePath);
 		
-		
+		});		
 	}
 
     updateSettingsDetails()
 	{
-		this.container.set('host', this.host);
-		this.container.set('port', this.port);
-		this.container.set('username', this.username);
-		this.container.set('password', this.passwordField);
+		this.globalService.container.set('host', this.host);
+		this.globalService.container.set('port', this.port);
 		this.globalService.reconnectTheClient();
 		swal("Success", "Settings Saved", "success")
 		
 	}
 	
-	ngOnDestroy()
-	{
-	
-	}
-	
-    ngOnInit()
-	{ 
-       
-
-	  
-    }
 }

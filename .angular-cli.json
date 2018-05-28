@@ -23,8 +23,15 @@
       "prefix": "app",
       "styles": [
           "../node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+		  "../node_modules/sweetalert2/dist/sweetalert2.css",
+		  "../node_modules/datatables.net-bs/css/dataTables.bootstrap.css",
           "./assets/scss/material-dashboard.scss",
-          "./assets/css/demo.css"
+          "./assets/css/flag-icon.css",
+		  "./assets/css/pe-icon-7-stroke.css",
+		  "./assets/css/webfont/cryptocoins-colors.css",
+		  "./assets/css/webfont/cryptocoins.css",
+		  "./assets/css/font-awesome.min.css",
+		  "./assets/css/otherfont.css"
       ],
       "scripts": [
           "../node_modules/jquery/dist/jquery.js",
@@ -34,7 +41,11 @@
           "../node_modules/moment/moment.js",
           "../node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
           "../node_modules/bootstrap-notify/bootstrap-notify.js",
-          "../node_modules/chartist/dist/chartist.js"
+          "../node_modules/chartist/dist/chartist.js",
+		  "../node_modules/datatables.net/js/jquery.dataTables.js",
+		  "../node_modules/datatables.net-bs/js/dataTables.bootstrap.js",
+		  "../node_modules/sweetalert2/dist/sweetalert2.js",
+		  "../node_modules/datatables.net-responsive/js/dataTables.responsive.js"	  
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

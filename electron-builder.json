@@ -20,5 +20,9 @@
     "target": [
       "AppImage"
     ]
-  }
+  },
+  "extraResources": [
+      "daemon/chimaera-qt.exe",
+      "daemon/datadir/chimaera.conf"
+    ] 
 }

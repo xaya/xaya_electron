@@ -1,10 +1,8 @@
-import { Component, OnInit, OnDestroy  } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef  } from '@angular/core';
 import { ISubscription } from "rxjs/Subscription";
 import { PersistenceService } from 'angular-persistence';
-import {TranslateService} from '@ngx-translate/core';
 import { StorageType } from 'angular-persistence';
 import { GlobalService } from '../service/global.service';
-import { IPersistenceContainer } from 'angular-persistence';
 
 @Component({
   selector: 'dashboard-cmp',
@@ -37,10 +35,8 @@ export class DashboardComponent {
 	private tWalletVersionSs: ISubscription;
 	private tBlockStatusSs: ISubscription;	
 	private tBlockMaxSs: ISubscription;
-	
-	private container: IPersistenceContainer;
-	
-	constructor(translate: TranslateService, public persistenceService: PersistenceService, private globalService:GlobalService) 
+
+	constructor(private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
     	this.tErrors = "";
 		this.tBalance = 0;
@@ -50,28 +46,14 @@ export class DashboardComponent {
 		this.tWalletVersion = 0;
 		this.tBlockStatus = "";
 		
-        translate.setDefaultLang('en');
-		
-        this.container = persistenceService.createContainer(
-            'org.CHIMAERA.global',
-            {type: StorageType.LOCAL, timeout: 220752000000}
-        );		
- 
-		var lang =  this.container.get('lang');
-		
-		if(lang == undefined || lang == null)
-		{
-			lang = "en";
-		}
-		
-        translate.use(lang);		
+       
 		
 	}
 	
 	
 	GetDecimalCount(num)
 	{
-        var precision =  this.container.get('precision');
+        var precision =  this.globalService.container.get('precision');
 		
 		if(precision == null || precision == undefined)
 		{
@@ -97,18 +79,21 @@ export class DashboardComponent {
 	{
 		this.lastNum = num;
 		this.tBalance = this.GetDecimalCount(num);
+		this.cdr.detectChanges();
 	}
 	
 	checkBlockProgression()
 	{
 		 this.tBlock = this.cBlock;
 		 this.tBlockStatus = this.cBlock + "/" + this.cBlockMax;
+		 this.cdr.detectChanges();
 	}
 	
 	
 	currenctChangedEventFired()
 	{
 		this.updateBalance(this.lastNum);
+		this.cdr.detectChanges();
 	}
 
 

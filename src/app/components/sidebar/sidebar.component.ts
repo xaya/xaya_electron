@@ -1,21 +1,28 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalService } from '../../service/global.service';
 
 declare const $: any;
-declare interface RouteInfo {
+
+//Metadata
+export interface RouteInfo {
     path: string;
     title: string;
+    type: string;
     icon: string;
     class: string;
 }
+
+
+
 export const ROUTES: RouteInfo[] = [
-    { path: 'dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: 'user-profile', title: 'User Profile',  icon:'person', class: '' },
-    { path: 'table-list', title: 'Table List',  icon:'content_paste', class: '' },
-    { path: 'typography', title: 'Typography',  icon:'library_books', class: '' },
-    { path: 'icons', title: 'Icons',  icon:'bubble_chart', class: '' },
-    { path: 'maps', title: 'Maps',  icon:'location_on', class: '' },
-    { path: 'notifications', title: 'Notifications',  icon:'notifications', class: '' },
-    { path: 'upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
+    { path: '/dashboard', title: 'LEFTMENU.OVERVIEW',  icon: 'dashboard', class: '', type: 'link' },
+    { path: '/addresses', title: 'LEFTMENU.ADDRESSES',  icon:'book', class: '', type: 'link' },
+    { path: '/send', title: 'LEFTMENU.SEND',  icon:'send', class: '', type: 'link' },
+    { path: '/transactions', title: 'LEFTMENU.TRANSACTIONS',  icon:'transform', class: '', type: 'link' },
+    { path: '/namecoin', title: 'LEFTMENU.NAMECOIN',  icon:'games', class: '', type: 'link' },
+    { path: '/settings', title: 'LEFTMENU.SETTINGS',  icon:'settings', class: '', type: 'link' },
+    { path: '/console', title: 'LEFTMENU.CONSOLE',  icon:'web_asset', class: '', type: 'link' },
+    { path: '/exit', title: 'LEFTMENU.EXIT',  icon:'cancel', class: '', type: 'script' },
 ];
 
 @Component({
@@ -26,11 +33,20 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  constructor(private globalService:GlobalService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
+  
+	exitApp()
+	{
+	 
+	 this.globalService.shutDown();  
+        
+	 
+	}  
+  
   isMobileMenu() {
       if ($(window).width() > 991) {
           return false;
