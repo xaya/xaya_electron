@@ -1,7 +1,7 @@
 {
-  "name": "Chimaera Wallet",
+  "name": "chimaera_wallet",
   "version": "0.0.1",
-  "description": "Chimaera Wallet",
+  "description": "chimaera_wallet",
   "homepage": "https://github.com/chimaera/angu_elec_chimaera",
   "author": {
     "name": "Maxime GRIS",
