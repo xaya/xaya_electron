@@ -179,7 +179,7 @@ export class GlobalService implements OnDestroy {
       });
 	  
 	  
-	  console.log("getting overview, expecting screen to redraw");
+	 
 	  
   }  
   
@@ -312,10 +312,12 @@ export class GlobalService implements OnDestroy {
     }	  
 	  
 	  
-	  
+	//This code block can be way more pretty, 
+	//but right now I just need to make sure it loads no matter waht
+	//####################################
     const path = window.require('path');
 	let basepath = window.require('electron').remote.app.getAppPath();
-    let filename = path.join(basepath, '../daemon/datadir/.cookie');
+    let filename = path.join(basepath, './daemon/datadir/.cookie');
 	const fs = window.require('fs');
 	
 	console.log("cookies:" + filename);
@@ -324,23 +326,42 @@ export class GlobalService implements OnDestroy {
 	if (!fs.existsSync(filename)) 
 	{
 		
-		let filename2 = path.join(basepath, '../daemon/datadir/testnet/.cookie');
+		let filename2 = path.join(basepath, './daemon/datadir/testnet/.cookie');
 		if (fs.existsSync(filename2)) 
 	    {
 			filename = filename2;
 		}
 		else
 		{
-		
-			setTimeout(function() {
+		    let filename3 = path.join(basepath, '../daemon/datadir/testnet/.cookie');
+			
+			if (fs.existsSync(filename3)) 
+			{
+				filename = filename3;
+			}
+			else
+			{
+				let filename4 = path.join(basepath, '../daemon/datadir/.cookie');
 				
-				_that.reconnectTheClient();
-			}, 500);		
-			 return;
+				if (fs.existsSync(filename4)) 
+				{
+					filename = filename4;
+				}
+				else
+				{
+					setTimeout(function() {
+						
+						_that.reconnectTheClient();
+					}, 500);		
+					 return;
+				}
+			}
 		}
     }	  
 	  
 	  
+	//#################################### 
+	 
     let host =  this.container.get('host');
 		
 	if(host == undefined || host == null)

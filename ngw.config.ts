@@ -14,11 +14,48 @@ export default function (config: Configuration, options: ConfigOptions<BuildOpti
     const command = argv || DEFAULT_COMMAND;
 	
 	
-	let rule = {
-				test: /\.node$/,
-				use: 'node-loader'
-			   };		
 	
+	let rule = {};
+	
+
+  switch(options.buildOptions.environment) 
+  {
+    case 'prod':
+
+      rule = {
+		
+		 test: /\.node?$/,
+				use: [
+				{
+				  loader: 'electron-node-loader',
+					options: {
+					  folder: './node_modules/zeromq/build/Release',
+					  prod: true
+				      }
+			    }
+				]		
+	   };			  
+	  
+      break
+    case 'dev':
+	
+    rule = {
+		
+		 test: /\.node?$/,
+				use: [
+				{
+				  loader: 'electron-node-loader',
+					options: {
+					  folder: path.resolve(__dirname, './node_modules/zeromq/build/Release')
+				      }
+			    }
+				]		
+	};			
+	
+       break
+  }	
+	
+
 
 	config.module.rules.push(rule);	
     config.plugins.push(new WatchIgnorePlugin([path.resolve(__dirname, './daemon/datadir')]));

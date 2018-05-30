@@ -1,5 +1,6 @@
 {
   "productName": "angular-electron",
+  "npmSkipBuildFromSource" : "true",
   "directories": {
     "output": "app-builds"
   },
@@ -21,8 +22,12 @@
       "AppImage"
     ]
   },
+  "files": [
+	  "!node_modules/zeromq/build/Release",
+  ],  
   "extraResources": [
       "daemon/chimaera-qt.exe",
-      "daemon/datadir/chimaera.conf"
+      "daemon/datadir/chimaera.conf",
+	  "node_modules/zeromq/build/Release/*.node"
     ] 
 }

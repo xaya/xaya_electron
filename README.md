@@ -10,7 +10,7 @@ Uses angular + electron to build the wallet
 Clone this repository locally :
 
 ``` bash
-git clone https://github.com/maximegris/angular-electron.git
+git clone https://github.com/chimaera/angu_elec_chimaera.git
 ```
 
 Install dependencies with npm :
@@ -54,8 +54,9 @@ npm install -g @angular/cli
 
 ## Daemon
 
-Place daemon into src/assets/daemon folder before running or building
+Place daemon into ./daemon folder before running or building
 Make sure that *.conf file is in datadir there already
+Port is hardcoded and pass with daemon on lauch, its not reading it from config file
 
 ## Webpack
 
@@ -64,11 +65,9 @@ Or inside ngw.config.ts for low-level injections
 Do not 'ng eject', as this will break the angular-cli
 Please not that 'ngw' is used in package.json for that purpose instead of 'ng'
 
-## TODOLIST
-
-** Design properly
-** Generate address on daemon side only
-** Test all RPC commands to work as intended
-** Remove all vulnarability warnings from the dependency packages || Need to wait for the packages updates, so far does not seem critical, as those packages are used as dev dependencies only
-** Rebrand properly
-** Verbally handle networking errors related to daemon
+## HOW TO DEVELOP WALLET
+Its basically build in top of angular-electron boilerplate
+Develop GUI as simple angular application inside 'app' folder
+Daemon stuff communication is done via 'global.service.ts', its based on
+bitcoin-core node, which you simply expand with new functions, as shown iside 'global.service.ts'
+src/main.ts is entry point, if you want to alter anything related to electron window
