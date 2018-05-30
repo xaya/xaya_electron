@@ -35,7 +35,7 @@ export class SettingsComponent {
 			
 		if(this.port == undefined || this.port == null)
 		{
-				this.port = 8336;
+				this.port = 10133;
 		}  	
   
 
