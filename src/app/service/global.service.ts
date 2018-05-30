@@ -373,7 +373,7 @@ export class GlobalService implements OnDestroy {
 		
 	if(port == undefined || port == null)
 	{
-			port = 18396;
+			port = 10133;
 	}  	
   
 
