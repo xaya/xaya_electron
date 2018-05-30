@@ -46,6 +46,6 @@ Thumbs.db
 
 
 #daemon
-**/daemon/
+/daemon
 !daemon/datadir/chimaera.conf
 !daemon/datadir/testnet/chimaera.conf
