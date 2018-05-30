@@ -5,7 +5,6 @@
 /tmp
 /out-tsc
 /app-builds
-/daemon
 main.js
 
 # dependencies
@@ -44,3 +43,9 @@ package-lock.json
 # System Files
 .DS_Store
 Thumbs.db
+
+
+#daemon
+**/daemon/
+!daemon/datadir/chimaera.conf
+!daemon/datadir/testnet/chimaera.conf
