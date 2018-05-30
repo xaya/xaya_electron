@@ -27,7 +27,7 @@ export default function (config: Configuration, options: ConfigOptions<BuildOpti
 		 test: /\.node?$/,
 				use: [
 				{
-				  loader: 'electron-node-loader',
+				  loader: 'electron-node-loader-chimaera',
 					options: {
 					  folder: './node_modules/zeromq/build/Release',
 					  prod: true
@@ -44,7 +44,7 @@ export default function (config: Configuration, options: ConfigOptions<BuildOpti
 		 test: /\.node?$/,
 				use: [
 				{
-				  loader: 'electron-node-loader',
+				  loader: 'electron-node-loader-chimaera',
 					options: {
 					  folder: path.resolve(__dirname, './node_modules/zeromq/build/Release')
 				      }
