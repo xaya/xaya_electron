@@ -45,7 +45,8 @@ package-lock.json
 Thumbs.db
 
 
-#daemon
-daemon/*
+# daemon
+
+/daemon
 !daemon/datadir/testnet/chimaera.conf
 !daemon/datadir/chimaera.conf
