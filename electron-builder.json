@@ -27,7 +27,6 @@
   ],  
   "extraResources": [
       "daemon/chimaera-qt.exe",
-      "daemon/datadir/chimaera.conf",
 	  "node_modules/zeromq/build/Release/*.node"
     ] 
 }

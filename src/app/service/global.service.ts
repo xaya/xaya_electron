@@ -51,6 +51,8 @@ export class GlobalService implements OnDestroy {
   
   async walletBackUp(path)
   {
+	  console.log(path);
+	  
       const response = await this.client.backupwallet(path).catch(function(e) 
 	  {
 		     swal("Error", e, "error")
@@ -59,6 +61,7 @@ export class GlobalService implements OnDestroy {
 	  
 	  
 	  swal("Back Up Done", "" + path)
+	  console.log(JSON.stringify(response));
   }
   
   async getNameList()
@@ -312,12 +315,10 @@ export class GlobalService implements OnDestroy {
     }	  
 	  
 	  
-	//This code block can be way more pretty, 
-	//but right now I just need to make sure it loads no matter waht
-	//####################################
+
     const path = window.require('path');
-	let basepath = window.require('electron').remote.app.getAppPath();
-    let filename = path.join(basepath, './daemon/datadir/.cookie');
+	let basepath = window.require('electron').remote.app.getPath('appData');
+    let filename = path.join(basepath, './Chimaera/.cookie');
 	const fs = window.require('fs');
 	
 	console.log("cookies:" + filename);
@@ -326,42 +327,26 @@ export class GlobalService implements OnDestroy {
 	if (!fs.existsSync(filename)) 
 	{
 		
-		let filename2 = path.join(basepath, './daemon/datadir/testnet/.cookie');
-		if (fs.existsSync(filename2)) 
-	    {
-			filename = filename2;
-		}
-		else
-		{
-		    let filename3 = path.join(basepath, '../daemon/datadir/testnet/.cookie');
-			
-			if (fs.existsSync(filename3)) 
+			let filename2 = path.join(basepath, './Chimaera/testnet/.cookie');
+			if (fs.existsSync(filename2)) 
 			{
-				filename = filename3;
+				filename = filename2;
 			}
 			else
 			{
-				let filename4 = path.join(basepath, '../daemon/datadir/.cookie');
-				
-				if (fs.existsSync(filename4)) 
+				setTimeout(function() 
 				{
-					filename = filename4;
-				}
-				else
-				{
-					setTimeout(function() {
-						
-						_that.reconnectTheClient();
-					}, 500);		
-					 return;
-				}
+							
+					_that.reconnectTheClient();
+					
+				}, 500);		
+						 
+				return;
 			}
-		}
+		
     }	  
 	  
-	  
-	//#################################### 
-	 
+
     let host =  this.container.get('host');
 		
 	if(host == undefined || host == null)
@@ -384,6 +369,19 @@ export class GlobalService implements OnDestroy {
 		contents = data;
 
 		let pData = contents.split(":");
+		
+		
+		let usernameG =  _that.container.get('username');	
+		if(usernameG != "" && usernameG != undefined)
+		{
+				pData[0] = usernameG;
+		}  
+		
+		let passwordG =  _that.container.get('password');	
+		if(passwordG != "" && passwordG != undefined)
+		{
+				pData[1] = passwordG;
+		}  		
 		
 		
 		

@@ -18,11 +18,15 @@ export class ConsoleComponent  {
 
 
 	public command:string = "";
+	private consoleTextHolder:string = "";
 	public consoleText:string = "";
- 
+    public carretOn:boolean = false;
+	
 	constructor(private globalService:GlobalService) 
 	{
-
+		
+	 let _that = this;		
+     setInterval(function(){ _that.carretBlink(); }, 600);
   
 	}
 	
@@ -33,6 +37,21 @@ export class ConsoleComponent  {
 	  }
 	}
 	
+	
+	carretBlink()
+	{
+		if(!this.carretOn)
+		{
+			this.consoleText = this.consoleTextHolder + "_";
+		}
+		else
+		{
+			this.consoleText = this.consoleTextHolder;
+		}
+		
+		this.carretOn = !this.carretOn;
+	}
+	
 	async sendConsoleCommand()
 	{
 		var cmd = this.command;
@@ -40,8 +59,10 @@ export class ConsoleComponent  {
 		var result = await this.globalService.consoleCommand(cmd);
 		
 		
-		this.consoleText += result;
-		this.consoleText += "\n";
+		this.consoleTextHolder += result;
+		this.consoleTextHolder += "\n";
+		
+		this.consoleText = this.consoleTextHolder;
 		
 		
 	}

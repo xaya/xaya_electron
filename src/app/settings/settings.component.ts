@@ -19,7 +19,8 @@ export class SettingsComponent {
 
     public host: string  = "";
     public port: number  = 0;
-
+    public username: string  = "";
+	public password: string  = "";
 
 	constructor(private globalService:GlobalService) 
 	{
@@ -37,7 +38,21 @@ export class SettingsComponent {
 		{
 				this.port = 10133;
 		}  	
-  
+		
+		
+ 		this.username =  this.globalService.container.get('username');
+			
+		if( this.username == undefined ||  this.username == null)
+		{
+				 this.username = "";
+		}  
+		
+		this.password =  this.globalService.container.get('password');
+			
+		if(this.password == undefined || this.password == null)
+		{
+				this.password = "";
+		}  	 
 
 	}
 	
@@ -52,7 +67,7 @@ export class SettingsComponent {
 		}
 			
 			
-		this.globalService.walletBackUp(filePath);
+		this.globalService.walletBackUp(filePath[0]);
 		
 		});		
 	}
@@ -61,6 +76,8 @@ export class SettingsComponent {
 	{
 		this.globalService.container.set('host', this.host);
 		this.globalService.container.set('port', this.port);
+		this.globalService.container.set('username', this.username);
+		this.globalService.container.set('password', this.password);
 		this.globalService.reconnectTheClient();
 		swal("Success", "Settings Saved", "success")
 		

@@ -60,7 +60,7 @@ function createWindow()
 	  {
 		  
 	      
-		  daemonExternal = spawn(path.join(__dirname, 'daemon/chimaera-qt.exe'), [ '-datadir=' + path.join(__dirname, 'daemon/datadir/'),'-addnode=46.101.15.140', '-rpcport=10133'], { detached: true, stdio: 'ignore'}, (error, stdout, stderr) => 
+		  daemonExternal = spawn(path.join(__dirname, 'daemon/chimaera-qt.exe'), [ '-testnet' , '-server', '-rpcallowip=127.0.0.1', '-zmqpubhashtx=tcp://127.0.0.1:28332', '-zmqpubhashblock=tcp://127.0.0.1:28332', '-zmqpubrawblock=tcp://127.0.0.1:28332', '-zmqpubrawtx=tcp://127.0.0.1:28332', '-addnode=46.101.15.140', '-rpcport=10133'], { detached: true, stdio: 'ignore'}, (error, stdout, stderr) => 
 		  {
 				if (error) 
 				{
@@ -73,7 +73,7 @@ function createWindow()
 	  }
 	  else
 	  {	  
-		  daemonExternal = spawn(path.join(__dirname, '../daemon/chimaera-qt.exe'), [ '-datadir=' + path.join(__dirname, '../daemon/datadir/'),'-addnode=46.101.15.140', '-rpcport=10133'], { detached: true, stdio: 'ignore'}, (error, stdout, stderr) => 
+		  daemonExternal = spawn(path.join(__dirname, '../daemon/chimaera-qt.exe'), [ '-testnet', '-server', '-rpcallowip=127.0.0.1', '-zmqpubhashtx=tcp://127.0.0.1:28332', '-zmqpubhashblock=tcp://127.0.0.1:28332', '-zmqpubrawblock=tcp://127.0.0.1:28332', '-zmqpubrawtx=tcp://127.0.0.1:28332', '-addnode=46.101.15.140', '-rpcport=10133'], { detached: true, stdio: 'ignore'}, (error, stdout, stderr) => 
 		  {
 				if (error) 
 				{

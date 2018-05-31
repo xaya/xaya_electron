@@ -23,7 +23,9 @@
     "HOSTADDRESS": "Host Address",
 	"PORT": "Port",
 	"SUBMIT": "Submit",
-	"BACKUP": "Backup"
+	"BACKUP": "Backup Wallet",
+	"USERNAME": "RPC Username Override",
+	"PASSWORD": "RPC Password Override"
   },
    "SADDRESSES": {
     "SENDINGADDRESSES": "Sending Addresses",

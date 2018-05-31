@@ -46,7 +46,4 @@ Thumbs.db
 
 
 # daemon
-
-/daemon/datadir/blocks/*
-/daemon/datadir/testnet/*
 /daemon/*.exe

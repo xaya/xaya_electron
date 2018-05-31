@@ -29,6 +29,26 @@
                                     </div>
                                 </div>
                             </fieldset>
+							
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">{{'SSETTINGS.USERNAME' | translate }}</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" [value]="this.username" (input)="this.username = $event.target.value">
+                                        <span class="help-block">ex : rpcuser</span>
+                                    </div>
+                                </div>
+                            </fieldset>		
+
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">{{'SSETTINGS.PASSWORD' | translate }}</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" [value]="this.password" (input)="this.password = $event.target.value">
+                                        <span class="help-block">ex : rpcpassword</span>
+                                    </div>
+                                </div>
+                            </fieldset>									
 
 
                           <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="updateSettingsDetails(); $event.stopPropagation();">{{'SSETTINGS.SUBMIT' | translate }}</button>
