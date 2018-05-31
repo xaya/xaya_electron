@@ -54,9 +54,8 @@ npm install -g @angular/cli
 
 ## Daemon
 
-Place daemon into ./daemon folder before running or building
-Make sure that *.conf file is in datadir there already
-Port is hardcoded and pass with daemon on lauch, its not reading it from config file
+Place daemon into "daemon" folder before running or building
+Daemon parameters are hardcoded mostly, tho you can still create *.conf file manually if you are advanced user
 
 ## Webpack
 
