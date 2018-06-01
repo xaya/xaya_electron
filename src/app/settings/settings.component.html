@@ -48,6 +48,19 @@
                                         <span class="help-block">ex : rpcpassword</span>
                                     </div>
                                 </div>
+                            </fieldset>			
+
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">{{'SSETTINGS.OVERRIDE' | translate }}</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" [value]="this.dirpath" (input)="this.dirpath = $event.target.value">
+                                        <span class="help-block">(ex: C:\customfolderfordatadir)</span>
+                                    </div>
+									 <div class="col-sm-3">
+									 <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="selectPathBtnClick(); $event.stopPropagation();">{{'SSETTINGS.SELECTPATH' | translate }}</button>
+									</div>
+                                </div>
                             </fieldset>									
 
 

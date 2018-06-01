@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy  } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef  } from '@angular/core';
 import { ISubscription } from "rxjs/Subscription";
 import { GlobalService } from '../service/global.service';
 
@@ -21,8 +21,10 @@ export class SettingsComponent {
     public port: number  = 0;
     public username: string  = "";
 	public password: string  = "";
-
-	constructor(private globalService:GlobalService) 
+	public dirpath: string = "";
+	private dirpathorig:string = "";
+	
+	constructor(private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
 
 		this.host =  this.globalService.container.get('host');
@@ -53,7 +55,41 @@ export class SettingsComponent {
 		{
 				this.password = "";
 		}  	 
+		
+		
+		const path = window.require('path');
+	    let basepath = window.require('electron').remote.app.getPath('appData');
+        let filename = path.join(basepath, './Chimaera/appdata.orvald');
+	    const fs = window.require('fs');
 
+		let _that = this;
+		if (fs.existsSync(filename)) 
+	    {
+				fs.readFile(filename, 'utf8', function(err, data) 
+				{
+					if (err) throw err;
+					_that.dirpath = data;
+					_that.dirpathorig = data;
+				});  	
+	    }		
+
+	}
+	
+	selectPathBtnClick()
+	{
+        window.require('electron').remote.dialog.showOpenDialog({title: 'Select backup destination',  properties: ['openDirectory']}, (filePath) => {
+			
+			if (filePath === undefined)
+			{
+				swal("Error", "You didn't select a path", "error");
+				return;
+			}	
+
+			this.dirpath = filePath;
+			this.cdr.detectChanges();
+		
+		});
+		
 	}
 	
 	backUpWallet()
@@ -78,8 +114,38 @@ export class SettingsComponent {
 		this.globalService.container.set('port', this.port);
 		this.globalService.container.set('username', this.username);
 		this.globalService.container.set('password', this.password);
+		
+		let normalWarningType = true;
+		
+		if(this.dirpath != "")
+		{
+			const path = window.require('path');
+	        let basepath = window.require('electron').remote.app.getPath('appData');
+            let filename = path.join(basepath, './Chimaera/appdata.orvald');
+	        const fs = window.require('fs');	
+
+
+		    try { fs.writeFileSync(filename, this.dirpath, 'utf-8'); }
+			catch(e) { swal("Error", 'Failed to save the file !', "error"); }				
+
+			
+		}
+		
 		this.globalService.reconnectTheClient();
-		swal("Success", "Settings Saved", "success")
+		
+		if(this.dirpath != this.dirpathorig)
+		{
+			normalWarningType = false;
+		}
+		
+		if(normalWarningType)
+		{
+		   swal("Success", "Settings Saved", "success")
+		}
+		else
+		{
+		   swal("Success", "Settings Saved, restart whole wallet to use new datadir path", "success")	
+		}
 		
 	}
 	

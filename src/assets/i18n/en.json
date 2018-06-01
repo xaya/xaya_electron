@@ -25,7 +25,9 @@
 	"SUBMIT": "Submit",
 	"BACKUP": "Backup Wallet",
 	"USERNAME": "RPC Username Override",
-	"PASSWORD": "RPC Password Override"
+	"PASSWORD": "RPC Password Override",
+	"OVERRIDE": "DataDir Override",
+	"SELECTPATH" : "Select Path"
   },
    "SADDRESSES": {
     "SENDINGADDRESSES": "Sending Addresses",

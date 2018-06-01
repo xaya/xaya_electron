@@ -26,6 +26,8 @@
 	"BACKUP": "Резервная Копия Кошелька",
 	"USERNAME": "Перезаписать RPC имя",
 	"PASSWORD": "Перезаписать RPC пароль"
+	"OVERRIDE": "Перезаписать путь к DataDir",
+	"SELECTPATH" : "Выбрать путь"
 
   },
    "SADDRESSES": {
