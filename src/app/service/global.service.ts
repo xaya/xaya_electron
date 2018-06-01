@@ -135,7 +135,7 @@ export class GlobalService implements OnDestroy {
 		  return;
 	  }
 	  
-
+      let _that = this;
 	  var err = this._tErrorsChange;
 	  this.client.getBlockchainInfo().then(
 	  (help) =>  
@@ -152,8 +152,14 @@ export class GlobalService implements OnDestroy {
 		  
 		  this._tNetTypeChange.next(tNetType);
 	  }
-	  ).catch(function(e) {
+	  ).catch(function(e) 
+	  {
+		  
+		  
          err.next(e);
+		 console.log("Crash recover cookies?");
+		 _that.reconnectTheClient();
+		 return;
       });
 
 

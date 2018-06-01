@@ -37,6 +37,7 @@ export class ConsoleComponent  {
 	  }
 	}
 	
+
 	
 	carretBlink()
 	{
@@ -47,6 +48,7 @@ export class ConsoleComponent  {
 		else
 		{
 			this.consoleText = this.consoleTextHolder;
+			this.consoleText.replace(/\\n/g, String.fromCharCode(13, 10));
 		}
 		
 		this.carretOn = !this.carretOn;
@@ -63,6 +65,7 @@ export class ConsoleComponent  {
 		this.consoleTextHolder += "\n";
 		
 		this.consoleText = this.consoleTextHolder;
+		this.consoleText.replace(/\\n/g, String.fromCharCode(13, 10));
 		
 		
 	}
