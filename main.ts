@@ -43,11 +43,11 @@ function createWindow()
       slashes: true
     }));
 	
-	
+	win.webContents.openDevTools();
 	
   }
 
-  
+
   
   win.once('ready-to-show', () => 
   {
@@ -55,36 +55,22 @@ function createWindow()
 	  win.show()
 	  
 	  
-	  const spawn = require('child_process').spawn;
 	  if (serve) 
 	  {
-		  
+		  const {shell} = require('electron');
+          // Open a local file in the default app
+          shell.openItem(app.getAppPath() + '\\daemon\\shell.vbs');
 	      
-		  daemonExternal = spawn(path.join(__dirname, 'daemon/chimaera-qt.exe'), [ '-testnet' , '-server', '-rpcallowip=127.0.0.1', '-zmqpubhashtx=tcp://127.0.0.1:28332', '-zmqpubhashblock=tcp://127.0.0.1:28332', '-zmqpubrawblock=tcp://127.0.0.1:28332', '-zmqpubrawtx=tcp://127.0.0.1:28332', '-addnode=46.101.15.140', '-rpcport=10133'], { detached: true, stdio: 'ignore'}, (error, stdout, stderr) => 
-		  {
-				if (error) 
-				{
-					console.error('chimaera stderr', stderr);
-					throw error;
-				}
-				
-		  });	
-		  
 	  }
 	  else
 	  {	  
-		  daemonExternal = spawn(path.join(__dirname, '../daemon/chimaera-qt.exe'), [ '-testnet', '-server', '-rpcallowip=127.0.0.1', '-zmqpubhashtx=tcp://127.0.0.1:28332', '-zmqpubhashblock=tcp://127.0.0.1:28332', '-zmqpubrawblock=tcp://127.0.0.1:28332', '-zmqpubrawtx=tcp://127.0.0.1:28332', '-addnode=46.101.15.140', '-rpcport=10133'], { detached: true, stdio: 'ignore'}, (error, stdout, stderr) => 
-		  {
-				if (error) 
-				{
-					console.error('chimaera stderr', stderr);
-					throw error;
-				}
-				
-		  });
+  
+		  const {shell} = require('electron');
+          // Open a local file in the default app
+          shell.openItem(app.getAppPath() + '\\..\\daemon\\shell.vbs');
 	  }  
 	  
-	  daemonExternal.unref();		
+	  	
 	  
   })
   

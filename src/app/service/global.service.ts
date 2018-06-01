@@ -339,7 +339,7 @@ export class GlobalService implements OnDestroy {
 							
 					_that.reconnectTheClient();
 					
-				}, 500);		
+				}, 1500);		
 						 
 				return;
 			}
