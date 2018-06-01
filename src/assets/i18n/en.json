@@ -60,7 +60,8 @@
 	"SEARCHTRANSACTIONS": "Search transactions"
   },
    "SCONSOLE": {
-    "SEND": "Send"
+    "SEND": "Send",
+	"DEBUGTOGGLE": "Debug Log Toggle"
   },
    "SCHIMAERA": {
     "ACCOUNTNAME": "Chimaera Name",

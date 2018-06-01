@@ -18,6 +18,7 @@
 							<div class="col-sm-12">
 								<input type="text" class="form-control" [value]="this.command" (input)="this.command = $event.target.value" (keydown)="onKeydown($event)">
 								<button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="this.sendConsoleCommand(); $event.stopPropagation();">{{'SCONSOLE.SEND' | translate}}</button>
+							    <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="this.toggleDebugLog(); $event.stopPropagation();">{{'SCONSOLE.DEBUGTOGGLE' | translate}}</button>
 							</div>						
 						</div>
 					</fieldset>		

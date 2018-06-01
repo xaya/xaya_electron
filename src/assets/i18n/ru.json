@@ -61,7 +61,8 @@
 	"SEARCHTRANSACTIONS": "Поиск по транзакциям"
   },
    "SCONSOLE": {
-    "SEND": "Отправить"
+    "SEND": "Отправить",
+	"DEBUGTOGGLE": "Переключиться на логи отладчика"
   },
    "SCHIMAERA": {
     "ACCOUNTNAME": "Имя Химеры",
