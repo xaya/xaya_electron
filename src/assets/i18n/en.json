@@ -71,6 +71,7 @@
 	"SEARCHTRANSACTIONS": "Search Names",
 	"CREATENAME": "Add New Name",
 	"NAME": "Name",
-	"SUBMIT": "Submit"
+	"SUBMIT": "Submit",
+	"NAMESPACE": "Pick Up Namespace"
   }
 }

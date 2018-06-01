@@ -27,6 +27,14 @@ export class NamecoinComponent implements OnInit {
      public nameAddressTableData;
 
 	 private sResult:string = "";
+	 
+	 public namespace:string = "";
+	 
+	 public namespaces = [
+					{value: 'p/', viewValue: 'p/'},
+					{value: 'c/', viewValue: 'c/'},
+					{value: 'g/', viewValue: 'g/'}
+				    ];	 
  
 	constructor(private translate: TranslateService,private globalService:GlobalService) 
 	{
@@ -51,8 +59,14 @@ export class NamecoinComponent implements OnInit {
 	async submitTheName()
 	{
 
+	    if(this.namespace == "")
+		{
+			
+			 swal("Error", "Please, select the namespace", "error")
+			 return false;	
+		}
 	
-		this.sResult =  await this.globalService.AddNewName(this.nname, this.nvalue);
+		this.sResult =  await this.globalService.AddNewName(this.namespace+ ""+ this.nname, this.nvalue);
 		
 		this.nname = "";
 		this.nvalue = "";

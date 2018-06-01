@@ -72,6 +72,7 @@
 	"SEARCHTRANSACTIONS": "Поиск по именам",
 	"CREATENAME": "Добавить Новое Имя",
 	"NAME": "Имя",
-	"SUBMIT": "Добавить"
+	"SUBMIT": "Добавить",
+	"NAMESPACE": "Выберите именной домен"
   }
 }

@@ -81,7 +81,7 @@ export class ConsoleComponent  {
 					contents = data;
 					_that.consoleText = contents;
 					
-				}
+				});  
 				
 					
 		}
