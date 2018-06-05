@@ -29,6 +29,7 @@ export class NamecoinComponent implements OnInit {
 	 private sResult:string = "";
 	 
 	 public namespace:string = "";
+	 public nnamespacestom:string = "";
 	 
 	 public namespaces = [
 					{value: 'p/', viewValue: 'p/'},
@@ -59,26 +60,40 @@ export class NamecoinComponent implements OnInit {
 	async submitTheName()
 	{
 
-	    if(this.namespace == "")
+	    if(this.namespace == "" && this.nnamespacestom == "")
 		{
 			
 			 swal("Error", "Please, select the namespace", "error")
 			 return false;	
 		}
 	
-		this.sResult =  await this.globalService.AddNewName(this.namespace+ ""+ this.nname, this.nvalue);
+	    if(this.nnamespacestom != "")
+		{
+			this.namespace = this.nnamespacestom;
+		}
+	
+	    let tname = this.namespace+ ""+ this.nname;
+	
+		this.sResult =  await this.globalService.AddNewName(tname, this.nvalue);
 		
 		this.nname = "";
 		this.nvalue = "";
+		this.nnamespacestom = "";
 		
 		if(this.sResult.indexOf("code") > 0)
 		{
 		     swal("Error", this.sResult, "error")
 			 return false;			
 		}
+		else
+		{
+			swal("Success", "Name '" + tname + "' is pending and will appear soon", "success")
+		}
 		
         this.nameAddressTableData = [];
 	    this.fillNames();
+		
+	
 		
 	}
 		

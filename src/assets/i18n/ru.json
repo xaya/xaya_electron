@@ -1,4 +1,12 @@
 {
+
+
+  "NAVBAR": {
+    "ABOUT": "О ПРОГРАММЕ",
+    "HELP": "ПОМОЩЬ",
+	"HELPTEXT" : "Here goes the help description. We can fill it with any kind of info.",
+	"ABOUTEXT" : "Chimaera Wallet 2018, made by Typhon LTD and Sons"
+  },
   "LEFTMENU": {
     "OVERVIEW": "Обзор",
     "ADDRESSES": "Адреса",
@@ -25,7 +33,7 @@
 	"SUBMIT": "Применить",
 	"BACKUP": "Резервная Копия Кошелька",
 	"USERNAME": "Перезаписать RPC имя",
-	"PASSWORD": "Перезаписать RPC пароль"
+	"PASSWORD": "Перезаписать RPC пароль",
 	"OVERRIDE": "Перезаписать путь к DataDir",
 	"SELECTPATH" : "Выбрать путь"
 
@@ -75,6 +83,7 @@
 	"CREATENAME": "Добавить Новое Имя",
 	"NAME": "Имя",
 	"SUBMIT": "Добавить",
-	"NAMESPACE": "Выберите именной домен"
+	"NAMESPACE": "Выберите именной домен",
+	"NAMESPACECUSTOM": "или введите произвольный домен, например: /k"	
   }
 }

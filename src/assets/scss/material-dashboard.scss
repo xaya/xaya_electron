@@ -65,6 +65,7 @@
 {
   -webkit-app-region: drag;
   height: 64px;
+  margin-top: 6px;
 }
 
 .logo
@@ -130,8 +131,8 @@ margin-top: -70px;
 
 #langstop
 {
- -webkit-app-region: no-drag;	
- margin-right: 40px;
+ -webkit-app-region: no-drag;
+ margin-right: 40px; 
 }
 
 .langsbutton
@@ -142,4 +143,19 @@ margin-top: -70px;
 .langsbutton:hover
 {
 	background-color: #ff2222;
+}
+
+.navMargRight
+{
+margin-right: 40px;
+}
+
+.btn-danger
+{
+  -webkit-app-region: no-drag;	
+}
+
+.navbar-toggler
+{
+    -webkit-app-region: no-drag;		
 }

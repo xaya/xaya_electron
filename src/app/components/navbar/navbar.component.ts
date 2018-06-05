@@ -3,9 +3,10 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
 import { GlobalService}     from '../../service/global.service';
-
+import {TranslateService} from '@ngx-translate/core';
 
 declare var $: any;
+declare var swal:any;
 
 @Component({
   selector: 'app-navbar',
@@ -20,7 +21,7 @@ export class NavbarComponent implements OnInit {
     public precisionText: string;
 	
 
-    constructor(location:Location, private element : ElementRef, private globalService: GlobalService, private router: Router) 
+    constructor(private translate: TranslateService, location:Location, private element : ElementRef, private globalService: GlobalService, private router: Router) 
 	{
         this.location = location;
         this.sidebarVisible = false;
@@ -61,6 +62,16 @@ export class NavbarComponent implements OnInit {
 		this.setPrecision(precision);	
 		this.globalService.announceCurrencyChange("nexty");
 		
+	}
+	
+	showHelp()
+	{
+		swal(this.translate.instant("NAVBAR.HELP"), this.translate.instant("NAVBAR.HELPTEXT"))
+	}
+	
+	showAbout()
+	{
+		swal(this.translate.instant("NAVBAR.ABOUT"), this.translate.instant("NAVBAR.ABOUTEXT"))
 	}
 	
 	

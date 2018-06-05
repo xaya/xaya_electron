@@ -1,4 +1,12 @@
 {
+
+  "NAVBAR": {
+    "ABOUT": "ABOUT",
+    "HELP": "HELP",
+	"HELPTEXT" : "Here goes the help description. We can fill it with any kind of info.",
+	"ABOUTEXT" : "Chimaera Wallet 2018, made by Typhon LTD and Sons"
+  },
+  
   "LEFTMENU": {
     "OVERVIEW": "Overview",
     "ADDRESSES": "Addresses",
@@ -74,6 +82,7 @@
 	"CREATENAME": "Add New Name",
 	"NAME": "Name",
 	"SUBMIT": "Submit",
-	"NAMESPACE": "Pick Up Namespace"
+	"NAMESPACE": "Pick Up Namespace",
+	"NAMESPACECUSTOM": "or enter custom namespace, ex: /k"
   }
 }

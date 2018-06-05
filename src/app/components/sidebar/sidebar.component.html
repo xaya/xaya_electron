@@ -7,11 +7,17 @@
     </a>
 </div>
 <div class="sidebar-wrapper">
+
+
   <div *ngIf="isMobileMenu()">
     <ul class="nav navbar-nav nav-mobile-menu">
 
     </ul>
   </div>
+  
+  
+  
+  
     <ul class="nav">
 		<li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
             <a class="nav-link" [routerLink]="[menuItem.path]" *ngIf="menuItem.type === 'link'">

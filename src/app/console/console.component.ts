@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy  } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef  } from '@angular/core';
 import { ISubscription } from "rxjs/Subscription";
 import { GlobalService } from '../service/global.service';
 
@@ -23,12 +23,9 @@ export class ConsoleComponent  {
     public carretOn:boolean = false;
 	public viewDebugON:boolean = false;
 	
-	constructor(private globalService:GlobalService) 
+	constructor(private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
 		
-	 let _that = this;		
-     setInterval(function(){ _that.carretBlink(); }, 600);
-  
 	}
 	
 	
@@ -80,6 +77,7 @@ export class ConsoleComponent  {
 					if (err) throw err;
 					contents = data;
 					_that.consoleText = contents;
+					 _that.cdr.detectChanges();
 					
 				});  
 				
@@ -88,31 +86,14 @@ export class ConsoleComponent  {
 		else
 		{
 			
-			this.carretBlink();
+          this.consoleText = this.consoleTextHolder;
+		  this.cdr.detectChanges();
 			
 		}
 		
 	}
 	
-	carretBlink()
-	{
-		if(this.viewDebugON == false)
-		{
-			if(!this.carretOn)
-			{
-				this.consoleText = this.consoleTextHolder + "_";
-				this.consoleText =  this.consoleText.replace(/\\n/g, String.fromCharCode(13, 10));
-			}
-			else
-			{
-				this.consoleText = this.consoleTextHolder;
-				this.consoleText =  this.consoleText.replace(/\\n/g, String.fromCharCode(13, 10));
-			}
-			
-			this.carretOn = !this.carretOn;
-		}
-	}
-	
+
 	async sendConsoleCommand()
 	{
 		let cmd = this.command;
@@ -122,13 +103,14 @@ export class ConsoleComponent  {
 		
 		this.consoleTextHolder += cmd;
 		this.consoleTextHolder += "\n";;
-		this.consoleTextHolder += str;
+		this.consoleTextHolder += result;
 		this.consoleTextHolder += "\n\n";
 		
 		this.consoleText = this.consoleTextHolder;
 		this.consoleText =  this.consoleText.replace(/\\n/g, String.fromCharCode(13, 10));
 		
 		this.command = "";
+		this.cdr.detectChanges();
 	}
 
 }

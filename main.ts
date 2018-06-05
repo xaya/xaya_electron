@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, globalShortcut } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
@@ -29,25 +29,31 @@ function createWindow()
 	titleBarStyle: 'hidden'
   });
 
-  if (serve) {
+  if (serve) 
+  {
     require('electron-reload')(__dirname, {
      electron: require(`${__dirname}/node_modules/electron`)});
     win.loadURL('http://localhost:4200');
 	
-	win.webContents.openDevTools();
+	//win.webContents.openDevTools();
 	
-  } else {
+  } 
+  else 
+  {
     win.loadURL(url.format({
       pathname: path.join(__dirname, 'dist/index.html'),
       protocol: 'file:',
       slashes: true
     }));
 	
-	
+	//win.webContents.openDevTools();
 	
   }
 
-
+	globalShortcut.register('CommandOrControl+X', () => 
+	{
+	  win.webContents.openDevTools();
+	})
   
   win.once('ready-to-show', () => 
   {

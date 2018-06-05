@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top">
     <div class="container-fluid">
-        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+        <div class="navbar justify-content-end" style = "width:100%; "id="navigation">
+		
             <ul class="navbar-nav navRightMargin">
                     <li class="nav-item dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"  id = "coinNavBar">
@@ -13,24 +14,35 @@
                         </ul>
                     </li>
             </ul>
-        </div>
-		<div class="dropdown" id = "langstop">
-			<button href="#" class="btn dropdown-toggle langsbutton" data-toggle="dropdown" aria-expanded="true" >
-				<i class="material-icons" id = "langdrop"></i>
-				<b class="caret"></b>
-			</button>
-			<ul class="dropdown-menu">
-				<li>
-					<a class = "dropdown-item aHref" (click)="setLangEN(); $event.stopPropagation();">
-						<i class="pe-7s- flag-icon flag-icon-gb"></i> English
-					</a>
-				</li>
-				<li>
-					<a class = "dropdown-item aHref" (click)="setLangRU(); $event.stopPropagation();">
-						<i class="pe-7s- flag-icon flag-icon-ru"></i> Русский
-					</a>
-				</li>
-			</ul>
-        </div>
+        
+			<div class="dropdown" id = "langstop">
+				<button href="#" class="btn dropdown-toggle langsbutton" data-toggle="dropdown" aria-expanded="true" >
+					<i class="material-icons" id = "langdrop"></i>
+					<b class="caret"></b>
+				</button>
+				<ul class="dropdown-menu">
+					<li>
+						<a class = "dropdown-item aHref" (click)="setLangEN(); $event.stopPropagation();">
+							<i class="pe-7s- flag-icon flag-icon-gb"></i> English
+						</a>
+					</li>
+					<li>
+						<a class = "dropdown-item aHref" (click)="setLangRU(); $event.stopPropagation();">
+							<i class="pe-7s- flag-icon flag-icon-ru"></i> Русский
+						</a>
+					</li>
+				</ul>
+			</div>
+			<button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="this.showAbout(); $event.stopPropagation();">{{'NAVBAR.ABOUT' | translate }}</button>
+			<button mat-raised-button type="submit" class="btn btn-danger pull-right navMargRight" (click)="this.showHelp(); $event.stopPropagation();">{{'NAVBAR.HELP' | translate }}</button>
+			
+			<button mat-raised-button class="navbar-toggler" type="button ignoreDrag" (click)="this.sidebarToggle()">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="navbar-toggler-icon icon-bar"></span>
+				<span class="navbar-toggler-icon icon-bar"></span>
+				<span class="navbar-toggler-icon icon-bar"></span>
+			</button>	
+			
+		</div>
     </div>
 </nav>
