@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit {
     public precisionText: string;
 	
 
-    constructor(private translate: TranslateService, location:Location, private element : ElementRef, private globalService: GlobalService, private router: Router) 
+    constructor(private translate: TranslateService, location:Location, private element : ElementRef, private globalService: GlobalService, private router: Router, private cdr: ChangeDetectorRef) 
 	{
         this.location = location;
         this.sidebarVisible = false;
@@ -85,7 +85,8 @@ export class NavbarComponent implements OnInit {
 		this.globalService.container.set('lang', 'en');
 		
 		$('#langsNavBar').click();
-		 window.location.reload();
+		this.translate.use('en');
+		this.cdr.detectChanges();
 	}
 	
 	setLangRU()
@@ -93,7 +94,8 @@ export class NavbarComponent implements OnInit {
 		this.globalService.container.set('lang', 'ru');
 		
 		$('#langsNavBar').click();
-		 window.location.reload();
+		this.translate.use( 'ru');
+		this.cdr.detectChanges();
 	}
 	
     ngAfterViewInit()
