@@ -25,6 +25,7 @@ export class SettingsComponent {
 	private dirpathorig:string = "";
 	public daemonpath: string = "";
 	private daemonpathorig:string = "";
+	public usedefault:boolean = true;
 	
 	constructor(private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
@@ -36,11 +37,18 @@ export class SettingsComponent {
 				 this.host = "127.0.0.1";
 		}  
 		
+        this.usedefault =  this.globalService.container.get('usedefault');
+			
+		if( this.usedefault == undefined ||  this.usedefault == null)
+		{
+				 this.usedefault = true;
+		}  		
+		
 		this.port =  this.globalService.container.get('port');
 			
 		if(this.port == undefined || this.port == null)
 		{
-				this.port = 10133;
+				this.port = 8396;
 		}  	
 		
 		
@@ -139,6 +147,7 @@ export class SettingsComponent {
 		this.globalService.container.set('password', this.password);
 		this.globalService.container.set('dirpath', this.dirpath);
 		this.globalService.container.set('daemonpath', this.daemonpath);
+		this.globalService.container.set('usedefault', this.usedefault);
 		
 		console.log("setting dirpath: " + this.dirpath)
 		

@@ -99,7 +99,7 @@ export class ConsoleComponent  {
 		let cmd = this.command;
 		
 		let result = await this.globalService.consoleCommand(cmd);
-		let str = JSON.stringify(result, null, 2);
+		result = JSON.stringify(result, undefined, 2);
 		
 		this.consoleTextHolder += cmd;
 		this.consoleTextHolder += "\n";;
@@ -107,7 +107,7 @@ export class ConsoleComponent  {
 		this.consoleTextHolder += "\n\n";
 		
 		this.consoleText = this.consoleTextHolder;
-		this.consoleText =  this.consoleText.replace(/\\n/g, String.fromCharCode(13, 10));
+		//this.consoleText =  this.consoleText.replace(/\\n/g, String.fromCharCode(13, 10));
 		
 		this.command = "";
 		this.cdr.detectChanges();

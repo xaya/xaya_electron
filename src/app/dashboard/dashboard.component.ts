@@ -35,6 +35,14 @@ export class DashboardComponent {
 	private tWalletVersionSs: ISubscription;
 	private tBlockStatusSs: ISubscription;	
 	private tBlockMaxSs: ISubscription;
+	
+	public tPruned: string;
+	public tDifficulty: string;
+	public tMedianTime: string;
+	
+	private tPrunedSs: ISubscription;
+	private tDifficultySs: ISubscription;
+	private tMedianTimeSs: ISubscription;
 
 	constructor(private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
@@ -46,7 +54,9 @@ export class DashboardComponent {
 		this.tWalletVersion = 0;
 		this.tBlockStatus = "";
 		
-       
+        this.tPruned = "";
+		this.tDifficulty = "";
+		this.tMedianTime = "";
 		
 	}
 	
@@ -109,12 +119,37 @@ export class DashboardComponent {
 	 this.tNetTypeSs.unsubscribe();
 	 this.tWalletVersionSs.unsubscribe();
 	 this.tBlockStatusSs.unsubscribe();	 
-	 this.tBlockMaxSs.unsubscribe();	
+	 this.tBlockMaxSs.unsubscribe();
+
+	 this.tPrunedSs.unsubscribe();	
+	 this.tDifficultySs.unsubscribe();	
+	 this.tMedianTimeSs.unsubscribe();	
+
+	 
 	}
 	
     ngOnInit()
 	{ 
        
+     this.tPrunedSs = this.globalService.tPrunedChanged$.subscribe
+	 (
+        value => {
+        this.tPruned = value + "";
+     });	
+
+     this.tDifficultySs = this.globalService.tDifficultyChanged$.subscribe
+	 (
+        value => {
+        this.tDifficulty = value + "";
+     });	
+
+     this.tMedianTimeSs = this.globalService.tMedianTimeChanged$.subscribe
+	 (
+        value => {
+        this.tMedianTime = value + "";
+     });		 
+	   
+	   
      this.tErrorsSs = this.globalService.tErrorsChanged$.subscribe
 	 (
         value => {
@@ -125,7 +160,8 @@ export class DashboardComponent {
 	 (
         value => {
 		this.updateBalance(value);
-     });	
+     });
+	
 
      this.tBlockSs = this.globalService.tBlockChanged$.subscribe
 	 (
@@ -144,7 +180,7 @@ export class DashboardComponent {
      this.tNetTypeSs = this.globalService.tNetTypeChanged$.subscribe
 	 (
         value => {
-        this.tNetType = value;
+        this.tNetType = value + "";
      });	 
 
      this.tWalletVersionSs = this.globalService.tWalletVersionChanged$.subscribe

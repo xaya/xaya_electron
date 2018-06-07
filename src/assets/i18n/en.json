@@ -25,7 +25,12 @@
 	"CONNECTIONS": "Connections",
 	"NETTYPE": "Net Type",
 	"WALLETVERSION": "Wallet Version",
-	"BLOCKPROGRESSION": "Block Progression"
+	"BLOCKPROGRESSION": "Block Progression",
+	"PRUNED" : "Is Pruned?",
+	"DIFFICULTY" : "Difficulty",
+	"MEDIANTIME" : "Median Time"
+	
+	
   },
    "SSETTINGS": {
     "CONNECTIONSETTINGS": "Connection Settings",
@@ -62,7 +67,8 @@
 	"AMOUNTVALUE": "Amount Value",
 	"MAKEPAYMENT": "Make Payment",
 	"SUBSTRACTFEEFROMAMOUNT": "Substract fee from amount?",
-    "WRONGADDRESS": "Wrong Address"
+    "WRONGADDRESS": "Wrong Address",
+	"USEDEFAULT" : "Use Default"
   },
    "STRANSACTIONS": {
     "TRANSACTIONHISTORY": "Transaction History",

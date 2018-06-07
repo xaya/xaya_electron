@@ -38,7 +38,14 @@ export class GlobalService implements OnDestroy {
   private _tBlockStatusChange = new BehaviorSubject("");
   tBlockStatusChanged$ = this._tBlockStatusChange.asObservable();  
   private _tBlockMaxChange = new BehaviorSubject(0);
-  tBlockMaxChanged$ = this._tBlockMaxChange.asObservable();    
+  tBlockMaxChanged$ = this._tBlockMaxChange.asObservable();   
+
+  private _tPrunedChange = new BehaviorSubject("");
+  tPrunedChanged$ = this._tPrunedChange.asObservable();  
+  private _tDifficultyChange = new BehaviorSubject("");
+  tDifficultyChanged$ = this._tDifficultyChange.asObservable();  
+  private _tMedianTimeChange = new BehaviorSubject("");
+  tMedianTimeChanged$ = this._tMedianTimeChange.asObservable();    
   
   
   private _currencyChange = new BehaviorSubject(0);
@@ -125,7 +132,19 @@ export class GlobalService implements OnDestroy {
 	return response;
   }
   
-
+  timeConverter(UNIX_timestamp){
+	  var a = new Date(UNIX_timestamp * 1000);
+	  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+	  var year = a.getFullYear();
+	  var month = months[a.getMonth()];
+	  var date = a.getDate();
+	  var hour = a.getHours();
+	  var min = a.getMinutes();
+	  var sec = a.getSeconds();
+	  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+	  return time;
+  }
+	
   getOverviewInfo()
   {
 
@@ -155,6 +174,13 @@ export class GlobalService implements OnDestroy {
 		  }
 		  
 		  this._tNetTypeChange.next(tNetType);
+		  
+		  
+		  this._tPrunedChange.next(help.pruned);
+		  this._tDifficultyChange.next(help.difficulty);
+		  this._tMedianTimeChange.next(this.timeConverter(help.mediantime));
+		  
+		  
 	  }
 	  ).catch(function(e) 
 	  {
@@ -240,7 +266,7 @@ export class GlobalService implements OnDestroy {
 			 return e;
       });	
 
-	 return JSON.stringify(response);  	  
+	 return response;  	  
   }
   
   async listLabels()

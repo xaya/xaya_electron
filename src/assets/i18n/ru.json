@@ -25,7 +25,10 @@
 	"CONNECTIONS": "Соединений",
 	"NETTYPE": "Тип сети",
 	"WALLETVERSION": "Версия кошелька",
-	"BLOCKPROGRESSION": "Прогресс блоков"
+	"BLOCKPROGRESSION": "Прогресс блоков",
+	"PRUNED" : "Отрезана?",
+	"DIFFICULTY" : "Сложность",
+	"MEDIANTIME" : "Время медианы"
   },
    "SSETTINGS": {
     "CONNECTIONSETTINGS": "Настройки Соединения",
@@ -63,7 +66,8 @@
 	"AMOUNTVALUE": "Сумма",
 	"MAKEPAYMENT": "Произвести Оплату",
 	"SUBSTRACTFEEFROMAMOUNT": "Вычесть пошлину из общей суммы?",
-    "WRONGADDRESS": "Неверный Адрес"
+    "WRONGADDRESS": "Неверный Адрес",
+	"USEDEFAULT" : "Пользовать настройки по умолчанию"
   },
    "STRANSACTIONS": {
     "TRANSACTIONHISTORY": "История Транзакций",

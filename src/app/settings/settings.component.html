@@ -10,7 +10,12 @@
                       <p class="card-category"></p>
                   </div>
                      <div class="card-body">
-                            <fieldset>
+					 
+					 
+					 
+					        <mat-checkbox name = "checkboxysend" [(ngModel)]="this.usedefault">{{'SSEND.USEDEFAULT' | translate }}</mat-checkbox> 
+                            <div *ngIf="this.usedefault==false">
+							<fieldset>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">{{'SSETTINGS.HOSTADDRESS' | translate }}</label>
                                     <div class="col-sm-9">
@@ -77,6 +82,7 @@
 
                           <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="updateSettingsDetails(); $event.stopPropagation();">{{'SSETTINGS.SUBMIT' | translate }}</button>
                           <div class="clearfix"></div>
+						  </div>
 						  
 						  <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="backUpWallet(); $event.stopPropagation();">{{'SSETTINGS.BACKUP' | translate }}</button>
                           <div class="clearfix"></div>
