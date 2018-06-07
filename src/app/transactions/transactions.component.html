@@ -23,7 +23,10 @@
 										  </th>
 										  <th>
 											  {{'STRANSACTIONS.AMOUNT' | translate }}
-										  </th>										  
+										  </th>
+										  <th>
+											  {{'STRANSACTIONS.DATE' | translate }}
+										  </th>											  
 									  <tbody>
 										  <tr *ngFor="let row of transactionsTable">
 											  <td>
@@ -37,7 +40,10 @@
 											  </td>
 											  <td>
 												  {{row.amount}}
-											  </td>											  
+											  </td>			
+											  <td>
+												  {{row.time}}
+											  </td>												  
 										  </tr>
 									  </tbody>
 								  </table>

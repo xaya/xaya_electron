@@ -35,7 +35,8 @@
 			</div>
 			<button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="this.showAbout(); $event.stopPropagation();">{{'NAVBAR.ABOUT' | translate }}</button>
 			<button mat-raised-button type="submit" class="btn btn-danger pull-right navMargRight" (click)="this.showHelp(); $event.stopPropagation();">{{'NAVBAR.HELP' | translate }}</button>
-			
+			<button mat-raised-button type="submit" class="btn btn-danger pull-right navMargRight" (click)="this.minimizeMe(); $event.stopPropagation();">{{'NAVBAR.MINIMIZE' | translate }}</button>
+						
 			<button mat-raised-button class="navbar-toggler" type="button ignoreDrag" (click)="this.sidebarToggle()">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="navbar-toggler-icon icon-bar"></span>

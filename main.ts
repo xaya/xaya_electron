@@ -1,10 +1,15 @@
-import { app, BrowserWindow, screen, globalShortcut } from 'electron';
+import { app, BrowserWindow, screen, globalShortcut, Tray, Menu  } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import { PersistenceModule, IPersistenceContainer, StorageType } from 'angular-persistence';
+import * as notifier from 'electron-notification-desktop';
+
 
 let win, serve, daemonExternal ;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
+
+var iconpath = path.join(__dirname, 'user.ico') // path of y
 
 try {
   require('dotenv').config();
@@ -28,59 +33,90 @@ function createWindow()
 	backgroundColor: '#cc0000', 
 	titleBarStyle: 'hidden'
   });
-
+  
+  let iconpath = ""; //tray icon path
+  
   if (serve) 
   {
+	  
+	iconpath = path.join(__dirname, 'src/favicon.ico')  
+	  
+	  
     require('electron-reload')(__dirname, {
      electron: require(`${__dirname}/node_modules/electron`)});
     win.loadURL('http://localhost:4200');
 	
-	//win.webContents.openDevTools();
+	
 	
   } 
   else 
   {
+	  
+	iconpath = path.join(__dirname, 'dist/favicon.ico')  
+	  
     win.loadURL(url.format({
       pathname: path.join(__dirname, 'dist/index.html'),
       protocol: 'file:',
       slashes: true
     }));
 	
-	//win.webContents.openDevTools();
 	
   }
+  
+  
+    let appIcon = new Tray(iconpath);
+  
+    let contextMenu = Menu.buildFromTemplate([
+        {
+            label: 'Show App', click: function () {
+                win.show()
+            }
+        },
+        {
+            label: 'Quit', click: function () {
+                app.quit()
+            }
+        }
+    ])
 
-	globalShortcut.register('CommandOrControl+X', () => 
-	{
+    appIcon.setContextMenu(contextMenu) 
+  
+
+  globalShortcut.register('CommandOrControl+X', () => 
+  {
 	  win.webContents.openDevTools();
-	})
+  })
   
   win.once('ready-to-show', () => 
   {
 	    
 	  win.show()
 	  
-	  
-	  if (serve) 
-	  {
-		  const {shell} = require('electron');
-          // Open a local file in the default app
-          shell.openItem(app.getAppPath() + '\\daemon\\shell.vbs');
-	      
-	  }
+      if(serve)
+      {
+		  win.serve = true;
+	  }		  
 	  else
-	  {	  
-  
-		  const {shell} = require('electron');
-          // Open a local file in the default app
-          shell.openItem(app.getAppPath() + '\\..\\daemon\\shell.vbs');
-	  }  
+	  {
+		  win.serve = false;
+	  }
 	  
 	  	
+       notifier.notify('Test Message', {
+				  message: 'App Started',
+	   })			
+		
 	  
   })
   
-  
+  win.on('minimize', function (event) {
+        event.preventDefault()
+        win.hide()
+   })
+
+   win.on('show', function () {
+        appIcon.setHighlightMode('always')
+   })  
 
   
   // Emitted when the window is closed.

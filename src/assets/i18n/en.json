@@ -4,7 +4,8 @@
     "ABOUT": "ABOUT",
     "HELP": "HELP",
 	"HELPTEXT" : "Here goes the help description. We can fill it with any kind of info.",
-	"ABOUTEXT" : "Chimaera Wallet 2018, made by Typhon LTD and Sons"
+	"ABOUTEXT" : "Chimaera Wallet 2018, made by Typhon LTD and Sons",
+	"MINIMIZE" : "MINIMIZE"
   },
   
   "LEFTMENU": {
@@ -35,7 +36,9 @@
 	"USERNAME": "RPC Username Override",
 	"PASSWORD": "RPC Password Override",
 	"OVERRIDE": "DataDir Override",
-	"SELECTPATH" : "Select Path"
+	"SELECTPATH" : "Select Path",
+	"OVERRIDEDAEMON" : "Daemon Override",
+	"SELECTPATHDAEMON" : "Select Path"
   },
    "SADDRESSES": {
     "SENDINGADDRESSES": "Sending Addresses",
@@ -67,7 +70,8 @@
 	"NAME": "Name",
 	"CATEGORY": "Category",
 	"AMOUNT": "Amount",
-	"SEARCHTRANSACTIONS": "Search transactions"
+	"SEARCHTRANSACTIONS": "Search transactions",
+	"DATE" : "Date"
   },
    "SCONSOLE": {
     "SEND": "Send",

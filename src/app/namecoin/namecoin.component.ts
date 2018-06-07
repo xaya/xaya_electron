@@ -34,7 +34,8 @@ export class NamecoinComponent implements OnInit {
 	 public namespaces = [
 					{value: 'p/', viewValue: 'p/'},
 					{value: 'c/', viewValue: 'c/'},
-					{value: 'g/', viewValue: 'g/'}
+					{value: 'g/', viewValue: 'g/'},
+					{value: 'custom', viewValue: 'custom'},
 				    ];	 
  
 	constructor(private translate: TranslateService,private globalService:GlobalService) 
@@ -42,6 +43,17 @@ export class NamecoinComponent implements OnInit {
 
 	  
 		
+	}
+	
+	isCustomSelected()
+	{
+		
+		if(this.namespace == "custom")
+		{
+			return true;
+		}
+		
+		return false;
 	}
 	
 	async fillNames()
@@ -67,7 +79,7 @@ export class NamecoinComponent implements OnInit {
 			 return false;	
 		}
 	
-	    if(this.nnamespacestom != "")
+	    if(this.nnamespacestom != "" && this.namespace == "custom")
 		{
 			this.namespace = this.nnamespacestom;
 		}

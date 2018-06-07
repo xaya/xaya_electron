@@ -26,9 +26,7 @@
 	  "!node_modules/zeromq/build/Release",
   ],  
   "extraResources": [
-      "daemon/chimaerad.exe",
-	  "daemon/shell.vbs",
-	  "daemon/chim.bat",
+      "daemon/*",
 	  "node_modules/zeromq/build/Release/*.node"
     ] 
 }

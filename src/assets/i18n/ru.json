@@ -5,7 +5,8 @@
     "ABOUT": "О ПРОГРАММЕ",
     "HELP": "ПОМОЩЬ",
 	"HELPTEXT" : "Here goes the help description. We can fill it with any kind of info.",
-	"ABOUTEXT" : "Chimaera Wallet 2018, made by Typhon LTD and Sons"
+	"ABOUTEXT" : "Chimaera Wallet 2018, made by Typhon LTD and Sons",
+	"MINIMIZE" : "Минимизировать"
   },
   "LEFTMENU": {
     "OVERVIEW": "Обзор",
@@ -35,7 +36,9 @@
 	"USERNAME": "Перезаписать RPC имя",
 	"PASSWORD": "Перезаписать RPC пароль",
 	"OVERRIDE": "Перезаписать путь к DataDir",
-	"SELECTPATH" : "Выбрать путь"
+	"SELECTPATH" : "Выбрать путь",
+	"OVERRIDEDAEMON" : "Перезаписать путь к daemon",
+	"SELECTPATHDAEMON" : "Выбрать путь"
 
   },
    "SADDRESSES": {
@@ -68,7 +71,8 @@
 	"NAME": "Имя",
 	"CATEGORY": "Категория",
 	"AMOUNT": "Количество",
-	"SEARCHTRANSACTIONS": "Поиск по транзакциям"
+	"SEARCHTRANSACTIONS": "Поиск по транзакциям",
+	"DATE" : "Дата"
   },
    "SCONSOLE": {
     "SEND": "Отправить",

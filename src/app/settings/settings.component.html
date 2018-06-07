@@ -62,7 +62,18 @@
 									</div>
                                 </div>
                             </fieldset>									
-
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">{{'SSETTINGS.OVERRIDEDAEMON' | translate }}</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" [value]="this.daemonpath" (input)="this.daemonpath = $event.target.value">
+                                        <span class="help-block">(ex: C:\customdaemondir)</span>
+                                    </div>
+									 <div class="col-sm-3">
+									 <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="selectDaemonBtnClick(); $event.stopPropagation();">{{'SSETTINGS.SELECTPATHDAEMON' | translate }}</button>
+									</div>
+                                </div>
+                            </fieldset>	
 
                           <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="updateSettingsDetails(); $event.stopPropagation();">{{'SSETTINGS.SUBMIT' | translate }}</button>
                           <div class="clearfix"></div>

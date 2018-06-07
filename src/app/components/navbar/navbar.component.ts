@@ -64,6 +64,11 @@ export class NavbarComponent implements OnInit {
 		
 	}
 	
+	minimizeMe()
+	{
+		window.require('electron').remote.getCurrentWindow().hide();
+	}
+	
 	showHelp()
 	{
 		swal(this.translate.instant("NAVBAR.HELP"), this.translate.instant("NAVBAR.HELPTEXT"))

@@ -21,7 +21,7 @@
 								  </mat-select>
 								</mat-form-field>
                               </div>	
-							  <div class="col-md-12">
+							  <div class="col-md-12" *ngIf="this.isCustomSelected()==true">
 								<mat-form-field class="example-full-width">
 									<input matInput placeholder="{{'SCHIMAERA.NAMESPACECUSTOM' | translate }}"  [value]="this.nnamespacestom" (input)="this.nnamespacestom = $event.target.value">
 								  </mat-form-field>

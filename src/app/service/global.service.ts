@@ -20,6 +20,7 @@ export class GlobalService implements OnDestroy {
 
   public client: Client;
   public container: IPersistenceContainer;
+  private rewritePath: string = "";
 
 
   private _tErrorsChange = new BehaviorSubject("");
@@ -148,6 +149,9 @@ export class GlobalService implements OnDestroy {
 		  if(help.chain == "test")
 		  {
 			   tNetType = "Test Net";
+			   
+			  		   
+
 		  }
 		  
 		  this._tNetTypeChange.next(tNetType);
@@ -321,19 +325,44 @@ export class GlobalService implements OnDestroy {
     }	  
 	  
 	  
-
+    let _that = this;
     const path = window.require('path');
 	let basepath = window.require('electron').remote.app.getPath('appData');
     let filename = path.join(basepath, './Chimaera/.cookie');
 	const fs = window.require('fs');
 	
+    let filenameRewrite = path.join(basepath, './Chimaera/appdata.orvald');
+	
+	if (fs.existsSync(filenameRewrite)) 
+	{
+			fs.readFile(filenameRewrite, 'utf8', function(err, data) 
+			{
+				if (err) throw err;
+				_that.rewritePath = data;
+			});  	
+	}	
+
+	if(this.rewritePath == "")
+	{
+	}
+	else
+	{
+	   basepath = this.rewritePath;
+	   filename = path.join(basepath, './.cookie');
+	}
+	
 	console.log("cookies:" + filename);
 	
-	let _that = this;
 	if (!fs.existsSync(filename)) 
 	{
 		
 			let filename2 = path.join(basepath, './Chimaera/testnet/.cookie');
+			
+			if(_that.rewritePath != "")
+			{
+			filename2 = path.join(basepath, './testnet/.cookie');
+			}
+			
 			if (fs.existsSync(filename2)) 
 			{
 				filename = filename2;
@@ -415,7 +444,6 @@ export class GlobalService implements OnDestroy {
   { 
   
     //We need to inject custom methods into bitcoin-core library
-	
 	var _methods = {
 		
 		getnewaddress: {
@@ -471,7 +499,6 @@ export class GlobalService implements OnDestroy {
 				msg.push(arg.toString());
 		  });
 
-		  //TODO; Extract actuall message and just pass it as argument;
 		  _that.getOverviewInfo();
 		  
 		})
@@ -481,12 +508,6 @@ export class GlobalService implements OnDestroy {
 		 
 		subscriber.subscribe('rawtx');
 		
-		//TODO maybe use those later
-		/*
-		subscriber.subscribe('hashtx');
-		subscriber.subscribe('rawblock');
-		subscriber.subscribe('hashblock');*/	
-
 		window.require('electron').remote.getCurrentWindow().on('close', () => 
 		{
 			   _that.client.stop().then(
@@ -522,6 +543,49 @@ export class GlobalService implements OnDestroy {
 	}
 	
 	translate.use(lang);
+	
+
+	  
+      let daemonpath =  this.container.get('daemonpath');
+			
+      if( daemonpath == undefined ||  daemonpath == null)
+	  {
+				 daemonpath = "";
+	  }  	  
+	  
+	  
+	  if (window.require('electron').remote.getCurrentWindow().serve) 
+	  {
+		  console.log("inside1");
+		  const {shell} = window.require('electron').remote;
+		  
+          // Open a local file in the default app
+		  if(daemonpath == "")
+		  {
+              shell.openItem(window.require('electron').remote.app.getAppPath() + '\\daemon\\shell.vbs');
+		  }
+		  else
+		  {
+			  shell.openItem(daemonpath + '\\shell.vbs');
+		  }
+	      
+	  }
+	  else
+	  {	  
+  
+		  const {shell} = window.require('electron').remote;
+		  
+          // Open a local file in the default app
+		  if(daemonpath == "")
+		  {
+          shell.openItem(window.require('electron').remote.app.getAppPath() + '\\..\\daemon\\shell.vbs');
+		  }
+		  else
+		  {
+			  shell.openItem(daemonpath + '\\shell.vbs');
+		  }
+	  } 	
+	
 	 
 	 
 	this.reconnectTheClient();

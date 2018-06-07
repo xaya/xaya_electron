@@ -23,6 +23,8 @@ export class SettingsComponent {
 	public password: string  = "";
 	public dirpath: string = "";
 	private dirpathorig:string = "";
+	public daemonpath: string = "";
+	private daemonpathorig:string = "";
 	
 	constructor(private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
@@ -57,27 +59,48 @@ export class SettingsComponent {
 		}  	 
 		
 		
-		const path = window.require('path');
-	    let basepath = window.require('electron').remote.app.getPath('appData');
-        let filename = path.join(basepath, './Chimaera/appdata.orvald');
-	    const fs = window.require('fs');
+		this.dirpath = this.globalService.container.get('dirpath');
+		
+		if(this.dirpath == undefined || this.dirpath == null)
+		{
+				this.dirpath = "";
+		}  	
+		
+		this.dirpathorig = this.dirpath;
+		
+		this.daemonpath = this.globalService.container.get('daemonpath');
+		
+		if(this.daemonpath == undefined || this.daemonpath == null)
+		{
+				this.daemonpath = "";
+		}  	
+		
+		this.daemonpathorig = this.daemonpath;		
+			
+	
+		
 
-		let _that = this;
-		if (fs.existsSync(filename)) 
-	    {
-				fs.readFile(filename, 'utf8', function(err, data) 
-				{
-					if (err) throw err;
-					_that.dirpath = data;
-					_that.dirpathorig = data;
-				});  	
-	    }		
+	}
+	
+	selectDaemonBtnClick()
+	{
+        window.require('electron').remote.dialog.showOpenDialog({title: 'Select daemon destination',  properties: ['openDirectory']}, (filePath) => {
+			
+			if (filePath === undefined)
+			{
+				swal("Error", "You didn't select a path", "error");
+				return;
+			}	
 
+			this.daemonpath = filePath;
+			this.cdr.detectChanges();
+		
+		});		
 	}
 	
 	selectPathBtnClick()
 	{
-        window.require('electron').remote.dialog.showOpenDialog({title: 'Select backup destination',  properties: ['openDirectory']}, (filePath) => {
+        window.require('electron').remote.dialog.showOpenDialog({title: 'Select datadir destination',  properties: ['openDirectory']}, (filePath) => {
 			
 			if (filePath === undefined)
 			{
@@ -114,9 +137,17 @@ export class SettingsComponent {
 		this.globalService.container.set('port', this.port);
 		this.globalService.container.set('username', this.username);
 		this.globalService.container.set('password', this.password);
+		this.globalService.container.set('dirpath', this.dirpath);
+		this.globalService.container.set('daemonpath', this.daemonpath);
+		
+		console.log("setting dirpath: " + this.dirpath)
 		
 		let normalWarningType = true;
 		
+        //Additionally to electron storage, we need to create this file
+		//Because our 'chim.bat' file needs to read new path from somewhere
+		//outside the original eelctron app, which is packed inside asar
+		//appdata.orvald is used only by the 'chim.bat' and nowhere else
 		if(this.dirpath != "")
 		{
 			const path = window.require('path');
@@ -129,11 +160,13 @@ export class SettingsComponent {
 			catch(e) { swal("Error", 'Failed to save the file !', "error"); }				
 
 			
-		}
+		}		
+		
+		
 		
 		this.globalService.reconnectTheClient();
 		
-		if(this.dirpath != this.dirpathorig)
+		if(this.dirpath != this.dirpathorig || this.daemonpath != this.daemonpathorig )
 		{
 			normalWarningType = false;
 		}
@@ -144,7 +177,7 @@ export class SettingsComponent {
 		}
 		else
 		{
-		   swal("Success", "Settings Saved, restart whole wallet to use new datadir path", "success")	
+		   swal("Success", "Settings Saved, you need to restart Wallet now", "success")	
 		}
 		
 	}
