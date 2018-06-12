@@ -1,33 +1,51 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="card">
-          <div class="card-header card-header-danger">
-              <h3 class="card-title">{{'SOVERVIEW.OVERVIEW' | translate }}</h3>
-              <p class="card-category">
-              </p>
-          </div>
-        <div class="card-body">	
-			<div class="row">
-				<div class="col-md-12">
-					<div class="card card-stats">
-						<div class="card-header">
-							<h4 class="card-title">{{'SOVERVIEW.OVERVIEW' | translate }}</h4>
-							<p class="card-category">{{'SOVERVIEW.BALANCE' | translate }}: {{this.tBalance}}</p>
-							<p class="card-category">{{'SOVERVIEW.BLOCK' | translate }} #: {{this.tBlock}}</p>
-							<p class="card-category">{{'SOVERVIEW.CONNECTIONS' | translate }}: {{this.tConnections}}</p>
-							<p class="card-category">{{'SOVERVIEW.NETTYPE' | translate }}: {{this.tNetType}}</p>
-							<p class="card-category">{{'SOVERVIEW.WALLETVERSION' | translate }}: {{this.tWalletVersion}}</p>
-							<p class="card-category">{{'SOVERVIEW.BLOCKPROGRESSION' | translate }}: {{this.tBlockStatus}}</p>
-							<p class="card-category">{{'SOVERVIEW.PRUNED' | translate }}: {{this.tPruned}}</p>
-							<p class="card-category">{{'SOVERVIEW.DIFFICULTY' | translate }}: {{this.tDifficulty}}</p>
-							<p class="card-category">{{'SOVERVIEW.MEDIANTIME' | translate }}: {{this.tMedianTime}}</p>
-						</div>
-						<div class="card-foote">
-							{{this.tErrors}}
-						</div>
-					</div>
-				</div>
+    <div class="container-fluid" style = "padding: 0px;">
+        <div class = "overviewmiddle">
+		    <div class = "skiptop"></div>
+			<div class = "balancering">
+			   <div class = "balancetext">{{'SOVERVIEW.BALANCE' | translate }}</div>
+			   <div class = "balanceAMount">{{this.tBalance}}</div>
+			   <div class = "currencyLevel">{{this.precisionText}}</div>
 			</div>
+			
+			<div class = "walletversion">{{'SOVERVIEW.WALLETVERSION' | translate }}: {{this.tWalletVersion}}</div>
+			<div class = "bottomInfoBlock">
+			
+			  <div class = "intoEntry">
+			    <div class = "entryPic0"></div>
+				<div class = "entryText">{{'SOVERVIEW.CONNECTIONS' | translate }}: {{this.tConnections}}</div>
+			  </div>
+			  
+			  <div class = "intoEntry">
+			    <div class = "entryPic1"></div>
+				<div class = "entryText">{{'SOVERVIEW.NETTYPE' | translate }}: {{this.tNetType}}</div>
+			  </div>
+
+			  <div class = "intoEntry">
+			    <div class = "entryPic2"></div>
+				<div class = "entryText">{{'SOVERVIEW.PRUNED' | translate }}: {{this.tPruned}}</div>
+			  </div>
+
+			  <div class = "intoEntry">
+			    <div class = "entryPic3"></div>
+				<div class = "entryText">{{'SOVERVIEW.DIFFICULTY' | translate }}: {{this.tDifficulty}}</div>
+			  </div>
+
+			  <div class = "intoEntry">
+			    <div class = "entryPic4"></div>
+				<div class = "entryText">{{'SOVERVIEW.MEDIANTIME' | translate }}: {{this.tMedianTime}}</div>
+			  </div>			  
+			  
+			</div>
+		
+		
 		</div>
+		
+		<div class = "synchronizingbar">
+		  <div class = "barfillinfo" [style.width]="this.barFillPercentage"></div>
+		  <div class = "synchText">{{this.synchText}}{{this.tErrors}}</div>
+		  <div class = "synchBlockVals">{{'SOVERVIEW.BLOCKPROGRESSION' | translate }}: {{this.tBlockStatus}}</div>
+		</div>
+		
     </div>
 </div>

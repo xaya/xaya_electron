@@ -3,7 +3,6 @@
         <div class="logo-img">
             <div class = "alogoimg"></div>
         </div>
-        CHIMAERA
     </a>
 </div>
 <div class="sidebar-wrapper">
@@ -21,12 +20,12 @@
     <ul class="nav">
 		<li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
             <a class="nav-link" [routerLink]="[menuItem.path]" *ngIf="menuItem.type === 'link'">
-                <i class="material-icons">{{menuItem.icon}}</i>
+                <i class="material-icons icon{{menuItem.icon}}"></i>
                 <p>{{ menuItem.title | translate }}</p>
             </a>
         
 			<a class="nav-link" href = "#" (click)="this.exitApp(); $event.stopPropagation();"  *ngIf="menuItem.type === 'script'">
-				<i class="material-icons">{{menuItem.icon}}</i>
+				<i class="material-icons icon{{menuItem.icon}}"></i>
 				<p>{{ menuItem.title | translate }}</p>
 			</a>
 		

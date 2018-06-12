@@ -3,6 +3,7 @@ import { ISubscription } from "rxjs/Subscription";
 import { PersistenceService } from 'angular-persistence';
 import { StorageType } from 'angular-persistence';
 import { GlobalService } from '../service/global.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'dashboard-cmp',
@@ -43,9 +44,14 @@ export class DashboardComponent {
 	private tPrunedSs: ISubscription;
 	private tDifficultySs: ISubscription;
 	private tMedianTimeSs: ISubscription;
+	
+	public precisionText: string;
+	public barFillPercentage: string;
+	public synchText: string;
 
-	constructor(private globalService:GlobalService, private cdr: ChangeDetectorRef) 
+	constructor(private translate: TranslateService, private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
+		this.barFillPercentage = "0%";
     	this.tErrors = "";
 		this.tBalance = 0;
 		this.tBlock = 0;
@@ -57,6 +63,29 @@ export class DashboardComponent {
         this.tPruned = "";
 		this.tDifficulty = "";
 		this.tMedianTime = "";
+		
+		
+        var precision =  this.globalService.container.get('precision');
+		
+		if(precision == null || precision == undefined)
+		{
+			precision  =0;
+		}	
+
+        if(precision == 0)
+		{
+			this.precisionText = " CHI";
+		}
+		if(precision == 1)
+		{
+			this.precisionText = " mCHI";				
+		}
+		if(precision == 2)
+		{
+			this.precisionText = " μCHI";
+		}			
+
+        this.synchText = this.translate.instant('SOVERVIEW.SYNCHRONIZING');		
 		
 	}
 	
@@ -96,12 +125,56 @@ export class DashboardComponent {
 	{
 		 this.tBlock = this.cBlock;
 		 this.tBlockStatus = this.cBlock + "/" + this.cBlockMax;
+		 let barFillPercentageT = (this.cBlock / this.cBlockMax) * 100;
+		 
+		 //Just some sanity text for good visual output
+		 if(barFillPercentageT < 0)
+		 {
+			 barFillPercentageT = 0;
+		 }
+		 
+		 if(barFillPercentageT > 100)
+		 {
+			 barFillPercentageT = 100;
+		 }
+		 
+		 if(barFillPercentageT != 100)
+		 {
+			 this.synchText = this.translate.instant('SOVERVIEW.SYNCHRONIZING');	
+		 }
+		 else
+		 {
+			 this.synchText = "";	
+		 }
+		 
+		 this.barFillPercentage = barFillPercentageT+ "%";
 		 this.cdr.detectChanges();
 	}
 	
 	
 	currenctChangedEventFired()
 	{
+		
+        var precision =  this.globalService.container.get('precision');
+		
+		if(precision == null || precision == undefined)
+		{
+			precision  =0;
+		}	
+
+        if(precision == 0)
+		{
+			this.precisionText = " CHI";
+		}
+		if(precision == 1)
+		{
+			this.precisionText = " mCHI";				
+		}
+		if(precision == 2)
+		{
+			this.precisionText = " μCHI";
+		}						
+		
 		this.updateBalance(this.lastNum);
 		this.cdr.detectChanges();
 	}
@@ -153,7 +226,7 @@ export class DashboardComponent {
      this.tErrorsSs = this.globalService.tErrorsChanged$.subscribe
 	 (
         value => {
-        this.tErrors = value;
+        this.tErrors = " " + value;
      });	
 
      this.tBalanceSs = this.globalService.tBalanceChanged$.subscribe
@@ -171,6 +244,7 @@ export class DashboardComponent {
 		
      });	
 
+	 
      this.tConnectionsSs = this.globalService.tConnectionsChanged$.subscribe
 	 (
         value => {

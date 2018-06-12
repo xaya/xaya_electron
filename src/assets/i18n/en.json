@@ -1,11 +1,11 @@
 {
 
   "NAVBAR": {
-    "ABOUT": "ABOUT",
-    "HELP": "HELP",
+    "ABOUT": "About",
+    "HELP": "Help",
 	"HELPTEXT" : "Here goes the help description. We can fill it with any kind of info.",
 	"ABOUTEXT" : "Chimaera Wallet 2018, made by Typhon LTD and Sons",
-	"MINIMIZE" : "MINIMIZE"
+	"MINIMIZE" : "Minimize"
   },
   
   "LEFTMENU": {
@@ -20,7 +20,7 @@
   },
    "SOVERVIEW": {
     "OVERVIEW": "Overview",
-    "BALANCE": "Balance",
+    "BALANCE": "BALANCE",
 	"BLOCK": "Block",
 	"CONNECTIONS": "Connections",
 	"NETTYPE": "Net Type",
@@ -28,7 +28,8 @@
 	"BLOCKPROGRESSION": "Block Progression",
 	"PRUNED" : "Is Pruned?",
 	"DIFFICULTY" : "Difficulty",
-	"MEDIANTIME" : "Median Time"
+	"MEDIANTIME" : "Median Time",
+	"SYNCHRONIZING" : "Synchronizing"
 	
 	
   },

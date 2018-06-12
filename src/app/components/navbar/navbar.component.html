@@ -1,5 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top">
     <div class="container-fluid">
+	    <a class = "toplinkmenu" routerLinkActive="active"  [routerLink]="['/dashboard']" ><div class = "imgOverview">{{'SOVERVIEW.OVERVIEW' | translate }}</div></a>
+		
         <div class="navbar justify-content-end" style = "width:100%; "id="navigation">
 		
             <ul class="navbar-nav navRightMargin">
@@ -33,9 +35,9 @@
 					</li>
 				</ul>
 			</div>
-			<button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="this.showAbout(); $event.stopPropagation();">{{'NAVBAR.ABOUT' | translate }}</button>
-			<button mat-raised-button type="submit" class="btn btn-danger pull-right navMargRight" (click)="this.showHelp(); $event.stopPropagation();">{{'NAVBAR.HELP' | translate }}</button>
-			<button mat-raised-button type="submit" class="btn btn-danger pull-right navMargRight" (click)="this.minimizeMe(); $event.stopPropagation();">{{'NAVBAR.MINIMIZE' | translate }}</button>
+			<a href = "#" class="navTopLink"(click)="this.showAbout(); $event.stopPropagation();">{{'NAVBAR.ABOUT' | translate }}</a>
+			<a href = "#" class="navTopLink" (click)="this.showHelp(); $event.stopPropagation();">{{'NAVBAR.HELP' | translate }}</a>
+			<a href = "#" class="navTopLink" (click)="this.minimizeMe(); $event.stopPropagation();">{{'NAVBAR.MINIMIZE' | translate }}</a>
 						
 			<button mat-raised-button class="navbar-toggler" type="button ignoreDrag" (click)="this.sidebarToggle()">
 				<span class="sr-only">Toggle navigation</span>

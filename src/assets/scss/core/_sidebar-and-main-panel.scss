@@ -226,16 +226,7 @@
         background-size: cover;
         background-position: center center;
 
-        &:after{
-            position: absolute;
-            z-index: 3;
-            width: 100%;
-            height: 100%;
-            content: "";
-            display: block;
-            background: #FFFFFF;
-            opacity: .93;
-        }
+        
     }
 
     .logo{
@@ -245,16 +236,6 @@
         position: relative;
         z-index: 4;
 
-        &:after{
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 15px;
-            height: 1px;
-            width: calc(100% - 30px);
-            background-color: rgba(180,180,180, .3);
-
-        }
 
         p{
             float: left;

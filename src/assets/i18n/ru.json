@@ -2,8 +2,8 @@
 
 
   "NAVBAR": {
-    "ABOUT": "О ПРОГРАММЕ",
-    "HELP": "ПОМОЩЬ",
+    "ABOUT": "О программе",
+    "HELP": "Помощь",
 	"HELPTEXT" : "Here goes the help description. We can fill it with any kind of info.",
 	"ABOUTEXT" : "Chimaera Wallet 2018, made by Typhon LTD and Sons",
 	"MINIMIZE" : "Минимизировать"
@@ -20,7 +20,7 @@
   },
   "SOVERVIEW": {
     "OVERVIEW": "Обзор",
-    "BALANCE": "Баланс",
+    "BALANCE": "БАЛАНС",
 	"BLOCK": "Блок",
 	"CONNECTIONS": "Соединений",
 	"NETTYPE": "Тип сети",
@@ -28,7 +28,8 @@
 	"BLOCKPROGRESSION": "Прогресс блоков",
 	"PRUNED" : "Отрезана?",
 	"DIFFICULTY" : "Сложность",
-	"MEDIANTIME" : "Время медианы"
+	"MEDIANTIME" : "Время медианы",
+	"SYNCHRONIZING" : "Синхронизирует"
   },
    "SSETTINGS": {
     "CONNECTIONSETTINGS": "Настройки Соединения",

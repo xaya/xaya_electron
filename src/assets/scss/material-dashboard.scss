@@ -95,9 +95,9 @@
 
 .alogoimg
 {
-  background-image: url(../../assets/img/angular2-logo-white.png);
-  width: 20px;
-  height: 20px;
+  background-image: url(../../assets/img/logo.png);
+  width: 73px;
+  height: 46px;
   background-size: contain;
 }
 
@@ -112,15 +112,23 @@
 	padding-top:140px;
 }
 
+.main-panel
+{
+	@media only screen and (max-width: 992px) 
+    {
+	width:100% !important;
+    }
+}
+
 .main-panel .main-content
 {
 margin-top: -70px;
-min-height: calc(100vh - 303px);
+min-height: calc(100vh - 113px);
 }
 
 .footer
 {
-margin-top: -70px;
+
 }
 
 .NMC
@@ -158,4 +166,412 @@ margin-right: 40px;
 .navbar-toggler
 {
     -webkit-app-region: no-drag;		
+}
+
+/*OVERVIEW AND BASISCS*/
+/**********************/
+
+body
+{
+	background-image: url(../../assets/img/xyonbg.png);
+	background-size: cover;
+}
+
+.sidebar
+{
+	background-image: url(../../assets/img/sidemenubg.png);
+	background-size: cover;
+	width: 146px;
+}
+
+.sidebar .nav p
+{
+	font-family: "Roboto";
+	font-size: 12px;
+	color: #aaaaaa;
+	font-weight: 400;
+	padding-top: 7px;
+}
+
+.logo-img
+{
+	max-height: 46px !important;
+}
+
+.logo
+{
+	padding: 5px 20px !important;
+}
+
+.sidebar[data-color="danger"] li.active > a
+{
+	box-shadow: initial;
+	background: rgba(0,0,0,0.4);
+}
+
+.nav-link
+{
+	margin: 0px !important;
+}
+
+.iconoverview
+{
+	width: 42px;
+	height: 42px;
+}
+
+.iconaddresses
+{
+	width: 42px;
+	height: 42px;
+}
+
+.iconsend
+{
+	background: url(../../assets/img/isend.png) 50% 50% no-repeat !important;
+	width: 42px !important;
+	height: 42px;
+}
+
+.icontransactions
+{
+	background: url(../../assets/img/itransactions.png) 50% 50% no-repeat !important;
+	width: 42px !important;
+	height: 42px;
+}
+
+.iconnamecreations
+{
+	background: url(../../assets/img/inamecreations.png) 50% 50% no-repeat !important;
+	width: 42px !important;
+	height: 42px;
+}
+
+.iconsettings
+{
+	background: url(../../assets/img/isettings.png) 50% 50% no-repeat !important;
+	width: 42px !important;
+	height: 42px;
+}
+
+.iconconsole
+{
+	background: url(../../assets/img/itransparent.png) 50% 50% no-repeat !important;
+	width: 42px !important;
+	height: 42px;
+}
+
+.iconexit
+{
+	background: url(../../assets/img/iclose.png) 50% 50% no-repeat !important;
+	width: 42px !important;
+	height: 42px;
+}
+
+.sidebar .nav li a
+{
+	padding: 10px 5px;
+}
+
+.sidebar .nav i
+{
+	margin-right: 2px;
+}
+
+.navbar
+{
+	background-color: rgba(0,0,0,0) !important;
+	box-shadow: initial !important;
+}
+
+.navTopLink:hover
+{
+	opacity: 0.8;
+	color: #aaaaaa;
+}
+
+.navTopLink
+{
+	 -webkit-app-region: no-drag;
+	 font-family: "Roboto";
+	 font-size: 12px;
+	 color: #aaaaaa;
+	 margin: 10px 10px;
+}
+
+.imgOverview:hover
+{
+	opacity: 0.8;
+}
+
+.imgOverview
+{
+	background: url(../../assets/img/ioverview.png) 0% 50% no-repeat;
+	width: 100%;
+	height: 28px;
+	font-family: "Roboto";
+	font-size: 12px;
+	color: #ffffff;	
+	padding-left: 34px;
+	 -webkit-app-region: no-drag;
+}
+
+.sidebar .sidebar-wrapper
+{
+	width: 146px;
+}
+
+.main-panel
+{
+	width: calc(100% - 160px);
+	background: url(../../assets/img/xyontext.png) 50% 50% no-repeat;
+	
+}
+
+.material-icons
+{
+	opacity: 0.6;
+}
+
+.sidebar .nav li.active > a, .sidebar .nav li.active > a i
+{
+	opacity: 1;
+}
+
+.sidebar .nav li.active > a, .sidebar .nav li.active > a i::after {
+background: url(../../assets/img/selectionline.png) 50% 50% no-repeat;
+width: 100%;
+background-position: bottom;
+}
+
+.toplinkmenu.active
+{
+border-bottom: 1px solid #ff0000;
+width: 104px !important;	
+}
+
+.overviewmiddle
+{
+	background: url(../../assets/img/middlefield.png) 50% 50% no-repeat;
+	width: 98%;
+	height: 469px;
+	margin-right: auto;
+	position: relative;
+	max-width: 1060px; /*fixes responsivness issue on large width */
+}
+
+.synchronizingbar
+{
+	position: relative;
+	background: #303030;
+	width: 98%;
+	max-width: 1060px; /*fixes responsivness issue on large width */
+	height: 20px;
+}
+
+.barfillinfo
+{
+position: absolute;
+height: 20px;
+left:0px;
+top:0px;
+width: 80%;
+background: #005902; /* Old browsers */
+background: -moz-linear-gradient(left, #005902 0%, #00f20c 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left, #005902 0%,#00f20c 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right, #005902 0%,#00f20c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005902', endColorstr='#00f20c',GradientType=1 ); /* IE6-9 */	
+}
+
+.synchText
+{
+  font-family: "Roboto";
+  font-size: 12px;
+  color: #b1b1b1;	
+  display: inline-block;
+  position: relative;
+  z-index: 1;    
+  padding-left: 20px;
+  vertical-align: top;
+  height: 20px;
+  margin-top: -1px;  
+}
+
+.synchBlockVals
+{
+  font-family: "Roboto";
+  font-size: 12px;
+  color: #ffffff;	
+  display: inline-block;
+  position: relative;
+  z-index: 1;  
+  margin-left: 31%;
+  vertical-align: top;
+  height: 20px;
+  margin-top: -1px;
+}
+
+.walletversion
+{
+  font-family: "Roboto";
+  font-size: 12px;
+  color: #aaaaaa;
+  position: absolute;
+  bottom: 16px;  
+  left: 20px;
+}
+
+.skiptop
+{
+	width: 100%;
+	height: 54px;
+	display: block;
+}
+
+.balancering
+{
+	background: url(../../assets/img/balancering.png) 50% 50% no-repeat;
+	width: 259px;
+	height: 259px;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;	
+}
+
+.balancetext
+{
+  font-family: "Roboto"; 
+  font-size: 12px;
+  color: #ff0000;
+  padding-top:93px;  
+}
+
+.balanceAMount
+{
+  font-family: "Roboto"; 
+  font-size: 18px;
+  color: #ffffff;	
+}
+
+.currencyLevel
+{
+  font-family: "Roboto"; 
+  font-size: 14px;
+  color: #ffffff;	
+  font-weight: 700;
+  padding-top: 24px;
+  padding-left: 44px;
+}
+
+.debugtextline
+{
+	
+  background: url(../../assets/img/debugicon.png) 0% 50% no-repeat;
+  font-family: "Roboto"; 
+  font-size: 12px;
+  color: #c6c6c6;		
+  text-align: left;
+  padding-left: 20px;
+  padding-top: 1px;
+  float: right;
+  padding-right: 70px;
+	
+}
+
+.main-panel .footer
+{
+	border-top: initial !important;
+}
+
+.bottomInfoBlock
+{
+	background: url(../../assets/img/databg.png);
+	position: absolute;
+	right: 0px;
+	bottom:0px;
+	height:200px;
+	background-size: cover;
+	width: 280px;
+	display: inline-block;
+}
+
+.entryPic0
+{
+background-image: linear-gradient(rgba(48, 48, 48, 0.5), rgba(48, 48, 48, 0.5)),
+                  url(../../assets/img/iconnections.png);
+
+width: 40px;
+height: 40px;
+background-repeat: no-repeat;
+background-position: center center;		
+display: inline-block;	  
+				  
+}
+
+
+.entryPic1
+{
+background-image: linear-gradient(rgba(48, 48, 48, 0.5), rgba(48, 48, 48, 0.5)),
+                  url(../../assets/img/inetwork.png);
+
+width: 40px;
+height: 40px;			  
+background-repeat: no-repeat;
+background-position: center center;	
+display: inline-block;					  
+}
+
+
+.entryPic2
+{
+background-image: linear-gradient(rgba(48, 48, 48, 0.5), rgba(48, 48, 48, 0.5)),
+                  url(../../assets/img/iconnections.png);
+
+width: 40px;
+height: 40px;			  
+background-repeat: no-repeat;
+background-position: center center;	
+display: inline-block;				  
+}
+
+
+.entryPic3
+{
+background-image: linear-gradient(rgba(48, 48, 48, 0.5), rgba(48, 48, 48, 0.5)),
+                  url(../../assets/img/iconnections.png);
+
+width: 40px;
+height: 40px;				  
+background-repeat: no-repeat;
+background-position: center center;	
+display: inline-block;					  
+}
+
+
+.entryPic4
+{
+background-image: linear-gradient(rgba(48, 48, 48, 0.5), rgba(48, 48, 48, 0.5)),
+                  url(../../assets/img/iconnections.png);
+
+width: 40px;
+height: 40px;			  
+background-repeat: no-repeat;
+background-position: center center;	
+display: inline-block;					  
+}
+
+.intoEntry
+{
+	height: 40px;
+}
+
+.entryText
+{
+  font-family: "Roboto"; 
+  font-size: 12px;
+  color: #afafaf;		
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 10px;
+  padding-left: 12px;
 }

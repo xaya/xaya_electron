@@ -37,21 +37,22 @@ export class NavbarComponent implements OnInit {
 		this.setPrecision(precision);
     }
 	
+	
 	setPrecision(precision)
 	{
 		if(precision == 0)
 		{
-			this.precisionText = " NMC";
+			this.precisionText = " CHI";
 			this.globalService.container.set('precision', 0);
 		}
 		if(precision == 1)
 		{
-			this.precisionText = " mNMC";	
+			this.precisionText = " mCHI";	
             this.globalService.container.set('precision', 1);				
 		}
 		if(precision == 2)
 		{
-			this.precisionText = " μNMC";
+			this.precisionText = " μCHI";
 			this.globalService.container.set('precision', 2);
 		}		
 	}
