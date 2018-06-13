@@ -575,3 +575,280 @@ display: inline-block;
   padding-top: 10px;
   padding-left: 12px;
 }
+
+/*TRANSACTRION AND OTHER SHARED ELEMS*/
+
+.card .card-body
+{
+	background-color: rgba(0,0,0,0);
+}
+
+.card
+{
+	background-color: rgba(0,0,0,0.65);
+	border-radius: 0px;
+}
+
+.card-header-danger
+{
+	margin:0px !important;
+	border-radius:0px !important;
+	width:200px !important;
+	height:28px !important;
+	padding:6px !important;
+	text-align: center !important;
+	font-family: "Roboto" !important;
+	font-size: 12px !important;
+	color: #ffffff !important;
+	background: #5b0101 !important;/* Old browsers */
+	background: -moz-linear-gradient(left, #5b0101 1%, #ed1f04 100%) !important; /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #5b0101 1%,#ed1f04 100%) !important; /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #5b0101 1%,#ed1f04 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b0101', endColorstr='#ed1f04',GradientType=1 ) !important; /* IE6-9 */
+
+	
+}
+
+th
+{
+    font-family: "Roboto"; 
+    font-size: 12px !important;	
+	color: #aaaaaa !important;	
+	border-bottom: 1px solid #aaaaaa;
+}
+
+td
+{
+    font-family: "Roboto"; 
+    font-size: 12px !important;		
+	color: #aaaaaa !important;	
+	border-bottom: 1px solid #aaaaaa;
+}
+
+.card-title
+{
+	font-size: 12px !important;
+}
+
+/* SEND SCREEN */
+
+.mat-form-field-placeholder
+{
+    font-family: "Roboto"; 
+    font-size: 12px !important;		
+	color: #aaaaaa !important;	
+}
+
+.mat-input-element
+{
+	color: #ffffff !important;
+}
+
+.sendsomespaceskip
+{
+	width: 100%;
+	height:50px;
+	display: block;
+}
+
+.chisymbol
+{
+  background-image: url(../../assets/img/chiimage.png);
+  width: 34px;
+  height: 42px;	
+  display: inline-block  !important;
+  vertical-align: middle;
+}
+
+.mat-select-value
+{
+    font-family: "Roboto"; 
+    font-size: 14px !important;		
+	color: #aaaaaa !important;		
+	font-weight: 700;
+}
+
+
+.mat-select-arrow
+{
+	color: rgba(255, 255, 255, 0.54) !important;		
+}
+
+.mat-select-arrow
+{
+	border-top: 10px solid !important;
+}
+
+.mat-form-field-underline
+{
+	background-color: rgba(0,0,0,0) !important;
+	opacity: 0  !important;;
+}
+
+.limitedWidth
+{
+	max-width: 70px;
+	display: inline-block  !important;
+}
+
+.limitedWidth .mat-input-wrapper
+{
+	border-bottom: 0px !important;
+}
+
+.mat-input-wrapper
+{
+	width: 80%;
+	border-bottom: 1px solid #aaaaaa;
+	
+}
+
+.mat-form-field-wrapper
+{
+	padding-bottom: 0px !important;
+}
+
+.mat-form-field-subscript-wrapper
+{
+	opacity: 0 !important;
+}
+
+.mat-checkbox-frame
+{
+	background-color: rgba(255,255,255,0.65) !important;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background
+{
+	background-color: #ff0000;
+}
+
+.buttonBas
+{
+	margin-left: auto !important;
+	margin-right: auto !important;
+	float: initial !important;
+	display: block !important;
+	height: 36px !important;
+	padding-top: 9px !important;
+	margin-top: 40px !important;
+	background-color: #ff0000 !important;
+	font-size: 14px !important;
+}
+
+.matrginfixesss
+{
+	margin-left: -60px;
+	margin-top: 12px;
+}
+
+/* NAME CREATION SCREEN */
+
+.nameimg
+{ 
+
+  background-image: url(../../assets/img/nameimage.png);
+  width: 76px;
+  height: 94px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  
+}
+
+.nametitle1
+{
+	text-align: center;
+	font-family: "Roboto";
+	font-size: 24px;
+	color: #ff0000;
+	font-weight: 300;	
+	margin-top: 14px;
+}
+
+.nametitle2
+{
+	text-align: center;
+	font-family: "Roboto";
+	font-size: 12px;
+	color: #aaaaaa;
+	font-weight: 400;	
+	margin-bottom: 28px;
+}
+
+.specialnwidth .mat-input-wrapper
+{
+	width: 90.5%;
+
+}
+
+/*SETTINGS SCREEN*/
+
+.btnSettings
+{
+
+	float: initial !important;
+	display: inline-block !important;
+	height: 32px !important;
+	padding-top: 9px !important;
+	margin-top: 40px !important;
+	background-color: #ff0000 !important;
+	font-size: 12px !important;
+	font-family: "Roboto" !important;
+	font-weight: 700 !important;	
+	display: inline-block;
+	width: 120px;
+	background-color: #303030 !important;
+	text-transform: initial !important;
+	color: #aaaaaa !important;
+    border-radius: 0px  !important;
+	box-shadow: initial !important;
+	margin-top: 15px !important;
+}
+
+.btnSettings.mat-raised-button.selected
+{
+	background-color: #369a00 !important;
+	color: #ffffff !important;
+}
+
+.inlinedControl
+{
+	display: inline-block;
+}
+
+.egtext
+{
+	font-weight: 700;
+	margin-left: 10px;
+	font-size: 12px;
+}
+
+.formWhite
+{
+	color: #ffffff;
+}
+
+.specialBUBut
+{
+	border: 1px solid #ffffff !important;
+	margin-top: 10px !important;
+}
+
+.sstspace
+{
+	height: 190px;
+	width: 100%;
+	display: block;
+}
+
+.warntexset
+{
+	text-align: center;
+	max-width: 263px;
+	font-family: "Roboto";
+	font-size: 12px;
+	color: #aaaaaa;	
+	margin-left: auto;
+	margin-right: auto;
+}

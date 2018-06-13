@@ -27,6 +27,9 @@ export class SettingsComponent {
 	private daemonpathorig:string = "";
 	public usedefault:boolean = true;
 	
+	public defaultClass: string = "";
+	public advancedClass: string = "";
+	
 	constructor(private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
 
@@ -43,6 +46,19 @@ export class SettingsComponent {
 		{
 				 this.usedefault = true;
 		}  		
+		
+		if(this.usedefault)
+		{
+			this.defaultClass = "selected";
+			this.advancedClass  = "";
+           	
+		}
+		else
+		{
+			this.defaultClass = "";
+			this.advancedClass  = "selected";	
+			
+		}
 		
 		this.port =  this.globalService.container.get('port');
 			
@@ -104,6 +120,20 @@ export class SettingsComponent {
 			this.cdr.detectChanges();
 		
 		});		
+	}
+	
+	useDefaultClick()
+	{
+		this.defaultClass = "selected";
+		this.advancedClass  = "";
+		this.usedefault = true;			
+	}
+	
+	useAdvancedClick()
+	{
+		this.defaultClass = "";
+		this.advancedClass  = "selected";
+		this.usedefault = false;			
 	}
 	
 	selectPathBtnClick()

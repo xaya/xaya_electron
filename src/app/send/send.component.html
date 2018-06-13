@@ -16,19 +16,16 @@
                                     <input matInput placeholder="{{'SSEND.PAYTOADDRESS' | translate }}"  [value]="this.address" (input)="this.address = $event.target.value">
                                   </mat-form-field>
                               </div>
-                              <div class="col-md-12">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="{{'SSEND.OPTIONALCOMMENT' | translate }}"  [value]="this.label" (input)="this.label = $event.target.value">
-                                  </mat-form-field>
-                              </div>
-                              <div class="col-md-4">
+							  <div class = "sendsomespaceskip"></div>
+                              <div class="col-md-5">
                                   <mat-form-field class="example-full-width">
                                     <input matInput placeholder="{{'SSEND.AMOUNTVALUE' | translate }}" type="number"  [value]="this.amount" (input)="this.amount = $event.target.value">
                                   </mat-form-field>
                               </div>
-                              <div class="col-md-4">
-								<mat-form-field>
-								  <mat-select name = "curselectors" placeholder="CHI" [(ngModel)]="this.selected">
+                              <div class="col-md-4 matrginfixesss">
+							    <div class = "chisymbol"></div>
+								<mat-form-field class="limitedWidth">
+								  <mat-select name = "curselectors" placeholder="" [(ngModel)]="this.selected">
 									<mat-option *ngFor="let currency of currencies" [(value)]="currency.value">
 									  {{ currency.viewValue }}
 									</mat-option>
@@ -37,13 +34,24 @@
                               </div>	
                               <div class="col-md-12">
 							  <mat-checkbox name = "checkboxysend" [(ngModel)]="this.fee">{{'SSEND.SUBSTRACTFEEFROMAMOUNT' | translate }}</mat-checkbox> 
+                              </div>								  
+							  <div class = "sendsomespaceskip"></div>
+							  <div class = "sendsomespaceskip"></div>
+							  <div class = "sendsomespaceskip"></div>
+							  
+                              <div class="col-md-12">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{'SSEND.OPTIONALCOMMENT' | translate }}"  [value]="this.label" (input)="this.label = $event.target.value">
+                                  </mat-form-field>
+                              </div>
 
-							
-                              </div>	
 							  
                           </div>
-                          <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="makeThePayment(); $event.stopPropagation();">{{'SSEND.MAKEPAYMENT' | translate }}</button>
-                          <div class="clearfix"></div>
+						  
+						  <div class="col-md-12">
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas" (click)="makeThePayment(); $event.stopPropagation();">{{'SSEND.MAKEPAYMENT' | translate }}</button>
+                          </div>
+						  
                       </form>
                   </div>
               </div>

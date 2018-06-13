@@ -13,7 +13,7 @@
     "ADDRESSES": "Addresses",
 	"TRANSACTIONS": "Transactions",
 	"SETTINGS": "Settings",
-	"NAMECOIN": "Chimaera",
+	"NAMECOIN": "Name Creation",
 	"SEND": "Send",
 	"CONSOLE": "Console",
 	"EXIT": "Exit"
@@ -37,14 +37,17 @@
     "CONNECTIONSETTINGS": "Connection Settings",
     "HOSTADDRESS": "Host Address",
 	"PORT": "Port",
-	"SUBMIT": "Submit",
-	"BACKUP": "Backup Wallet",
+	"SUBMIT": "Submit Settings",
+	"BACKUP": "WALLET BACKUP",
 	"USERNAME": "RPC Username Override",
 	"PASSWORD": "RPC Password Override",
 	"OVERRIDE": "DataDir Override",
 	"SELECTPATH" : "Select Path",
 	"OVERRIDEDAEMON" : "Daemon Override",
-	"SELECTPATHDAEMON" : "Select Path"
+	"SELECTPATHDAEMON" : "Select Path",
+	"DEFAULT" : "Default",
+	"ADVANCED" : "Advanced",
+	"WARN" : "Always create a backup of your wallet, keep your keys and password in a safe place"
   },
    "SADDRESSES": {
     "SENDINGADDRESSES": "Sending Addresses",
@@ -85,15 +88,17 @@
 	"DEBUGTOGGLE": "Debug Log Toggle"
   },
    "SCHIMAERA": {
-    "ACCOUNTNAME": "Chimaera Name",
+    "ACCOUNTNAME": "Xyon Name",
 	"VALUE": "Name Value",
 	"ADDRESS": "Address",
-	"TITLE": "Existing Wallet Names",
+	"TITLE": "Owned Names",
 	"SEARCHTRANSACTIONS": "Search Names",
 	"CREATENAME": "Add New Name",
 	"NAME": "Name",
-	"SUBMIT": "Submit",
-	"NAMESPACE": "Pick Up Namespace",
-	"NAMESPACECUSTOM": "or enter custom namespace, ex: /k"
+	"SUBMIT": "Submit Name",
+	"NAMESPACE": "Select Preset Namespace",
+	"NAMESPACECUSTOM": "Enter Custom Namespace, ex: /k",
+	"TITLE1" : "CLAIM YOUR UNIQUE NAME",
+	"TITLE2" : "IMMORTALISE YOURSELF IN THE BLOCKCHAIN"
   }
 }
