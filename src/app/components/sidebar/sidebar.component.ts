@@ -15,7 +15,7 @@ export interface RouteInfo {
 
 
 export const ROUTES: RouteInfo[] = [
-    { path: '/addresses', title: 'LEFTMENU.ADDRESSES',  icon:'send', class: '', type: 'link' },
+    { path: '/addresses', title: 'LEFTMENU.ADDRESSES',  icon:'addresses', class: '', type: 'link' },
     { path: '/send', title: 'LEFTMENU.SEND',  icon:'send', class: '', type: 'link' },
     { path: '/transactions', title: 'LEFTMENU.TRANSACTIONS',  icon:'transactions', class: '', type: 'link' },
     { path: '/namecoin', title: 'LEFTMENU.NAMECOIN',  icon:'namecreations', class: '', type: 'link' },

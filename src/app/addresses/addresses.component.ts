@@ -65,12 +65,26 @@ export class AddressesComponent implements OnInit {
 				
 				if(addressArrayByLabel[key].purpose == "receive")
 				{
-					let newEntry = {"label": addressArray[d], "value" : key};
+					let lLabel = addressArray[d];
+					
+					if ( lLabel.length > 40)
+					{
+						lLabel = lLabel.substr(0,40) + "...";
+					}
+					
+					let newEntry = {"label": lLabel, "value" : key};
 					this.receiveAddressTableData.push(newEntry);
 				}
 				else
 				{
-					let newEntry = {"label": addressArray[d], "value" : key};
+					let lLabel = addressArray[d];
+					
+					if ( lLabel.length > 40)
+					{
+						lLabel = lLabel.substr(0,40) + "...";
+					}
+					
+					let newEntry = {"label": lLabel, "value" : key};
 					this.sendAddressTableData.push(newEntry);					
 				}
 			}

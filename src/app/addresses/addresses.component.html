@@ -4,7 +4,30 @@
 	    
         <div class="row">
 		
-		
+	
+            <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">{{'SADDRESSES.GENERATERECEIVINGADDRESS' | translate }}</h4>
+                      <p class="card-category"></p>
+                  </div>
+                  <div class="card-body">
+                      <form name = "addressform">
+                          <div class="row">
+                              <div class="col-md-12">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{'SADDRESSES.ADDRESSLABEL' | translate }}"  [value]="this.aLabel" (input)="this.aLabel = $event.target.value">
+                                  </mat-form-field>
+                              </div>
+	
+							  
+                          </div>
+                          <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="insertReceivingAddress(); $event.stopPropagation();">{{'SADDRESSES.INSERT' | translate }}</button>
+                          <div class="clearfix"></div>
+                      </form>
+                  </div>
+              </div>
+            </div>						
 		
             <div class="col-md-12">
               <div class="card">
@@ -71,33 +94,7 @@
               </div>
             </div>			
 			
-            <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header card-header-danger">
-                      <h4 class="card-title">{{'SADDRESSES.GENERATERECEIVINGADDRESS' | translate }}</h4>
-                      <p class="card-category"></p>
-                  </div>
-                  <div class="card-body">
-                      <form name = "addressform">
-                          <div class="row">
-                              <div class="col-md-12">
-                                <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="{{'SADDRESSES.ADDRESSLABEL' | translate }}"  [value]="this.aLabel" (input)="this.aLabel = $event.target.value">
-                                  </mat-form-field>
-                              </div>
-	
-							  
-                          </div>
-                          <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="insertReceivingAddress(); $event.stopPropagation();">{{'SADDRESSES.INSERT' | translate }}</button>
-                          <div class="clearfix"></div>
-                      </form>
-                  </div>
-              </div>
-            </div>					
-			
-			
-			
-			
+
         </div>
 		
 		

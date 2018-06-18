@@ -91,6 +91,7 @@
 .aHref
 {
 	cursor: pointer;
+	color: #ffffff !important;
 }
 
 .alogoimg
@@ -145,8 +146,42 @@ min-height: calc(100vh - 113px);
 
 .langsbutton
 {
-	background-color: #ff0000;
+
+	background-color: rgba(0,0,0,0);
+	box-shadow: initial;
 }
+
+.langsbutton::active:hover
+{
+	background-color: rgba(0,0,0,0);
+	box-shadow: initial;	
+}
+
+
+.langsbutton::active:focus
+{
+	background-color: rgba(0,0,0,0);
+	box-shadow: initial;	
+}
+
+.mat-button.btn:active:hover, .mat-button.btn:active:focus, .mat-button.btn:active.focus, .mat-button.btn.active:hover, .mat-button.btn.active:focus, .mat-button.btn.active.focus, .open > .mat-button.btn.dropdown-toggle:hover, .open > .mat-button.btn.dropdown-toggle:focus, .open > .mat-button.btn.dropdown-toggle.focus, .show > .mat-button.btn.dropdown-toggle:hover, .show > .mat-button.btn.dropdown-toggle:focus, .show > .mat-button.btn.dropdown-toggle.focus, .mat-button.btn.btn-default:active:hover, .mat-button.btn.btn-default:active:focus, .mat-button.btn.btn-default:active.focus, .mat-button.btn.btn-default.active:hover, .mat-button.btn.btn-default.active:focus, .mat-button.btn.btn-default.active.focus, .open > .mat-button.btn.btn-default.dropdown-toggle:hover, .open > .mat-button.btn.btn-default.dropdown-toggle:focus, .open > .mat-button.btn.btn-default.dropdown-toggle.focus, .show > .mat-button.btn.btn-default.dropdown-toggle:hover, .show > .mat-button.btn.btn-default.dropdown-toggle:focus, .show > .mat-button.btn.btn-default.dropdown-toggle.focus, .mat-raised-button.btn:active:hover, .mat-raised-button.btn:active:focus, .mat-raised-button.btn:active.focus, .mat-raised-button.btn.active:hover, .mat-raised-button.btn.active:focus, .mat-raised-button.btn.active.focus, .open > .mat-raised-button.btn.dropdown-toggle:hover, .open > .mat-raised-button.btn.dropdown-toggle:focus, .open > .mat-raised-button.btn.dropdown-toggle.focus, .show > .mat-raised-button.btn.dropdown-toggle:hover, .show > .mat-raised-button.btn.dropdown-toggle:focus, .show > .mat-raised-button.btn.dropdown-toggle.focus, .mat-raised-button.btn.btn-default:active:hover, .mat-raised-button.btn.btn-default:active:focus, .mat-raised-button.btn.btn-default:active.focus, .mat-raised-button.btn.btn-default.active:hover, .mat-raised-button.btn.btn-default.active:focus, .mat-raised-button.btn.btn-default.active.focus, .open > .mat-raised-button.btn.btn-default.dropdown-toggle:hover, .open > .mat-raised-button.btn.btn-default.dropdown-toggle:focus, .open > .mat-raised-button.btn.btn-default.dropdown-toggle.focus, .show > .mat-raised-button.btn.btn-default.dropdown-toggle:hover, .show > .mat-raised-button.btn.btn-default.dropdown-toggle:focus, .show > .mat-raised-button.btn.btn-default.dropdown-toggle.focus, .mat-raised-button.btn:not([class*=mat-elevation-z]):active:hover, .mat-raised-button.btn:not([class*=mat-elevation-z]):active:focus, .mat-raised-button.btn:not([class*=mat-elevation-z]):active.focus, .mat-raised-button.btn:not([class*=mat-elevation-z]).active:hover, .mat-raised-button.btn:not([class*=mat-elevation-z]).active:focus, .mat-raised-button.btn:not([class*=mat-elevation-z]).active.focus, .open > .mat-raised-button.btn:not([class*=mat-elevation-z]).dropdown-toggle:hover, .open > .mat-raised-button.btn:not([class*=mat-elevation-z]).dropdown-toggle:focus, .open > .mat-raised-button.btn:not([class*=mat-elevation-z]).dropdown-toggle.focus, .show > .mat-raised-button.btn:not([class*=mat-elevation-z]).dropdown-toggle:hover, .show > .mat-raised-button.btn:not([class*=mat-elevation-z]).dropdown-toggle:focus, .show > .mat-raised-button.btn:not([class*=mat-elevation-z]).dropdown-toggle.focus, .mat-raised-button.btn:not([class*=mat-elevation-z]).btn-default:active:hover, .mat-raised-button.btn:not([class*=mat-elevation-z]).btn-default:active:focus, .mat-raised-button.btn:not([class*=mat-elevation-z]).btn-default:active.focus, .mat-raised-button.btn:not([class*=mat-elevation-z]).btn-default.active:hover, .mat-raised-button.btn:not([class*=mat-elevation-z]).btn-default.active:focus, .mat-raised-button.btn:not([class*=mat-elevation-z]).btn-default.active.focus, .open > .mat-raised-button.btn:not([class*=mat-elevation-z]).btn-default.dropdown-toggle:hover, .open > .mat-raised-button.btn:not([class*=mat-elevation-z]).btn-default.dropdown-toggle:focus, .open > .mat-raised-button.btn:not([class*=mat-elevation-z]).btn-default.dropdown-toggle.focus, .show > .mat-raised-button.btn:not([class*=mat-elevation-z]).btn-default.dropdown-toggle:hover, .show > .mat-raised-button.btn:not([class*=mat-elevation-z]).btn-default.dropdown-toggle:focus, .show > .mat-raised-button.btn:not([class*=mat-elevation-z]).btn-default.dropdown-toggle.focus, .btn:active:hover, .btn:active:focus, .btn:active.focus, .btn.active:hover, .btn.active:focus, .btn.active.focus, .open >
+      .btn.dropdown-toggle:hover, .open >
+      .btn.dropdown-toggle:focus, .open >
+      .btn.dropdown-toggle.focus, .show >
+      .btn.dropdown-toggle:hover, .show >
+      .btn.dropdown-toggle:focus, .show >
+      .btn.dropdown-toggle.focus, .btn.btn-default:active:hover, .btn.btn-default:active:focus, .btn.btn-default:active.focus, .btn.btn-default.active:hover, .btn.btn-default.active:focus, .btn.btn-default.active.focus, .open >
+      .btn.btn-default.dropdown-toggle:hover, .open >
+      .btn.btn-default.dropdown-toggle:focus, .open >
+      .btn.btn-default.dropdown-toggle.focus, .show >
+      .btn.btn-default.dropdown-toggle:hover, .show >
+      .btn.btn-default.dropdown-toggle:focus, .show >
+      .btn.btn-default.dropdown-toggle.focus
+	  {
+	background-color: rgba(0,0,0,0);
+	box-shadow: initial;		  
+	  }
+
 
 .langsbutton:hover
 {
@@ -220,15 +255,16 @@ body
 	height: 42px;
 }
 
-.iconaddresses
-{
-	width: 42px;
-	height: 42px;
-}
-
 .iconsend
 {
 	background: url(../../assets/img/isend.png) 50% 50% no-repeat !important;
+	width: 42px !important;
+	height: 42px;
+}
+
+.iconaddresses
+{
+	background: url(../../assets/img/iaddress.png) 50% 50% no-repeat !important;
 	width: 42px !important;
 	height: 42px;
 }
@@ -658,6 +694,7 @@ td
   height: 42px;	
   display: inline-block  !important;
   vertical-align: middle;
+  background-size: contain;
 }
 
 .mat-select-value
@@ -851,4 +888,51 @@ td
 	color: #aaaaaa;	
 	margin-left: auto;
 	margin-right: auto;
+}
+
+/* OTHER SCREENS AND STUFF*/
+
+.swal2-popup .swal2-styled.swal2-confirm
+{
+	background-color: #ff0000;
+}
+
+.swal2-popup
+{
+background-color:rgba(0,0,0,0.92);
+}
+
+#swal2-content
+{
+	color:#ffffff;
+}
+
+#swal2-title
+{
+	color:#ffffff;
+}
+
+.dropdown-menu.show
+{
+	background-color: rgba(0,0,0,0.8);
+}
+
+.flag-icon
+{
+	margin-right: 5px;
+}
+
+.mat-select-content
+{
+	background-color: rgba(0,0,0,0.8) !important;
+}
+
+.mat-option-text
+{
+	color: #ffffff;
+}
+
+.moreRedish
+{
+	background-color: #ff0000 !important;
 }

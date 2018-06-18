@@ -7,7 +7,7 @@
   "win": {
     "icon": "dist",
     "target": [
-      "portable"
+      "nsis"
     ]
   },
   "mac": {
@@ -24,7 +24,11 @@
   },
   "files": [
 	  "!node_modules/zeromq/build/Release",
-  ],  
+  ], 
+  "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+  },
   "extraResources": [
       "daemon/*",
 	  "node_modules/zeromq/build/Release/*.node"

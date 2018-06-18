@@ -21,7 +21,7 @@ export class GlobalService implements OnDestroy {
   public client: Client;
   public container: IPersistenceContainer;
   private rewritePath: string = "";
-
+  public walletPrefix:string = "";
 
   private _tErrorsChange = new BehaviorSubject("");
   tErrorsChanged$ = this._tErrorsChange.asObservable();  

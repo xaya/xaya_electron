@@ -16,6 +16,18 @@
                         </ul>
                     </li>
             </ul>
+			
+            <ul class="navbar-nav navRightMargin">
+                    <li class="nav-item dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"  id = "coinNavBar">
+                            <i class="" style = "display: inline;"> </i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class = "aHref" (click)="this.setWalletPrefix(0);">Default Wallet</a></li>
+                            <li><a class = "aHref" (click)="this.setWalletPrefix(1);">Game Wallet</a></li>
+                        </ul>
+                    </li>
+            </ul>			
         
 			<div class="dropdown" id = "langstop">
 				<button href="#" class="btn dropdown-toggle langsbutton" data-toggle="dropdown" aria-expanded="true" >

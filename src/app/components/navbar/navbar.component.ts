@@ -37,6 +37,17 @@ export class NavbarComponent implements OnInit {
 		this.setPrecision(precision);
     }
 	
+	setWalletPrefix(prefix)
+	{
+	   if(prefix == 0)
+	   {
+		   this.globalService.walletPrefix = "";
+	   }	
+       else
+	   {
+		   this.globalService.walletPrefix = "/game/";
+	   }		   
+	}
 	
 	setPrecision(precision)
 	{
