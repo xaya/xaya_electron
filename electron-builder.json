@@ -1,5 +1,5 @@
 {
-  "productName": "angular-electron",
+  "productName": "xyonwallet",
   "npmSkipBuildFromSource" : "true",
   "directories": {
     "output": "app-builds"
@@ -27,7 +27,9 @@
   ], 
   "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": true,
+	  "allowElevation" : true,
+	  "license" : "LICENSE.md"
   },
   "extraResources": [
       "daemon/*",

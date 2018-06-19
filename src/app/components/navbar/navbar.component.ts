@@ -37,17 +37,6 @@ export class NavbarComponent implements OnInit {
 		this.setPrecision(precision);
     }
 	
-	setWalletPrefix(prefix)
-	{
-	   if(prefix == 0)
-	   {
-		   this.globalService.walletPrefix = "";
-	   }	
-       else
-	   {
-		   this.globalService.walletPrefix = "/game/";
-	   }		   
-	}
 	
 	setPrecision(precision)
 	{
@@ -110,6 +99,22 @@ export class NavbarComponent implements OnInit {
 		this.cdr.detectChanges();
 	}
 	
+	setWalletDefault()
+	{
+		this.globalService.container.set('wallet', 'default');	
+	    $('#walletDrop').removeClass();
+		$('#walletDrop').addClass("flag-icon wallet-default");		
+        this.globalService.setWalletDefault();		
+	}
+	
+	setWalletGame()
+	{
+		this.globalService.container.set('wallet', 'vault');
+		$('#walletDrop').removeClass();
+		$('#walletDrop').addClass("flag-icon wallet-game");		
+        this.globalService.setWalletGame();		
+	}
+	
     ngAfterViewInit()
     {
         var lang =  this.globalService.container.get('lang');
@@ -125,6 +130,19 @@ export class NavbarComponent implements OnInit {
 			$('#langdrop').addClass("flag-icon flag-icon-gb");
 		}
 
+        var wallet =  this.globalService.container.get('wallet');
+		
+		if(wallet == 'vault')
+		{
+			$('#walletDrop').removeClass();
+			$('#walletDrop').addClass("flag-icon wallet-default");
+		}
+		else
+		{
+			$('#walletDrop').removeClass();
+			$('#walletDrop').addClass("flag-icon wallet-game");
+		}		
+		
     }	
 
    ngOnInit(){

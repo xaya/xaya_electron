@@ -1,11 +1,11 @@
 {
-  "name": "chimaera_wallet",
-  "version": "0.0.1",
-  "description": "chimaera_wallet",
+  "name": "xyonwallet",
+  "version": "0.5.0",
+  "description": "xyonwallet",
   "homepage": "https://github.com/chimaera/angu_elec_chimaera",
   "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
+    "name": "Orvald Maxwell",
+    "email": "konstantin@xyon.io"
   },
   "keywords": [
     "angular",
@@ -50,7 +50,7 @@
     "@angular/router": "5.2.9",
     "ajv": "6.4.0",
     "arrive": "2.4.1",
-    "bitcoin-core": "^2.0.0",
+    "bitcoin-core": "https://github.com/RyuMaster/bitcoin-core.git",
     "bootstrap": "4.1.0",
     "bootstrap-material-design": "4.1.1",
     "bootstrap-notify": "3.1.3",

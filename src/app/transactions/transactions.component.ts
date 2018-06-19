@@ -16,10 +16,13 @@ export class TransactionsComponent implements OnInit  {
 
 
 	public transactionsTable;
- 
+    private walletChangeSubscription: ISubscription;
+	
+
 	constructor(private translate: TranslateService,private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
-		
+	   this.transactionsTable = [];
+	   this.initContinue(); 		
 	}
 	
 	
@@ -57,8 +60,21 @@ export class TransactionsComponent implements OnInit  {
     ngOnInit()
 	{ 
 	
-	   this.transactionsTable = [];
-	   this.initContinue();  
+
+	   this.walletChangeSubscription = this.globalService.walletChanged$.subscribe
+	   (
+		value => {
+		this.transactionsTable = [];
+		this.initContinue(); 
+	   });
+	   
 
     }
+	
+	
+    ngOnDestroy()
+	{
+	 this.walletChangeSubscription.unsubscribe();
+	}		
+	
 }

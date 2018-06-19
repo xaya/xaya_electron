@@ -29,7 +29,9 @@
 	"PRUNED" : "Отрезана?",
 	"DIFFICULTY" : "Сложность",
 	"MEDIANTIME" : "Время медианы",
-	"SYNCHRONIZING" : "Синхронизирует"
+	"SYNCHRONIZING" : "Синхронизирует",
+	"VAULTWALLET" : "Vault Wallet",
+	"GAMEWALLET" : "Game Wallet"
   },
    "SSETTINGS": {
     "CONNECTIONSETTINGS": "Настройки Соединения",
@@ -71,7 +73,8 @@
 	"MAKEPAYMENT": "Произвести Оплату",
 	"SUBSTRACTFEEFROMAMOUNT": "Вычесть пошлину из общей суммы?",
     "WRONGADDRESS": "Неверный Адрес",
-	"USEDEFAULT" : "Пользовать настройки по умолчанию"
+	"USEDEFAULT" : "Пользовать настройки по умолчанию",
+	"RUNDAEMON" : "Запускать Daemon при запсуке?"
   },
    "STRANSACTIONS": {
     "TRANSACTIONHISTORY": "История Транзакций",

@@ -26,6 +26,7 @@ export class SettingsComponent {
 	public daemonpath: string = "";
 	private daemonpathorig:string = "";
 	public usedefault:boolean = true;
+	public rundaemon:boolean = true;
 	
 	public defaultClass: string = "";
 	public advancedClass: string = "";
@@ -101,7 +102,12 @@ export class SettingsComponent {
 		
 		this.daemonpathorig = this.daemonpath;		
 			
-	
+        this.rundaemon =  this.globalService.container.get('rundaemon');
+			
+		if( this.rundaemon == undefined ||  this.rundaemon == null)
+		{
+				 this.rundaemon = true;
+		}  		
 		
 
 	}
@@ -178,6 +184,8 @@ export class SettingsComponent {
 		this.globalService.container.set('dirpath', this.dirpath);
 		this.globalService.container.set('daemonpath', this.daemonpath);
 		this.globalService.container.set('usedefault', this.usedefault);
+		this.globalService.container.set('rundaemon', this.rundaemon);
+		
 		
 		console.log("setting dirpath: " + this.dirpath)
 		

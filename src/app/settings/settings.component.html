@@ -12,7 +12,7 @@
                      <div class="card-body">
 					     <div class="row">
 					     <div class="col-sm-6">
-					        <!-- <mat-checkbox name = "checkboxysend" [(ngModel)]="this.usedefault">{{'SSEND.USEDEFAULT' | translate }}</mat-checkbox> -->
+					        
 							<button mat-raised-button type="submit" class="btn btn-danger pull-right btnSettings" [ngClass]="this.defaultClass" (click)="this.useDefaultClick(); $event.stopPropagation();">{{'SSETTINGS.DEFAULT' | translate }}</button>
 							<button mat-raised-button type="submit" class="btn btn-danger pull-right btnSettings" [ngClass]="this.advancedClass" style = "margin-left: 8px;" (click)="this.useAdvancedClick(); $event.stopPropagation();">{{'SSETTINGS.ADVANCED' | translate }}</button>
                             
@@ -69,7 +69,13 @@
 									</div>
                                 </div>
                             </fieldset>	
-
+							
+							<fieldset>
+                               <div class="form-group">
+							      <mat-checkbox name = "checkboxysend" [(ngModel)]="this.rundaemon">{{'SSEND.RUNDAEMON' | translate }}</mat-checkbox>
+                                </div>
+                            </fieldset>	
+							
                             <!--							
                             <fieldset>
                                 <div class="form-group">

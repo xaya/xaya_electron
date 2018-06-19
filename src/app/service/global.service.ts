@@ -9,7 +9,7 @@ import { StorageType } from 'angular-persistence';
 import { IPersistenceContainer } from 'angular-persistence';
 import {TranslateService} from '@ngx-translate/core';
 import * as _lodash from "lodash";
-
+import { Router } from '@angular/router';
 
 declare var $:any;
 declare var swal:any;
@@ -19,9 +19,13 @@ declare var swal:any;
 export class GlobalService implements OnDestroy {
 
   public client: Client;
+  
+  private clientMain: Client;
+  private clientVault: Client;
+  private inSynch: boolean;
+  
   public container: IPersistenceContainer;
   private rewritePath: string = "";
-  public walletPrefix:string = "";
 
   private _tErrorsChange = new BehaviorSubject("");
   tErrorsChanged$ = this._tErrorsChange.asObservable();  
@@ -50,6 +54,10 @@ export class GlobalService implements OnDestroy {
   
   private _currencyChange = new BehaviorSubject(0);
   curerencyChanged$ = this._currencyChange.asObservable();
+  
+  private _walletChange = new BehaviorSubject(0);
+  walletChanged$ = this._walletChange.asObservable();
+  
 
   announceCurrencyChange(todo) 
   {
@@ -59,9 +67,9 @@ export class GlobalService implements OnDestroy {
   
   async walletBackUp(path)
   {
-	  console.log(path);
+	 
 	  
-      const response = await this.client.backupwallet(path).catch(function(e) 
+      const response = await this.client.backupWallet(path).catch(function(e) 
 	  {
 		     swal("Error", e, "error")
 			 return [];
@@ -69,7 +77,7 @@ export class GlobalService implements OnDestroy {
 	  
 	  
 	  swal("Back Up Done", "" + path)
-	  console.log(JSON.stringify(response));
+	
   }
   
   async getNameList()
@@ -109,7 +117,7 @@ export class GlobalService implements OnDestroy {
   
   async getNewAddress(label)
   {
-      const response = await this.client.getnewaddress(label).catch(function(e) 
+      const response = await this.client.getNewAddress(label).catch(function(e) 
 	  {
 		     swal("Error", e, "error")
 			 return [];
@@ -151,7 +159,7 @@ export class GlobalService implements OnDestroy {
 	  //Could not be connected yet, but zeroMQ my trigger this functions
 	  if(this.client == null || this.client == undefined)
 	  {
-          console.log('skipping as null');
+          
 		  return;
 	  }
 	  
@@ -163,6 +171,11 @@ export class GlobalService implements OnDestroy {
 		  this._tBlockChange.next(help.blocks);
 
           this._tBlockMaxChange.next(help.blocks * help.verificationprogress);
+		  
+		  if(help.verificationprogress == 1)
+		  {
+			  _that.inSynch = true;
+		  }
 		  
 		  var tNetType = "Main Net";
 		  if(help.chain == "test")
@@ -187,7 +200,7 @@ export class GlobalService implements OnDestroy {
 		  
 		  
          err.next(e);
-		 console.log("Crash recover cookies?");
+		
 		 _that.reconnectTheClient();
 		 return;
       });
@@ -218,7 +231,6 @@ export class GlobalService implements OnDestroy {
       });
 	  
 	  
-	 
 	  
   }  
   
@@ -226,7 +238,7 @@ export class GlobalService implements OnDestroy {
   {
       const response = await this.client.name_register(nname, nvalue).catch(function(e) 
 	  {
-		     console.log(e);
+		    
 		     swal("Error", e.message, "error")
 			 return "";
       });	
@@ -258,6 +270,7 @@ export class GlobalService implements OnDestroy {
 	 
   }
   
+ 
   
   async consoleCommand(command) :Promise<string>
   {
@@ -377,7 +390,6 @@ export class GlobalService implements OnDestroy {
 	   filename = path.join(basepath, './.cookie');
 	}
 	
-	console.log("cookies:" + filename);
 	
 	if (!fs.existsSync(filename)) 
 	{
@@ -448,15 +460,19 @@ export class GlobalService implements OnDestroy {
 		
 		setTimeout(function() 
 		{
-		console.log("All loaded, safely connect to RPC now" + pData[0] + "|" +  pData[1]);
-		_that.client = new Client({ network: 'mainnet', host: host, password: pData[1], port: port, username: pData[0]});
 		
+		_that.clientMain = new Client({ network: 'mainnet', wallet: "main.dat", host: host, password: pData[1], port: port, username: pData[0]});
+		_that.clientVault= new Client({ network: 'mainnet', wallet: "vault.dat", host: host, password: pData[1], port: port, username: pData[0]});
+		_that.client = _that.clientMain;
 			setTimeout(function() 
 			{
 			_that.getOverviewInfo();
 			}, 1000);
 		
 		}, 1000);		
+		
+		
+		
 						
 	  
 	});   
@@ -464,46 +480,39 @@ export class GlobalService implements OnDestroy {
 
 	  
   }
+  
+  refreshCurrentPageDaemonInfo(name)
+  {
+	  if (this.router.url == "/dashboard")
+	  {
+	     this.getOverviewInfo();
+	  }
+	  else
+	  {
+		   this._walletChange.next(name);
+	  }
+
+	  
+	  
+  }
+  
+  setWalletDefault()
+  {
+	  this.client = this.clientMain;
+	  this.refreshCurrentPageDaemonInfo("default");
+  }
+  
+  setWalletGame()
+  {
+	  this.client = this.clientVault;
+	  this.refreshCurrentPageDaemonInfo("vault");
+  }
 	    
   
-  constructor(private http: Http, public persistenceService: PersistenceService, public translate: TranslateService) 
+  constructor(private http: Http, public persistenceService: PersistenceService, public translate: TranslateService, private router: Router) 
   { 
   
-    //We need to inject custom methods into bitcoin-core library
-	var _methods = {
-		
-		getnewaddress: {
-		version: '>=0.8.0'
-		},
-		listlabels: {
-		version: '>=0.8.0'
-		},
-		getaddressesbylabel: {
-		version: '>=0.8.0'
-		},
-		backupwallet: {
-		version: '>=0.8.0'
-		},
-		name_register: {
-		version: '>=0.8.0'
-		},
-		name_list: {
-		version: '>=0.8.0'
-		},
-		name_pending: {
-		version: '>=0.8.0'
-		}			
-	}
-
-	
-	
-	
-	_lodash.forOwn(_methods, (range, method) => 
-	{
-    Client.prototype[method] = _lodash.partial(Client.prototype.command, method.toLowerCase());
-    });
-    
-   
+    this.inSynch = false;
   
     //Zeromq will not work in browser, outside electron
     var userAgent = navigator.userAgent.toLowerCase();
@@ -513,26 +522,44 @@ export class GlobalService implements OnDestroy {
     }
     else
 	{
-         var zmq = require('zeromq');
+        var zmq = require('zeromq');
 		var subscriber = zmq.socket('sub');
 		var _that = this;
 		
-		subscriber.on('message', function() 
-		{
-		  var msg = [];
-		  Array.prototype.slice.call(arguments).forEach(function(arg) 
-		  {
-				msg.push(arg.toString());
-		  });
+		subscriber.on('message', (topicRaw: Buffer, bodyRaw: Buffer, ...tailRaw: Buffer[]) => {
 
-		  _that.getOverviewInfo();
-		  
-		})
+			const sequenceRaw = tailRaw[tailRaw.length - 1];
+			const sequence = sequenceRaw.readInt32LE(0);
+			const topic = topicRaw.toString();
+
+
+			if (topic == 'rawtx') 
+			{
+				const rawTX = bodyRaw.toString('hex');
+			
+				
+				//If we are in synch, its likely we got new transaction, so lets notify
+				//TODO - properly decode and check the logic
+				
+				if(this.inSynch)
+				{
+					window.require('electron').remote.getCurrentWindow().NotifyTransaction();
+				}
+				
+
+			} else if (topic == 'rawblock') 
+			{
+
+				const rawBlock = bodyRaw.toString('hex', 0, 80);
+				
+				_that.getOverviewInfo();
+			}
+		});
 		 
 		subscriber.connect('tcp://127.0.0.1:28332');
 		console.log('zeromq connected to port 28332');
 		 
-		subscriber.subscribe('rawtx');
+		subscriber.subscribe('raw');
 		
 		window.require('electron').remote.getCurrentWindow().on('close', () => 
 		{
@@ -580,37 +607,50 @@ export class GlobalService implements OnDestroy {
 	  }  	  
 	  
 	  
-	  if (window.require('electron').remote.getCurrentWindow().serve) 
+	  daemonpath = ""; // Right now we ommited custom daemon overwrite, but lets keep all code here intact for awhile, just forcing it to empty
+	  
+	  let rundaemon =  this.container.get('rundaemon');
+		
+	   if(rundaemon == undefined ||  rundaemon == null)
+	   {
+			 rundaemon = true;
+	   } 
+	  
+	  if(rundaemon)
 	  {
-		  console.log("inside1");
-		  const {shell} = window.require('electron').remote;
-		  
-          // Open a local file in the default app
-		  if(daemonpath == "")
+		  if (window.require('electron').remote.getCurrentWindow().serve) 
 		  {
-              shell.openItem(window.require('electron').remote.app.getAppPath() + '\\daemon\\shell.vbs');
+			 
+			  const {shell} = window.require('electron').remote;
+			  
+			  // Open a local file in the default app
+			  if(daemonpath == "")
+			  {
+				  shell.openItem(window.require('electron').remote.app.getAppPath() + '\\daemon\\shell.vbs');
+			  }
+			  else
+			  {
+				  shell.openItem(daemonpath + '\\shell.vbs');
+			  }
+			  
 		  }
 		  else
-		  {
-			  shell.openItem(daemonpath + '\\shell.vbs');
-		  }
-	      
+		  {	  
+	  
+			 
+			  const {shell} = window.require('electron').remote;
+			  
+			  // Open a local file in the default app
+			  if(daemonpath == "")
+			  {
+			  shell.openItem(window.require('electron').remote.app.getAppPath() + '\\..\\daemon\\shell.vbs');
+			  }
+			  else
+			  {
+				  shell.openItem(daemonpath + '\\shell.vbs');
+			  }
+		  } 	
 	  }
-	  else
-	  {	  
-  
-		  const {shell} = window.require('electron').remote;
-		  
-          // Open a local file in the default app
-		  if(daemonpath == "")
-		  {
-          shell.openItem(window.require('electron').remote.app.getAppPath() + '\\..\\daemon\\shell.vbs');
-		  }
-		  else
-		  {
-			  shell.openItem(daemonpath + '\\shell.vbs');
-		  }
-	  } 	
 	
 	 
 	 

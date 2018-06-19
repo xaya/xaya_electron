@@ -136,12 +136,40 @@ min-height: calc(100vh - 113px);
 {
 	color: #ff0000 !important;
 	font-family: 'Orbitron' !important;
+    background-image: url(../../assets/img/chiimage.png);
+    width: 34px;
+    height: 42px;		
+	background-size: contain;
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	
+}
+
+.mat-form-field[disabled]
+{
+	opacity: 0.2;
+	pointer-events: none;
+}
+
+#coinNavBar
+{
+ -webkit-app-region: no-drag;
 }
 
 #langstop
 {
  -webkit-app-region: no-drag;
  margin-right: 40px; 
+}
+
+.wallet-default
+{
+	background-image: url(../../assets/img/wallet_default.png);
+}
+
+.wallet-game
+{
+	background-image: url(../../assets/img/wallet_game.png);
 }
 
 .langsbutton

@@ -29,7 +29,9 @@
 	"PRUNED" : "Is Pruned?",
 	"DIFFICULTY" : "Difficulty",
 	"MEDIANTIME" : "Median Time",
-	"SYNCHRONIZING" : "Synchronizing"
+	"SYNCHRONIZING" : "Synchronizing",
+	"VAULTWALLET" : "Vault Wallet",
+	"GAMEWALLET" : "Game Wallet"
 	
 	
   },
@@ -72,7 +74,8 @@
 	"MAKEPAYMENT": "Make Payment",
 	"SUBSTRACTFEEFROMAMOUNT": "Substract fee from amount?",
     "WRONGADDRESS": "Wrong Address",
-	"USEDEFAULT" : "Use Default"
+	"USEDEFAULT" : "Use Default",
+	"RUNDAEMON" : "Run Daemon on Startup?"
   },
    "STRANSACTIONS": {
     "TRANSACTIONHISTORY": "Transaction History",

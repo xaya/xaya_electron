@@ -7,27 +7,34 @@
             <ul class="navbar-nav navRightMargin">
                     <li class="nav-item dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"  id = "coinNavBar">
-                            <i class="fa cc NMC" style = "display: inline;"> {{this.precisionText}}</i>
+                            <i class="fa NMC" style = "display: inline;"> {{this.precisionText}}</i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class = "aHref" (click)="setCoinPrecision(0); $event.stopPropagation();">CHI</a></li>
-                            <li><a class = "aHref" (click)="setCoinPrecision(1); $event.stopPropagation();">mCHI</a></li>
-                            <li><a class = "aHref" (click)="setCoinPrecision(2); $event.stopPropagation();">μCHI</a></li>
+                            <li><a class = "aHref" (click)="setCoinPrecision(0);">CHI</a></li>
+                            <li><a class = "aHref" (click)="setCoinPrecision(1);">mCHI</a></li>
+                            <li><a class = "aHref" (click)="setCoinPrecision(2);">μCHI</a></li>
                         </ul>
                     </li>
             </ul>
 			
-            <ul class="navbar-nav navRightMargin">
-                    <li class="nav-item dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"  id = "coinNavBar">
-                            <i class="" style = "display: inline;"> </i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class = "aHref" (click)="this.setWalletPrefix(0);">Default Wallet</a></li>
-                            <li><a class = "aHref" (click)="this.setWalletPrefix(1);">Game Wallet</a></li>
-                        </ul>
-                    </li>
-            </ul>			
+			<div class="dropdown" id = "coinNavBar">
+				<button href="#" class="btn dropdown-toggle langsbutton" data-toggle="dropdown" aria-expanded="true" >
+					<i class="material-icons" id = "walletDrop"></i>
+					<b class="caret"></b>
+				</button>
+				<ul class="dropdown-menu">
+					<li>
+						<a class = "dropdown-item aHref" (click)="this.setWalletDefault();">
+							<i class="pe-7s- flag-icon wallet-default"></i> {{'SOVERVIEW.VAULTWALLET' | translate }}
+						</a>
+					</li>
+					<li>
+						<a class = "dropdown-item aHref" (click)="this.setWalletGame();">
+							<i class="pe-7s- flag-icon wallet-game"></i> {{'SOVERVIEW.GAMEWALLET' | translate }}
+						</a>
+					</li>
+				</ul>
+			</div>		
         
 			<div class="dropdown" id = "langstop">
 				<button href="#" class="btn dropdown-toggle langsbutton" data-toggle="dropdown" aria-expanded="true" >

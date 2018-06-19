@@ -27,6 +27,7 @@ export class NamecoinComponent implements OnInit {
      public nameAddressTableData;
 
 	 private sResult:string = "";
+	 private walletChangeSubscription: ISubscription;
 	 
 	 public namespace:string = "";
 	 public nnamespacestom:string = "";
@@ -34,7 +35,8 @@ export class NamecoinComponent implements OnInit {
 	 public namespaces = [
 					{value: 'p/', viewValue: 'p/'},
 					{value: 'c/', viewValue: 'c/'},
-					{value: 'g/', viewValue: 'g/'}
+					{value: 'g/', viewValue: 'g/'},
+					{value: 'custom', viewValue: 'custom'}
 				    ];	 
  
 	constructor(private translate: TranslateService,private globalService:GlobalService) 
@@ -58,6 +60,18 @@ export class NamecoinComponent implements OnInit {
 		}		
 	}
 	
+	customDisabled()
+	{
+		if(this.namespace == "custom")
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	
 	async submitTheName()
 	{
 
@@ -68,7 +82,7 @@ export class NamecoinComponent implements OnInit {
 			 return false;	
 		}
 	
-	    if(this.nnamespacestom != "")
+	    if(this.nnamespacestom != "" && this.namespace == "custom")
 		{
 			this.namespace = this.nnamespacestom;
 		}
@@ -103,6 +117,22 @@ export class NamecoinComponent implements OnInit {
 	
         this.nameAddressTableData = [];
 	    this.fillNames();
+		
+		 this.walletChangeSubscription = this.globalService.walletChanged$.subscribe
+		 (
+			value => {
+              this.nameAddressTableData = [];
+	          this.fillNames();
+		 });
+	   		
+		
 
     }
+	
+	
+    ngOnDestroy()
+	{
+	 this.walletChangeSubscription.unsubscribe();
+	}		
+	
 }

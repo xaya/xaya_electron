@@ -18,7 +18,7 @@ export class AddressesComponent implements OnInit {
      public receiveAddressTableData;
 	 public sendAddressTableData;
 	 public aLabel: string = "";
-
+     private walletChangeSubscription: ISubscription;
  
 	constructor(private translate: TranslateService, private globalService:GlobalService) 
 	{
@@ -92,12 +92,28 @@ export class AddressesComponent implements OnInit {
 		 
 	}	
 	
+	
+	
     ngOnInit()
 	{ 
 	
 	    this.receiveAddressTableData = [];
 		this.sendAddressTableData = [];
 	    this.fillReceivingAddresses();
+		
+		 this.walletChangeSubscription = this.globalService.walletChanged$.subscribe
+		 (
+			value => {
+			 this.receiveAddressTableData = [];
+		     this.sendAddressTableData = [];
+	         this.fillReceivingAddresses();
+		 });			
 
     }
+	
+    ngOnDestroy()
+	{
+	 this.walletChangeSubscription.unsubscribe();
+	}	 
+	
 }

@@ -24,7 +24,7 @@
 								</mat-form-field>
                               </div>	
 							  <div class="col-md-4">
-								<mat-form-field class="example-full-width">
+								<mat-form-field class="example-full-width" [attr.disabled]="this.customDisabled() == true ? true : null">
 									<input matInput placeholder="{{'SCHIMAERA.NAMESPACECUSTOM' | translate }}"  [value]="this.nnamespacestom" (input)="this.nnamespacestom = $event.target.value">
 								  </mat-form-field>
 							  </div>		

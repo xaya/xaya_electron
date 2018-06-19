@@ -17,6 +17,13 @@ try {
 
 }
 
+function NotifyTransaction()
+{
+       notifier.notify('New Transaction', {
+				  message: 'NewTransaction',
+	   })		
+}
+
 function createWindow() 
 {
 
@@ -33,6 +40,15 @@ function createWindow()
 	backgroundColor: '#cc0000', 
 	titleBarStyle: 'hidden'
   });
+  
+  if(serve)
+  {
+	    win.serve = true;
+  }		  
+  else
+  {
+	    win.serve = false;
+  }
   
   let iconpath = ""; //tray icon path
   
@@ -91,17 +107,7 @@ function createWindow()
   {
 	    
 	  win.show()
-	  
-      if(serve)
-      {
-		  win.serve = true;
-	  }		  
-	  else
-	  {
-		  win.serve = false;
-	  }
-	  
-	  	
+
        notifier.notify('Test Message', {
 				  message: 'App Started',
 	   })			
