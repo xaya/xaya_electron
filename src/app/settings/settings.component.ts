@@ -31,6 +31,8 @@ export class SettingsComponent {
 	public defaultClass: string = "";
 	public advancedClass: string = "";
 	
+	private clearPathShedule: boolean = false;
+	
 	constructor(private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
 
@@ -122,6 +124,7 @@ export class SettingsComponent {
 				return;
 			}	
 
+			
 			this.daemonpath = filePath;
 			this.cdr.detectChanges();
 		
@@ -152,11 +155,18 @@ export class SettingsComponent {
 				return;
 			}	
 
+			this.clearPathShedule = false;
 			this.dirpath = filePath;
 			this.cdr.detectChanges();
 		
 		});
 		
+	}
+	
+	clearPathBtnClick()
+	{
+		this.clearPathShedule = true;
+		this.dirpath = "";
 	}
 	
 	backUpWallet()
@@ -186,8 +196,18 @@ export class SettingsComponent {
 		this.globalService.container.set('usedefault', this.usedefault);
 		this.globalService.container.set('rundaemon', this.rundaemon);
 		
+		if(this.clearPathShedule)
+		{
+			const path = window.require('path');
+	        let basepath = window.require('electron').remote.app.getPath('appData');
+            let filename = path.join(basepath, './Chimaera/appdata.orvald');
+	        const fs = window.require('fs');
+			
+			try { fs.unlinkSync(filename); }
+			catch(e) { swal("Error", 'Failed to save the file !', "error"); }		
+		}
 		
-		console.log("setting dirpath: " + this.dirpath)
+
 		
 		let normalWarningType = true;
 		

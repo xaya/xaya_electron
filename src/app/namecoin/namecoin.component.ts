@@ -95,7 +95,7 @@ export class NamecoinComponent implements OnInit {
 		this.nvalue = "";
 		this.nnamespacestom = "";
 		
-		if(this.sResult.indexOf("code") > 0)
+		if(this.sResult.indexOf("code") > 0 || this.sResult.indexOf("not valid") > 0 || this.sResult.indexOf("error") > 0 )
 		{
 		     swal("Error", this.sResult, "error")
 			 return false;			
@@ -116,7 +116,6 @@ export class NamecoinComponent implements OnInit {
 	{ 
 	
         this.nameAddressTableData = [];
-	    this.fillNames();
 		
 		 this.walletChangeSubscription = this.globalService.walletChanged$.subscribe
 		 (

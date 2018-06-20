@@ -99,7 +99,6 @@ export class AddressesComponent implements OnInit {
 	
 	    this.receiveAddressTableData = [];
 		this.sendAddressTableData = [];
-	    this.fillReceivingAddresses();
 		
 		 this.walletChangeSubscription = this.globalService.walletChanged$.subscribe
 		 (

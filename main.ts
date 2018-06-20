@@ -5,7 +5,8 @@ import { PersistenceModule, IPersistenceContainer, StorageType } from 'angular-p
 import * as notifier from 'electron-notification-desktop';
 
 
-let win, serve, daemonExternal ;
+let serve, daemonExternal ;
+let win: any;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
 
@@ -17,12 +18,13 @@ try {
 
 }
 
-function NotifyTransaction()
+exports.NotifyTransaction  = (title, newmessage) => 
 {
-       notifier.notify('New Transaction', {
-				  message: 'NewTransaction',
-	   })		
+   notifier.notify(title, {
+			  message: newmessage,
+   })	
 }
+
 
 function createWindow() 
 {
@@ -30,6 +32,8 @@ function createWindow()
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
+
+  
   // Create the browser window.
   win = new BrowserWindow({
     width: 1280,
@@ -50,6 +54,7 @@ function createWindow()
 	    win.serve = false;
   }
   
+ 
   let iconpath = ""; //tray icon path
   
   if (serve) 
@@ -61,8 +66,6 @@ function createWindow()
     require('electron-reload')(__dirname, {
      electron: require(`${__dirname}/node_modules/electron`)});
     win.loadURL('http://localhost:4200');
-	
-	
 	
   } 
   else 
@@ -79,7 +82,7 @@ function createWindow()
 	
   }
   
-  
+
     let appIcon = new Tray(iconpath);
   
     let contextMenu = Menu.buildFromTemplate([

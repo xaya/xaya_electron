@@ -47,6 +47,7 @@
 	"SELECTPATH" : "Select Path",
 	"OVERRIDEDAEMON" : "Daemon Override",
 	"SELECTPATHDAEMON" : "Select Path",
+	"CLEARPATH" : "Clear Path",
 	"DEFAULT" : "Default",
 	"ADVANCED" : "Advanced",
 	"WARN" : "Always create a backup of your wallet, keep your keys and password in a safe place"

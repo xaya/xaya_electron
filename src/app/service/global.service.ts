@@ -23,6 +23,7 @@ export class GlobalService implements OnDestroy {
   private clientMain: Client;
   private clientVault: Client;
   private inSynch: boolean;
+  private firsTimeConnected: boolean = false;
   
   public container: IPersistenceContainer;
   private rewritePath: string = "";
@@ -104,9 +105,9 @@ export class GlobalService implements OnDestroy {
 
 	  for(var s =0; s < response2.length;s++)
 	  {
-		  if(response[s].ismine == true)
+		  if(response2[s].ismine == true)
 		  {
-		  var nObj = [response[s].name, response[s].value, ""];
+		  var nObj = [response2[s].name, response2[s].value, ""];
 		  trObj.push(nObj);
 		  }
 	  }	  
@@ -168,6 +169,12 @@ export class GlobalService implements OnDestroy {
 	  this.client.getBlockchainInfo().then(
 	  (help) =>  
 	  {
+		  if(this.firsTimeConnected == false)
+		  {
+			 this.firsTimeConnected = true;
+		     console.log("Connected");
+		  }
+		  
 		  this._tBlockChange.next(help.blocks);
 
           this._tBlockMaxChange.next(help.blocks * help.verificationprogress);
@@ -234,15 +241,19 @@ export class GlobalService implements OnDestroy {
 	  
   }  
   
+  
   async AddNewName(nname, nvalue)
   {
+	  nvalue = '{"' + nname + '":"' + nvalue + '"}';
+
       const response = await this.client.name_register(nname, nvalue).catch(function(e) 
 	  {
-		    
+		 
 		     swal("Error", e.message, "error")
-			 return "";
+			 return "code 11: unknown error";
       });	
 
+	  
       return response;	  
   }
   
@@ -356,7 +367,8 @@ export class GlobalService implements OnDestroy {
   
   reconnectTheClient()
   {
-	  
+	
+	console.log("Reconnecting the client...");
     var userAgent = navigator.userAgent.toLowerCase();
     if (userAgent.indexOf(' electron/') == -1) 
 	{
@@ -436,6 +448,9 @@ export class GlobalService implements OnDestroy {
   
 
     let contents = "";
+	
+	console.log("Getting cookies...");
+	
 	fs.readFile(filename, 'utf8', function(err, data) 
 	{
 		if (err) throw err;
@@ -457,9 +472,10 @@ export class GlobalService implements OnDestroy {
 		}  		
 		
 		
-		
+		console.log("Connecting to RPC on port " + port + " ... ");
 		setTimeout(function() 
 		{
+		
 		
 		_that.clientMain = new Client({ network: 'mainnet', wallet: "main.dat", host: host, password: pData[1], port: port, username: pData[0]});
 		_that.clientVault= new Client({ network: 'mainnet', wallet: "vault.dat", host: host, password: pData[1], port: port, username: pData[0]});
@@ -522,6 +538,8 @@ export class GlobalService implements OnDestroy {
     }
     else
 	{
+		
+		
         var zmq = require('zeromq');
 		var subscriber = zmq.socket('sub');
 		var _that = this;
@@ -538,21 +556,23 @@ export class GlobalService implements OnDestroy {
 				const rawTX = bodyRaw.toString('hex');
 			
 				
-				//If we are in synch, its likely we got new transaction, so lets notify
-				//TODO - properly decode and check the logic
 				
+				//TODO - properly decode and check the logic before the notification
 				if(this.inSynch)
 				{
-					window.require('electron').remote.getCurrentWindow().NotifyTransaction();
+					//const main = window.require('electron').remote.require('./main.js');
+					//main.NotifyTransaction("NewTransactionTitle", "NewTransaction");
 				}
 				
+				
 
-			} else if (topic == 'rawblock') 
+			} 
+			else if (topic == 'rawblock') 
 			{
-
 				const rawBlock = bodyRaw.toString('hex', 0, 80);
 				
 				_that.getOverviewInfo();
+				
 			}
 		});
 		 

@@ -8,7 +8,17 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 export class FooterComponent implements OnInit {
   test : Date = new Date();
   public debugLogText:string  = "";
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef) 
+  { 
+  
+  
+ 	window.onerror = function(error, url, line) 
+	{
+		this.debugLogText  = error;
+	    this.cdr.detectChanges();
+	};   
+  
+  }
 
   ngOnInit() 
   {

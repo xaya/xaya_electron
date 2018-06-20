@@ -22,7 +22,7 @@ export class TransactionsComponent implements OnInit  {
 	constructor(private translate: TranslateService,private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
 	   this.transactionsTable = [];
-	   this.initContinue(); 		
+	   //this.initContinue(); 		
 	}
 	
 	
