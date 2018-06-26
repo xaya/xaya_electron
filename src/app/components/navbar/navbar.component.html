@@ -1,36 +1,24 @@
 <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top">
     <div class="container-fluid">
-	    <a class = "toplinkmenu" routerLinkActive="active"  [routerLink]="['/dashboard']" ><div class = "imgOverview">{{'SOVERVIEW.OVERVIEW' | translate }}</div></a>
-		
+
         <div class="navbar justify-content-end" style = "width:100%; "id="navigation">
 		
-            <ul class="navbar-nav navRightMargin">
-                    <li class="nav-item dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"  id = "coinNavBar">
-                            <i class="fa NMC" style = "display: inline;"> {{this.precisionText}}</i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class = "aHref" (click)="setCoinPrecision(0);">CHI</a></li>
-                            <li><a class = "aHref" (click)="setCoinPrecision(1);">mCHI</a></li>
-                            <li><a class = "aHref" (click)="setCoinPrecision(2);">μCHI</a></li>
-                        </ul>
-                    </li>
-            </ul>
+
 			
 			<div class="dropdown" id = "coinNavBar">
 				<button href="#" class="btn dropdown-toggle langsbutton" data-toggle="dropdown" aria-expanded="true" >
-					<i class="material-icons" id = "walletDrop"></i>
+					<i class="material-icons" id = "walletDrop">{{this.walletNameAndBalance }}</i>
 					<b class="caret"></b>
 				</button>
 				<ul class="dropdown-menu">
 					<li>
 						<a class = "dropdown-item aHref" (click)="this.setWalletDefault();">
-							<i class="pe-7s- flag-icon wallet-default"></i> {{'SOVERVIEW.VAULTWALLET' | translate }}
+							<i class="pe-7s- flag-icon wallet-default"></i> {{this.walletNameAndBalanceVault }}
 						</a>
 					</li>
 					<li>
 						<a class = "dropdown-item aHref" (click)="this.setWalletGame();">
-							<i class="pe-7s- flag-icon wallet-game"></i> {{'SOVERVIEW.GAMEWALLET' | translate }}
+							<i class="pe-7s- flag-icon wallet-game"></i> {{this.walletNameAndBalanceGame }}
 						</a>
 					</li>
 				</ul>

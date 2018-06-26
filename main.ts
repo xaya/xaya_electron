@@ -99,6 +99,11 @@ function createWindow()
     ])
 
     appIcon.setContextMenu(contextMenu) 
+	
+	appIcon.on('click', () => 
+	{
+    win.isVisible() ? win.hide() : win.show()
+    })
   
 
   globalShortcut.register('CommandOrControl+X', () => 
@@ -126,6 +131,10 @@ function createWindow()
    win.on('show', function () {
         appIcon.setHighlightMode('always')
    })  
+   
+   win.on('hide', function () {
+        appIcon.setHighlightMode('never')
+   })     
 
   
   // Emitted when the window is closed.

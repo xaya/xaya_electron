@@ -63,14 +63,9 @@ export class SettingsComponent {
 			
 		}
 		
-		this.port =  this.globalService.container.get('port');
+		this.port =  this.globalService.getDefaultPort();
 			
-		if(this.port == undefined || this.port == null)
-		{
-				this.port = 8396;
-		}  	
-		
-		
+
  		this.username =  this.globalService.container.get('username');
 			
 		if( this.username == undefined ||  this.username == null)
@@ -184,9 +179,27 @@ export class SettingsComponent {
 		
 		});		
 	}
+	
+	getCurrentWalletType()
+	{
+		return this.globalService.getWalletTypeName();
+	}
 
     updateSettingsDetails()
 	{
+		
+		
+		if(this.usedefault == true)
+		{
+			this.port =  this.globalService.getDefaultPort();
+			this.host = "127.0.0.1";
+			this.username = "";
+			this.password = "";
+			this.daemonpath = "";
+			this.rundaemon = true;
+			this.dirpath = "";
+		}
+		
 		this.globalService.container.set('host', this.host);
 		this.globalService.container.set('port', this.port);
 		this.globalService.container.set('username', this.username);

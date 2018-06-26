@@ -23,7 +23,7 @@ export class FooterComponent implements OnInit {
   ngOnInit() 
   {
 	  
-	
+	/*
    const originalConsoleLog = console.log.bind(console);
    console.log = (args) => 
    {
@@ -76,7 +76,7 @@ export class FooterComponent implements OnInit {
 	 }
 	   
 	 this.cdr.detectChanges();
-   }  
+   }  */
   
 	  
   }

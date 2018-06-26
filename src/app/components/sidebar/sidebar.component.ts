@@ -15,6 +15,7 @@ export interface RouteInfo {
 
 
 export const ROUTES: RouteInfo[] = [
+    { path: '/dashboard', title: 'LEFTMENU.OVERVIEW',  icon:'ioverview', class: '', type: 'link' },
     { path: '/addresses', title: 'LEFTMENU.ADDRESSES',  icon:'addresses', class: '', type: 'link' },
     { path: '/send', title: 'LEFTMENU.SEND',  icon:'send', class: '', type: 'link' },
     { path: '/transactions', title: 'LEFTMENU.TRANSACTIONS',  icon:'transactions', class: '', type: 'link' },

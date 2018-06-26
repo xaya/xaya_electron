@@ -71,11 +71,21 @@ export class ConsoleComponent  {
 				}
 				
 				
-				let contents = "";
+				let contents = "Loding...";
+				_that.consoleText = contents;
+			    _that.cdr.detectChanges();
+					 
+				
 				fs.readFile(filename, 'utf8', function(err, data) 
 				{
 					if (err) throw err;
 					contents = data;
+					
+					if(contents.length > 10000)
+					{
+					contents = "........." + contents.substr(contents.length - 10000, 10000);
+					}
+					
 					_that.consoleText = contents;
 					 _that.cdr.detectChanges();
 					
@@ -99,7 +109,17 @@ export class ConsoleComponent  {
 		let cmd = this.command;
 		
 		let result = await this.globalService.consoleCommand(cmd);
-		result = JSON.stringify(result, undefined, 2);
+		
+		
+		if(result.toString() == "[object Object]")
+		{
+			 result = JSON.stringify(result, undefined, 2);
+		}
+		else
+		{
+		}
+		
+		
 		
 		this.consoleTextHolder += cmd;
 		this.consoleTextHolder += "\n";;

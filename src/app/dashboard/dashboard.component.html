@@ -3,6 +3,12 @@
         <div class = "overviewmiddle">
 		    <div class = "skiptop"></div>
 			<div class = "balancering">
+			   <div class = "encryptBlock">
+			     <button *ngIf="this.encryptStatus == 0 && this.isWalletVault()" mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas buttonInline" (click)="this.encryptWallet(); $event.stopPropagation();">{{'SOVERVIEW.ENCRYPT' | translate }}</button>
+			     <button *ngIf="this.encryptStatus == 1  && this.isWalletVault()" mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas buttonInline" (click)="this.unlockWallet(); $event.stopPropagation();">{{'SOVERVIEW.UNLOCK' | translate }}</button>
+			     <div *ngIf="this.encryptStatus == 2  && this.isWalletVault()" class = "textUnlocked">{{this.textUnlocked}}</div> 
+			   </div>
+			   
 			   <div class = "balancetext">{{'SOVERVIEW.BALANCE' | translate }}</div>
 			   <div class = "balanceAMount">{{this.tBalance}}</div>
 			   <div class = "currencyLevel">{{this.precisionText}}</div>

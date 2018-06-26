@@ -5,10 +5,15 @@ import { StorageType } from 'angular-persistence';
 import { GlobalService } from '../service/global.service';
 import {TranslateService} from '@ngx-translate/core';
 
+declare var $:any;
+declare var swal:any;
+
 @Component({
   selector: 'dashboard-cmp',
   templateUrl: './dashboard.component.html'
 })
+
+
 
 
 export class DashboardComponent {
@@ -20,13 +25,16 @@ export class DashboardComponent {
 	public tNetType: string;
 	public tWalletVersion: number;
 	public tBlockStatus: string;
-	
+	public encryptStatus: number  = -1;
+	public textUnlocked: string = "";
 	public cBlock: number;
 	public cBlockMax: number;
 	
 	
 	private subscription2: ISubscription;
+	
 	private lastNum: any;
+	
 	
     private tErrorsSs: ISubscription;
 	private tBalanceSs: ISubscription;
@@ -89,6 +97,68 @@ export class DashboardComponent {
 		
 	}
 	
+	async encryptWallet()
+	{
+		
+		const {value: name} = await swal({
+		  title: this.translate.instant('SOVERVIEW.ENTERPASSWORD'),
+		  confirmButtonText: this.translate.instant('SOVERVIEW.ENCRYPTBTN'),
+		  input: 'password',
+		  inputPlaceholder: '',
+		  showCancelButton: true,
+		  inputValidator: (value) => {
+			return !value && swal("Please provide the passkey", "Please provide the passkey", "error")
+		  }
+		})
+
+		if (name) 
+		{
+		     return this.globalService.encryptWallet(name);
+		}
+		
+		this.encryptStatus = this.globalService.getEncryptStatus();
+		
+		
+	}
+	
+	isWalletVault()
+	{
+		if(this.globalService.walletType == "default")
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	async unlockWallet()
+	{
+		
+		const {value: name} = await swal({
+		  title: this.translate.instant('SOVERVIEW.ENTERPASSWORD'),
+		  confirmButtonText: this.translate.instant('SOVERVIEW.UNLOCK'),
+		  input: 'password',
+		  inputPlaceholder: '',
+		  showCancelButton: true,
+		  inputValidator: (value) => {
+			return !value && swal("Please provide the passkey", "Please provide the passkey", "error")
+		  }
+		})
+
+		if (name) 
+		{
+		     await this.globalService.unlockWallet(name);
+		}
+		
+		this.encryptStatus = this.globalService.getEncryptStatus();
+		this.cdr.detectChanges();
+
+		
+	}
+	
+	
+	
+	
 	
 	GetDecimalCount(num)
 	{
@@ -121,8 +191,15 @@ export class DashboardComponent {
 		this.cdr.detectChanges();
 	}
 	
+	
 	checkBlockProgression()
 	{
+		
+		if(this.cBlockMax == 0)
+		{
+			this.cBlockMax = 0;
+		}
+		
 		 this.tBlock = this.cBlock;
 		 this.tBlockStatus = this.cBlock + "/" + this.cBlockMax;
 		 let barFillPercentageT = (this.cBlock / this.cBlockMax) * 100;
@@ -197,13 +274,14 @@ export class DashboardComponent {
 	 this.tPrunedSs.unsubscribe();	
 	 this.tDifficultySs.unsubscribe();	
 	 this.tMedianTimeSs.unsubscribe();	
+	 
 
 	 
 	}
 	
     ngOnInit()
 	{ 
-       
+     
      this.tPrunedSs = this.globalService.tPrunedChanged$.subscribe
 	 (
         value => {
@@ -261,6 +339,11 @@ export class DashboardComponent {
 	 (
         value => {
         this.tWalletVersion = value;
+	    this.encryptStatus = this.globalService.getEncryptStatus();
+		this.textUnlocked = this.globalService.getUnlockedText();
+	    this.cdr.detectChanges();
+		
+		
      });	
 
      this.tBlockStatusSs = this.globalService.tBlockStatusChanged$.subscribe
@@ -282,7 +365,9 @@ export class DashboardComponent {
         value => {
         this.currenctChangedEventFired();
      });	
-	  
+	   
+	   
+	 this.globalService.getOverviewIfConnected();
 	  
     }
 }

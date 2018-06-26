@@ -65,8 +65,8 @@
                                         
                                     </div>
 									 <div class="col-sm-12">
-									 <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas" (click)="selectPathBtnClick(); $event.stopPropagation();">{{'SSETTINGS.SELECTPATH' | translate }}</button>
-									 <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas" (click)="clearPathBtnClick(); $event.stopPropagation();">{{'SSETTINGS.CLEARPATH' | translate }}</button>
+									 <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas buttonInline" (click)="selectPathBtnClick(); $event.stopPropagation();">{{'SSETTINGS.SELECTPATH' | translate }}</button>
+									 <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas buttonInline buttonMargin" (click)="clearPathBtnClick(); $event.stopPropagation();">{{'SSETTINGS.CLEARPATH' | translate }}</button>
 									</div>
                                 </div>
                             </fieldset>	
@@ -100,12 +100,12 @@
 					   <div class="col-sm-6">  
 					      <div class = "sstspace" *ngIf="this.usedefault==false"></div>
 						  <div class = "warntexset"><span style = "color: #ff0000">*</span> {{'SSETTINGS.WARN' | translate }}</div>
-						  <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas specialBUBut" (click)="backUpWallet(); $event.stopPropagation();">{{'SSETTINGS.BACKUP' | translate }}</button>
+						  <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas specialBUBut" (click)="backUpWallet(); $event.stopPropagation();">{{'SSETTINGS.BACKUP' | translate }} [{{this.getCurrentWalletType()}}]</button>
                           <div class="clearfix"></div>
 					   </div>
 					   </div>
 					   
-					   	<button *ngIf="this.usedefault==false" mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas" (click)="updateSettingsDetails(); $event.stopPropagation();">{{'SSETTINGS.SUBMIT' | translate }}</button>
+					   	<button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas" (click)="updateSettingsDetails(); $event.stopPropagation();">{{'SSETTINGS.SUBMIT' | translate }}</button>
                         <div class="clearfix"></div>
 					   
 					   

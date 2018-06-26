@@ -42,6 +42,11 @@ export class TransactionsComponent implements OnInit  {
 
 	async initContinue()
 	{
+		
+	  
+		
+		
+		
 		let transactionArray = await this.globalService.getTransactions();
 		
 		
@@ -50,11 +55,32 @@ export class TransactionsComponent implements OnInit  {
 	
 			var formattedTime =this.timeConverter(transactionArray[d].time);
 			
-			let newEntry = {"time" : formattedTime, "address": transactionArray[d].address, "name" : transactionArray[d].label, "category" : transactionArray[d].category, "amount" : transactionArray[d].amount };
+			let newEntry = {"time" : formattedTime, "address": transactionArray[d].address, "name" : transactionArray[d].label, "category" : transactionArray[d].category, "amount" : transactionArray[d].amount, "confirmations" : transactionArray[d].confirmations };	
 			this.transactionsTable.push(newEntry);
+
 		}    
 		
-		this.cdr.detectChanges();
+		
+	    let _that = this;
+	    setTimeout(function () {
+		  $(function () {
+				 $('#example').DataTable
+					   (
+							 {
+								"paging":   true,
+								"ordering": false,
+								"info":     false,
+								"searching" : false,
+								"deferLoading" : true,
+								"lengthChange" : false
+							 }
+					   );
+					   
+					   _that.cdr.detectChanges();
+		  });
+		}, 100);
+	
+		
 	}	
 
     ngOnInit()

@@ -26,10 +26,14 @@
 	  "!node_modules/zeromq/build/Release",
   ], 
   "nsis": {
+      "artifactName": "${productName}-${version}.${ext}",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
 	  "allowElevation" : true,
-	  "license" : "LICENSE.md"
+	  "perMachine": true,
+	  "license" : "LICENSE.md",
+	  "warningsAsErrors": false,
+	  "deleteAppDataOnUninstall": true
   },
   "extraResources": [
       "daemon/*",

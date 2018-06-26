@@ -4,6 +4,9 @@ import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common'
 import { Router } from '@angular/router';
 import { GlobalService}     from '../../service/global.service';
 import {TranslateService} from '@ngx-translate/core';
+import * as waitUntil from 'async-wait-until';
+import { ISubscription } from "rxjs/Subscription";
+
 
 declare var $: any;
 declare var swal:any;
@@ -19,6 +22,12 @@ export class NavbarComponent implements OnInit {
       mobile_menu_visible: any = 0;
     private sidebarVisible: boolean;
     public precisionText: string;
+	public walletNameAndBalance:string = "";
+	public walletNameAndBalanceVault: string = "";
+	public walletNameAndBalanceGame:string = "";
+	
+	private tBalanceSs: ISubscription;
+	
 	
 
     constructor(private translate: TranslateService, location:Location, private element : ElementRef, private globalService: GlobalService, private router: Router, private cdr: ChangeDetectorRef) 
@@ -57,6 +66,8 @@ export class NavbarComponent implements OnInit {
 		}		
 	}
 	
+	//Removed from navbar GUI, but lets keep for now the code responsible
+	//for switching currence precision along all wallet
 	setCoinPrecision(precision)
 	{
 		$('#coinNavBar').click();
@@ -99,20 +110,61 @@ export class NavbarComponent implements OnInit {
 		this.cdr.detectChanges();
 	}
 	
+	
+
+	async getActualBalanceTexts()
+	{
+
+		// Wait for some async operation to end
+		try {
+		  const result = await waitUntil(() => {
+			
+		 
+			return (this.globalService.inSynch)
+		  }, 99999999);
+		 
+		  // Here are the operations to be done after predicate
+
+			await this.globalService.updateWalletBalances1();
+			await this.globalService.updateWalletBalances2();
+			this.walletNameAndBalance = this.translate.instant("SOVERVIEW.VAULTWALLET") + this.globalService.getBalanceString();	
+			this.walletNameAndBalanceVault = this.translate.instant("SOVERVIEW.VAULTWALLET") + this.globalService.getBalanceVaultString();
+			this.walletNameAndBalanceGame = this.translate.instant("SOVERVIEW.GAMEWALLET") + this.globalService.getBalanceGameString();			  
+		  
+		} catch (error) {
+		  // Here are the operations to be done if predicate didn't succeed in the timeout
+		  console.log('Async operation failed: ', error);
+		}	
+	
+	
+	
+	}
+	
+    ngOnDestroy()
+	{
+	 this.tBalanceSs.unsubscribe();
+	}	 
+	
 	setWalletDefault()
 	{
 		this.globalService.container.set('wallet', 'default');	
 	    $('#walletDrop').removeClass();
 		$('#walletDrop').addClass("flag-icon wallet-default");		
-        this.globalService.setWalletDefault();		
+        this.globalService.setWalletDefault();
+	
+
 	}
+	
+
 	
 	setWalletGame()
 	{
-		this.globalService.container.set('wallet', 'vault');
+		this.globalService.container.set('wallet', 'game');
 		$('#walletDrop').removeClass();
 		$('#walletDrop').addClass("flag-icon wallet-game");		
-        this.globalService.setWalletGame();		
+        this.globalService.setWalletGame();	
+		
+  	
 	}
 	
     ngAfterViewInit()
@@ -132,20 +184,25 @@ export class NavbarComponent implements OnInit {
 
         var wallet =  this.globalService.container.get('wallet');
 		
-		if(wallet == 'vault')
+		if(wallet == 'default')
 		{
 			$('#walletDrop').removeClass();
 			$('#walletDrop').addClass("flag-icon wallet-default");
+		
 		}
 		else
 		{
 			$('#walletDrop').removeClass();
 			$('#walletDrop').addClass("flag-icon wallet-game");
-		}		
+		
+		}	
+
+        this.getActualBalanceTexts();		
 		
     }	
 
-   ngOnInit(){
+    ngOnInit()
+	{
       this.listTitles = ROUTES.filter(listTitle => listTitle);
       const navbar: HTMLElement = this.element.nativeElement;
       this.router.events.subscribe((event) => {
@@ -156,6 +213,20 @@ export class NavbarComponent implements OnInit {
            this.mobile_menu_visible = 0;
          }
      });
+	 
+	 
+	 
+     this.tBalanceSs = this.globalService.tBalanceChanged$.subscribe
+	 (
+        value => 
+		{
+			
+		this.getActualBalanceTexts();
+		
+     });	 
+	 
+	 
+	 
     }
 
     sidebarOpen() {

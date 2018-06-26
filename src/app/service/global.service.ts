@@ -22,11 +22,14 @@ export class GlobalService implements OnDestroy {
   
   private clientMain: Client;
   private clientVault: Client;
-  private inSynch: boolean;
+  public inSynch: boolean = false;
+  private encryptStatus: number = -1;
   private firsTimeConnected: boolean = false;
   
   public container: IPersistenceContainer;
   private rewritePath: string = "";
+  public walletType: string = "default";
+  private unlockTime:string = "";
 
   private _tErrorsChange = new BehaviorSubject("");
   tErrorsChanged$ = this._tErrorsChange.asObservable();  
@@ -59,6 +62,10 @@ export class GlobalService implements OnDestroy {
   private _walletChange = new BehaviorSubject(0);
   walletChanged$ = this._walletChange.asObservable();
   
+  
+  private lastBalance: number = 0;
+  private lastBalanceVault: number = 0;
+  private lastBalanceGame: number = 0;
 
   announceCurrencyChange(todo) 
   {
@@ -81,11 +88,57 @@ export class GlobalService implements OnDestroy {
 	
   }
   
+  getWalletTypeName()
+  {
+	 if(this.walletType == "default")
+	 {
+		 return this.translate.instant('SOVERVIEW.VAULTWALLET');
+	 }		 
+	 else
+	 {
+		 return this.translate.instant('SOVERVIEW.GAMEWALLET');
+	 }
+  }
+  
+  async encryptWallet(passkey)
+  {
+	  
+	  
+      const response = await this.client.encryptWallet(passkey).catch(function(e) 
+	  {
+		     swal("Error", e, "error");
+			 return [];
+      });	 
+
+	  swal("", JSON.stringify(response), "success");
+  }
+  
+  async unlockWallet(passkey)
+  {
+      const response = await this.client.walletPassphrase(passkey, 20).catch(function(e) 
+	  {
+		     swal("Error", JSON.stringify(e), "error");
+			 return [];
+      });	 
+
+	  if(response != null)
+	  {
+	    swal("Response", JSON.stringify(response));  
+	  }
+	  else
+	  {
+		  this.encryptStatus = 2;
+		  this.getOverviewInfo();
+		  return "Success";
+		  
+	  }
+  }
+  
   async getNameList()
   {
       const response = await this.client.name_list().catch(function(e) 
 	  {
-		     swal("Error", e, "error")
+		     swal("Error", e, "error");
 			 return [];
       });	
 
@@ -99,7 +152,7 @@ export class GlobalService implements OnDestroy {
 	  
       const response2 = await this.client.name_pending().catch(function(e) 
 	  {
-		     swal("Error", e, "error")
+		     swal("Error", e, "error");
 			 return [];
       });
 
@@ -120,7 +173,7 @@ export class GlobalService implements OnDestroy {
   {
       const response = await this.client.getNewAddress(label).catch(function(e) 
 	  {
-		     swal("Error", e, "error")
+		     swal("Error", e, "error");
 			 return [];
       });	
 
@@ -134,12 +187,14 @@ export class GlobalService implements OnDestroy {
 	  
       const response = await this.client.listTransactions().catch(function(e) 
 	  {
-		     swal("Error", e, "error")
+		     swal("Error", e, "error");
 			 return [];
       });	
 
+	  
 	return response;
   }
+  
   
   timeConverter(UNIX_timestamp){
 	  var a = new Date(UNIX_timestamp * 1000);
@@ -153,6 +208,71 @@ export class GlobalService implements OnDestroy {
 	  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
 	  return time;
   }
+  
+  getEncryptStatus()
+  {
+	  return this.encryptStatus;
+  }
+	
+  getBalanceString()
+  {
+	  return " " + this.lastBalance + " CHI";
+  }	  
+  
+  async updateWalletBalances1()
+  {
+      var err2 = this._tErrorsChange;
+	  await this.clientMain.getWalletInfo().then(
+	  (help) =>  
+	  {
+
+		  this.lastBalanceVault =  help.balance;
+		  		  
+       
+	  }
+	  ).catch(function(e) 
+	  {
+         err2.next(e);
+      });	  
+  }
+  
+  
+  async updateWalletBalances2()
+  {
+           var err2 = this._tErrorsChange;
+		  await this.clientVault.getWalletInfo().then(
+		  (help) =>  
+		  {
+			  this.lastBalanceGame =  help.balance;
+			  
+			  
+			  if( this.walletType == "default")
+			  {
+				  this.lastBalance = this.lastBalanceVault;
+			  }
+			  else
+			  {
+				  this.lastBalance = this.lastBalanceGame;
+			  }
+		  }
+		  ).catch(function(e) 
+		  {
+			 err2.next(e);
+		  });
+
+  
+  }  
+  
+  getBalanceVaultString()
+  {
+	  return " " + this.lastBalanceVault + " CHI";
+  }	 
+
+  getBalanceGameString()
+  {
+	  return " " + this.lastBalanceGame + " CHI";
+  }	   
+  
 	
   getOverviewInfo()
   {
@@ -176,8 +296,8 @@ export class GlobalService implements OnDestroy {
 		  }
 		  
 		  this._tBlockChange.next(help.blocks);
+          this._tBlockMaxChange.next(help.headers);
 
-          this._tBlockMaxChange.next(help.blocks * help.verificationprogress);
 		  
 		  if(help.verificationprogress == 1)
 		  {
@@ -212,12 +332,31 @@ export class GlobalService implements OnDestroy {
 		 return;
       });
 
-
 	  var err2 = this._tErrorsChange;
 	  this.client.getWalletInfo().then(
 	  (help) =>  
 	  {
 		  this._tBalanceChange.next(help.balance);
+
+
+		  if(help.hasOwnProperty("unlocked_until"))
+		  {
+			  if(help.unlocked_until > 0)
+			  {
+				  this.encryptStatus  = 2;
+				  this.unlockTime = this.timeConverter(help.unlocked_until);
+			  }
+			  else
+			  {
+				  this.encryptStatus  = 1;
+			  }
+		  }
+		  else
+		  {
+			  this.encryptStatus  = 0;
+
+		  }
+		  
 		  this._tWalletVersionChange.next(help.walletversion);
 	  }
 	  ).catch(function(e) {
@@ -285,10 +424,33 @@ export class GlobalService implements OnDestroy {
   
   async consoleCommand(command) :Promise<string>
   {
-      const response = await this.client.command(command).catch(function(e) 
+	  
+	  let constructCommand = command.split(" ");
+	  let response;
+	  if(constructCommand.length == 1)
 	  {
-			 return e;
-      });	
+		  
+		   response = await this.client.command(constructCommand[0]).catch(function(e) 
+		  {
+				 return e;
+		  });	
+		  
+	  }
+	  else if(constructCommand.length == 2)
+	  {
+		   response = await this.client.command(constructCommand[0], constructCommand[1]).catch(function(e) 
+		  {
+				 return e;
+		  });
+	  }
+	  else if(constructCommand.length == 3)
+	  {
+		   response = await this.client.command(constructCommand[0], constructCommand[1], constructCommand[2]).catch(function(e) 
+		  {
+				 return e;
+		  });
+	  }	  
+
 
 	 return response;  	  
   }
@@ -365,6 +527,20 @@ export class GlobalService implements OnDestroy {
 	  });	  
   }
   
+  getDefaultPort()
+  {
+	  
+    let port = this.container.get('port');
+		
+	if(port == undefined || port == null)
+	{
+			port = 18396;
+	}  		
+
+    return 	port;
+	  
+  }
+  
   reconnectTheClient()
   {
 	
@@ -439,12 +615,7 @@ export class GlobalService implements OnDestroy {
 			host = "127.0.0.1";
 	}  
 	
-	let port =  this.container.get('port');
-		
-	if(port == undefined || port == null)
-	{
-			port = 10133;
-	}  	
+	let port =  this.getDefaultPort();
   
 
     let contents = "";
@@ -478,7 +649,7 @@ export class GlobalService implements OnDestroy {
 		
 		
 		_that.clientMain = new Client({ network: 'mainnet', wallet: "main.dat", host: host, password: pData[1], port: port, username: pData[0]});
-		_that.clientVault= new Client({ network: 'mainnet', wallet: "vault.dat", host: host, password: pData[1], port: port, username: pData[0]});
+		_that.clientVault= new Client({ network: 'mainnet', wallet: "game.dat", host: host, password: pData[1], port: port, username: pData[0]});
 		_that.client = _that.clientMain;
 			setTimeout(function() 
 			{
@@ -497,6 +668,14 @@ export class GlobalService implements OnDestroy {
 	  
   }
   
+  getOverviewIfConnected()
+  {
+	  if(this.inSynch)
+	  {
+	     this.getOverviewInfo();
+	  }
+  }
+  
   refreshCurrentPageDaemonInfo(name)
   {
 	  if (this.router.url == "/dashboard")
@@ -512,16 +691,27 @@ export class GlobalService implements OnDestroy {
 	  
   }
   
+  
+  getUnlockedText()
+  {
+	  return this.translate.instant('SOVERVIEW.UNLOCKTEXT') + ": " + this.unlockTime;
+  }
+  
   setWalletDefault()
   {
 	  this.client = this.clientMain;
+	  this.walletType = "default";
+	  this.encryptStatus  = -1;
 	  this.refreshCurrentPageDaemonInfo("default");
+	  
   }
   
   setWalletGame()
   {
 	  this.client = this.clientVault;
-	  this.refreshCurrentPageDaemonInfo("vault");
+	  this.walletType = "game";
+	  this.encryptStatus  = -1;
+	  this.refreshCurrentPageDaemonInfo("game");
   }
 	    
   
@@ -564,11 +754,12 @@ export class GlobalService implements OnDestroy {
 					//main.NotifyTransaction("NewTransactionTitle", "NewTransaction");
 				}
 				
-				
+				_that.getOverviewInfo();
 
 			} 
 			else if (topic == 'rawblock') 
 			{
+				console.log("raw");
 				const rawBlock = bodyRaw.toString('hex', 0, 80);
 				
 				_that.getOverviewInfo();
@@ -643,7 +834,7 @@ export class GlobalService implements OnDestroy {
 			 
 			  const {shell} = window.require('electron').remote;
 			  
-			  // Open a local file in the default app
+			  
 			  if(daemonpath == "")
 			  {
 				  shell.openItem(window.require('electron').remote.app.getAppPath() + '\\daemon\\shell.vbs');
@@ -660,7 +851,7 @@ export class GlobalService implements OnDestroy {
 			 
 			  const {shell} = window.require('electron').remote;
 			  
-			  // Open a local file in the default app
+			  
 			  if(daemonpath == "")
 			  {
 			  shell.openItem(window.require('electron').remote.app.getAppPath() + '\\..\\daemon\\shell.vbs');

@@ -10,8 +10,9 @@
 						  </div>
 						  <div class="card-body">
 							  <div class="table-responsive">
-								  <table class="table">
+								  <table class="table" id="example">
 									  <thead class=" text-primary">
+									  <tr>
 										  <th>
 											  {{'STRANSACTIONS.ADDRESS' | translate }}
 										  </th>
@@ -26,7 +27,11 @@
 										  </th>
 										  <th>
 											  {{'STRANSACTIONS.DATE' | translate }}
-										  </th>											  
+										  </th>	
+										  <th>
+											  {{'STRANSACTIONS.CONFIRMATIONS' | translate }}
+										  </th>	
+									  </tr>
 									  <tbody>
 										  <tr *ngFor="let row of transactionsTable">
 											  <td>
@@ -43,6 +48,9 @@
 											  </td>			
 											  <td>
 												  {{row.time}}
+											  </td>		
+											  <td>
+												  {{row.confirmations}}
 											  </td>												  
 										  </tr>
 									  </tbody>

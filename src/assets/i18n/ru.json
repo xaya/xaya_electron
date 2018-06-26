@@ -3,9 +3,9 @@
 
   "NAVBAR": {
     "ABOUT": "О программе",
-    "HELP": "Помощь",
+    "HELPTEXT" : "Documentation and source code for the wallet can be found here:<br><br>https://github.com/xyonplatform/<br><br>General help is available through the community site at:<br><br>https://forum.xyon.io/<br><br>Questions that must be posed in confidence can be sent to:<br><br>support@xyon.io<br><br>",
 	"HELPTEXT" : "Here goes the help description. We can fill it with any kind of info.",
-	"ABOUTEXT" : "Chimaera Wallet 2018, made by Typhon LTD and Sons",
+	"ABOUTEXT" : "Copyright Bitcoin developers, Namecoin developers and Xyon developers<br><br>Please contribute if you find Bitcoin Core useful. Visit https://bitcoincore.org for further information about the software.<br>The source code is available from https://github.com/bitcoin/bitcoin.<br><br><br>This is experimental software.<br>Distributed under the MIT software license, see the accompanying file COPYING<br>or https://opensource.org/licenses/MIT<br><br>This product includes software developed by the OpenSSL Project for use in the<br>OpenSSL Toolkit https://www.openssl.org and cryptographic software written by<br>Eric Young and UPnP software written by Thomas Bernard.<br><br>Based on nodeJS, angular, electron and complementing packages made by different nodeJS contributors",
 	"MINIMIZE" : "Минимизировать"
   },
   "LEFTMENU": {
@@ -30,8 +30,13 @@
 	"DIFFICULTY" : "Сложность",
 	"MEDIANTIME" : "Время медианы",
 	"SYNCHRONIZING" : "Синхронизирует",
-	"VAULTWALLET" : "Vault Wallet",
-	"GAMEWALLET" : "Game Wallet"
+	"VAULTWALLET" : "Сберегательный Кошелёк",
+	"GAMEWALLET" : "Игровой Кошелёк",
+	"ENCRYPT" : "Закодировать Кошелёк",
+	"ENTERPASSWORD" : "Введите Ваш Пароль",
+	"ENCRYPTBTN" :"Шифровать",
+	"UNLOCK" : "Разблокировать Кошелёк",
+	"UNLOCKTEXT" : "Разблокирован до:"
   },
    "SSETTINGS": {
     "CONNECTIONSETTINGS": "Настройки Соединения",
@@ -84,7 +89,8 @@
 	"CATEGORY": "Категория",
 	"AMOUNT": "Количество",
 	"SEARCHTRANSACTIONS": "Поиск по транзакциям",
-	"DATE" : "Дата"
+	"DATE" : "Дата",
+	"CONFIRMATIONS" : "Подтверждения"
   },
    "SCONSOLE": {
     "SEND": "Отправить",

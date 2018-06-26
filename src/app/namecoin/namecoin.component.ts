@@ -33,9 +33,9 @@ export class NamecoinComponent implements OnInit {
 	 public nnamespacestom:string = "";
 	 
 	 public namespaces = [
-					{value: 'p/', viewValue: 'p/'},
-					{value: 'c/', viewValue: 'c/'},
-					{value: 'g/', viewValue: 'g/'},
+					{value: 'p/', viewValue: 'p/ Reserve your account name'},
+					{value: 'c/', viewValue: 'c/ Reserve a game name'},
+					{value: 'g/', viewValue: 'g/ Reserve a currency name'},
 					{value: 'custom', viewValue: 'custom'}
 				    ];	 
  
