@@ -11,11 +11,11 @@ export class FooterComponent implements OnInit {
   constructor(private cdr: ChangeDetectorRef) 
   { 
   
-  
+   let _that = this;
  	window.onerror = function(error, url, line) 
 	{
-		this.debugLogText  = error;
-	    this.cdr.detectChanges();
+		_that.debugLogText  = error;
+	    _that.cdr.detectChanges();
 	};   
   
   }

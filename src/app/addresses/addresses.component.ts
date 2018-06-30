@@ -26,6 +26,16 @@ export class AddressesComponent implements OnInit {
 	}
 
 	
+	
+	copyTheAddress(_text)
+	{
+		
+          const main = window.require('electron').remote.require('./main.js');
+		  main.CopyToClipboard(_text);			
+		
+          
+	}
+	
     async insertReceivingAddress()
 	{
 		if(this.aLabel.length < 2)

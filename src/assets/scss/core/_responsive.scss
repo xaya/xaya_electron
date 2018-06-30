@@ -311,7 +311,7 @@
         .off-canvas-sidebar{
             left: 0;
             right: auto;
-            @include transform-translate-x(-140px);
+            @include transform-translate-x(140px);
         }
 
         .close-layer{
@@ -455,7 +455,7 @@
         .navbar .container .navbar-wrapper,
         .navbar .container{
             left: 0;
-            @include transform-translate-x(-140px);
+            @include transform-translate-x(140px);
         }
 
         .sidebar{
@@ -531,7 +531,7 @@
         padding-right: 0px;
         padding-left: 0;
 
-        @include transform-translate-x(260px);
+        @include transform-translate-x(-260px);
         @include transitions (0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1));
         > ul {
             position: relative;

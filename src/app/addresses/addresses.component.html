@@ -45,14 +45,19 @@
                                   <th>
                                       {{'SADDRESSES.ADDRESS' | translate }}
                                   </th>
+								  <th>
+								  </th>								  
                               <tbody>
                                   <tr *ngFor="let row of receiveAddressTableData">
-                                      <td>
+                                      <td class = "tdname">
                                           {{row.label}}
                                       </td>
-                                      <td>
+                                      <td class = "tdname">
                                           {{row.value}}
                                       </td>
+									  <td class = "tdname">
+									  <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas" (click)="copyTheAddress(row.value); $event.stopPropagation();">{{'SADDRESSES.COPY' | translate }}</button>
+									  </td>									  
                                   </tr>
                               </tbody>
                           </table>

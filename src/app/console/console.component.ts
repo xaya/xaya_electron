@@ -106,7 +106,8 @@ export class ConsoleComponent  {
 
 	async sendConsoleCommand()
 	{
-		let cmd = this.command;
+		let cmd = this.command;		
+		cmd = cmd.trim();
 		
 		let result = await this.globalService.consoleCommand(cmd);
 		
@@ -127,10 +128,19 @@ export class ConsoleComponent  {
 		this.consoleTextHolder += "\n\n";
 		
 		this.consoleText = this.consoleTextHolder;
-		//this.consoleText =  this.consoleText.replace(/\\n/g, String.fromCharCode(13, 10));
 		
 		this.command = "";
 		this.cdr.detectChanges();
+		
+        setTimeout(function() 
+		{				
+		     var textarea = document.getElementById('controlformid');
+             textarea.scrollTop = textarea.scrollHeight;
+			 
+		}, 300);			
+		
+	
+		
 	}
 
 }

@@ -100,6 +100,7 @@
   width: 73px;
   height: 46px;
   background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .navRightMargin
@@ -268,14 +269,28 @@ body
 	padding-top: 7px;
 }
 
+.sidebar-wrapper
+{
+	overflow: hidden !important;
+}
+
+.sidebar
+{
+	left: 0px !important;
+	right: auto !important;
+	
+}
+
 .logo-img
 {
 	max-height: 46px !important;
+	
 }
 
 .logo
 {
 	padding: 5px 20px !important;
+	background-repeat: no-repeat  !important;
 }
 
 .sidebar[data-color="danger"] li.active > a
@@ -1010,6 +1025,7 @@ background-color:rgba(0,0,0,0.92);
 	background-color: rgba(0,0,0,0.8) !important;
 }
 
+
 .mat-option-text
 {
 	color: #ffffff;
@@ -1018,4 +1034,22 @@ background-color:rgba(0,0,0,0.92);
 .moreRedish
 {
 	background-color: #ff0000 !important;
+}
+
+.tdname
+{
+ vertical-align: initial !important;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgb(80,80,80) !important;
+    opacity: 1 !important; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: rgb(80,80,80) !important;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: rgb(80,80,80) !important;
 }

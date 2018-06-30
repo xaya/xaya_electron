@@ -17,7 +17,8 @@ export class TransactionsComponent implements OnInit  {
 
 	public transactionsTable;
     private walletChangeSubscription: ISubscription;
-	
+	private timeChangeSubscription: ISubscription;
+	private skipFirstInit: boolean = true;
 
 	constructor(private translate: TranslateService,private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
@@ -43,14 +44,16 @@ export class TransactionsComponent implements OnInit  {
 	async initContinue()
 	{
 		
-	  
-		
+		if ($.fn.DataTable.isDataTable("#example")) 
+		{
+		  $('#example').DataTable().clear().destroy();
+		}		  
 		
 		
 		let transactionArray = await this.globalService.getTransactions();
 		
 		
-		for(let d = 0; d < transactionArray.length;d++)
+		for(let d = transactionArray.length-1; d >= 0;d--)
 		{
 	
 			var formattedTime =this.timeConverter(transactionArray[d].time);
@@ -60,6 +63,7 @@ export class TransactionsComponent implements OnInit  {
 
 		}    
 		
+
 		
 	    let _that = this;
 	    setTimeout(function () {
@@ -71,12 +75,12 @@ export class TransactionsComponent implements OnInit  {
 								"ordering": false,
 								"info":     false,
 								"searching" : false,
-								"deferLoading" : true,
 								"lengthChange" : false
 							 }
 					   );
 					   
 					   _that.cdr.detectChanges();
+					   _that.skipFirstInit = false;
 		  });
 		}, 100);
 	
@@ -90,9 +94,22 @@ export class TransactionsComponent implements OnInit  {
 	   this.walletChangeSubscription = this.globalService.walletChanged$.subscribe
 	   (
 		value => {
+			
 		this.transactionsTable = [];
 		this.initContinue(); 
 	   });
+	   
+	   
+	   this.timeChangeSubscription = this.globalService.tMedianTimeChanged$.subscribe
+	   (
+		value => {
+		
+		if(this.skipFirstInit == false)
+		{
+		  this.transactionsTable = [];
+		  this.initContinue(); 
+		}
+	   });	   
 	   
 
     }
@@ -101,6 +118,7 @@ export class TransactionsComponent implements OnInit  {
     ngOnDestroy()
 	{
 	 this.walletChangeSubscription.unsubscribe();
+	 this.timeChangeSubscription.unsubscribe();
 	}		
 	
 }

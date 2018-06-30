@@ -77,6 +77,13 @@
                                 </div>
                             </fieldset>	
 							
+							<fieldset>
+                               <div class="form-group">
+							      <mat-checkbox name = "checkboxytest" [(ngModel)]="this.testnet">Testnet</mat-checkbox>
+                                </div>
+                            </fieldset>		
+							
+							<!-- LETS keep for now, but probably will completely remove later-->
                             <!--							
                             <fieldset>
                                 <div class="form-group">
@@ -100,8 +107,9 @@
 					   <div class="col-sm-6">  
 					      <div class = "sstspace" *ngIf="this.usedefault==false"></div>
 						  <div class = "warntexset"><span style = "color: #ff0000">*</span> {{'SSETTINGS.WARN' | translate }}</div>
-						  <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas specialBUBut" (click)="backUpWallet(); $event.stopPropagation();">{{'SSETTINGS.BACKUP' | translate }} [{{this.getCurrentWalletType()}}]</button>
-                          <div class="clearfix"></div>
+						  <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas specialBUBut" (click)="backUpWallet(0); $event.stopPropagation();">{{'SSETTINGS.BACKUP' | translate }} [{{'SOVERVIEW.VAULTWALLET' | translate }}]</button>
+                          <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas specialBUBut" (click)="backUpWallet(1); $event.stopPropagation();">{{'SSETTINGS.BACKUP' | translate }} [{{'SOVERVIEW.GAMEWALLET' | translate}}]</button>
+						  <div class="clearfix"></div>
 					   </div>
 					   </div>
 					   

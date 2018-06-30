@@ -66,6 +66,8 @@ export class GlobalService implements OnDestroy {
   private lastBalance: number = 0;
   private lastBalanceVault: number = 0;
   private lastBalanceGame: number = 0;
+  
+  private lastKnownBlockDiff:number = 51;
 
   announceCurrencyChange(todo) 
   {
@@ -73,15 +75,25 @@ export class GlobalService implements OnDestroy {
   }
 
   
-  async walletBackUp(path)
+  async walletBackUp(path, type)
   {
 	 
-	  
-      const response = await this.client.backupWallet(path).catch(function(e) 
+	  if(type == 0)
 	  {
-		     swal("Error", e, "error")
-			 return [];
-      });	  
+		  const response = await this.clientMain.backupWallet(path).catch(function(e) 
+		  {
+				 swal("Error", e, "error")
+				 return [];
+		  });	 
+	  }	  
+	  else
+	  {
+		  const response = await this.clientVault.backupWallet(path).catch(function(e) 
+		  {
+				 swal("Error", e, "error")
+				 return [];
+		  });		  
+	  }
 	  
 	  
 	  swal("Back Up Done", "" + path)
@@ -113,9 +125,30 @@ export class GlobalService implements OnDestroy {
 	  swal("", JSON.stringify(response), "success");
   }
   
+  async updateName(name, value, address)
+  {
+      const response = await this.client.name_update(name, value, address).catch(function(e) 
+	  {
+		     swal("Error", JSON.stringify(e), "error");
+			 return [];
+      });	 
+
+	  if(response != null)
+	  {
+	    swal("Response", JSON.stringify(response));  
+	  }
+	  else
+	  {
+		  swal("Success", "Updated");  
+		  
+	  }	  
+	  
+	  return "";
+  }
+  
   async unlockWallet(passkey)
   {
-      const response = await this.client.walletPassphrase(passkey, 20).catch(function(e) 
+      const response = await this.client.walletPassphrase(passkey, 100).catch(function(e) 
 	  {
 		     swal("Error", JSON.stringify(e), "error");
 			 return [];
@@ -216,7 +249,14 @@ export class GlobalService implements OnDestroy {
 	
   getBalanceString()
   {
-	  return " " + this.lastBalance + " CHI";
+	  if(this.walletType == "default")
+	  {
+	     return this.translate.instant("SOVERVIEW.VAULTWALLET") + " " + this.lastBalance + " CHI";
+	  }
+	  else
+	  {
+		 return this.translate.instant("SOVERVIEW.GAMEWALLET") + " " + this.lastBalance + " CHI"; 
+	  }
   }	  
   
   async updateWalletBalances1()
@@ -277,6 +317,18 @@ export class GlobalService implements OnDestroy {
   getOverviewInfo()
   {
 
+      //Lets prevent spamming on initial synchronization
+	  
+	 
+	  
+	  if (this.inSynch == false && this.lastKnownBlockDiff < 50)
+	  {
+		  if(this.firsTimeConnected == true)
+		  {
+		  return;
+		  }
+	  }
+	  
 	  //Could not be connected yet, but zeroMQ my trigger this functions
 	  if(this.client == null || this.client == undefined)
 	  {
@@ -284,27 +336,28 @@ export class GlobalService implements OnDestroy {
 		  return;
 	  }
 	  
+	  
       let _that = this;
 	  var err = this._tErrorsChange;
 	  this.client.getBlockchainInfo().then(
 	  (help) =>  
 	  {
-		  if(this.firsTimeConnected == false)
+		  if(_that.firsTimeConnected == false)
 		  {
-			 this.firsTimeConnected = true;
+			 _that.firsTimeConnected = true;
 		     console.log("Connected");
 		  }
 		  
-		  this._tBlockChange.next(help.blocks);
-          this._tBlockMaxChange.next(help.headers);
-
+		  _that._tBlockChange.next(help.blocks);
+          _that._tBlockMaxChange.next(help.headers);
+          _that.lastKnownBlockDiff = 0;
 		  
-		  if(help.verificationprogress == 1)
+		  if(help.blocks == help.headers && help.headers > 0)
 		  {
 			  _that.inSynch = true;
 		  }
 		  
-		  var tNetType = "Main Net";
+		  let tNetType = "Main Net";
 		  if(help.chain == "test")
 		  {
 			   tNetType = "Test Net";
@@ -313,12 +366,12 @@ export class GlobalService implements OnDestroy {
 
 		  }
 		  
-		  this._tNetTypeChange.next(tNetType);
+		  _that._tNetTypeChange.next(tNetType);
 		  
 		  
-		  this._tPrunedChange.next(help.pruned);
-		  this._tDifficultyChange.next(help.difficulty);
-		  this._tMedianTimeChange.next(this.timeConverter(help.mediantime));
+		  _that._tPrunedChange.next(help.pruned);
+		  _that._tDifficultyChange.next(help.difficulty);
+		  _that._tMedianTimeChange.next(_that.timeConverter(help.mediantime));
 		  
 		  
 	  }
@@ -388,8 +441,8 @@ export class GlobalService implements OnDestroy {
       const response = await this.client.name_register(nname, nvalue).catch(function(e) 
 	  {
 		 
-		     swal("Error", e.message, "error")
-			 return "code 11: unknown error";
+		     swal("Error", JSON.stringify(e), "error")
+			 return JSON.stringify(e);
       });	
 
 	  
@@ -555,10 +608,23 @@ export class GlobalService implements OnDestroy {
     let _that = this;
     const path = window.require('path');
 	let basepath = window.require('electron').remote.app.getPath('appData');
+	
+      let testnet =  this.container.get('testnet');
+	  if(testnet == undefined ||  testnet == null)
+	  {
+			 testnet = true; //TODO - change after wallet goes life to false
+	  } 	  	
+	
     let filename = path.join(basepath, './Chimaera/.cookie');
+	
+	if(testnet == true)
+	{
+		filename = path.join(basepath, './Chimaera/testnet/.cookie');
+	}
+	
 	const fs = window.require('fs');
 	
-    let filenameRewrite = path.join(basepath, './Chimaera/appdata.orvald');
+    let filenameRewrite = path.join(basepath, './Chimaera/appdata.orv');
 	
 	if (fs.existsSync(filenameRewrite)) 
 	{
@@ -568,6 +634,8 @@ export class GlobalService implements OnDestroy {
 				_that.rewritePath = data;
 			});  	
 	}	
+	
+	
 
 	if(this.rewritePath == "")
 	{
@@ -576,35 +644,25 @@ export class GlobalService implements OnDestroy {
 	{
 	   basepath = this.rewritePath;
 	   filename = path.join(basepath, './.cookie');
+	   
+	   if(testnet == true)
+	   {
+		filename = path.join(basepath, './testnet/.cookie');
+	   }
+	   
 	}
 	
 	
 	if (!fs.existsSync(filename)) 
 	{
-		
-			let filename2 = path.join(basepath, './Chimaera/testnet/.cookie');
-			
-			if(_that.rewritePath != "")
-			{
-			filename2 = path.join(basepath, './testnet/.cookie');
-			}
-			
-			if (fs.existsSync(filename2)) 
-			{
-				filename = filename2;
-			}
-			else
-			{
-				setTimeout(function() 
-				{
-							
-					_that.reconnectTheClient();
+		setTimeout(function() 
+		{
 					
-				}, 1500);		
-						 
-				return;
-			}
-		
+			_that.reconnectTheClient();
+			
+		}, 1500);		
+				 
+		return;	
     }	  
 	  
 
@@ -643,12 +701,12 @@ export class GlobalService implements OnDestroy {
 		}  		
 		
 		
-		console.log("Connecting to RPC on port " + port + " ... ");
+		console.log("Connecting to RPC on port " + port);
 		setTimeout(function() 
 		{
 		
 		
-		_that.clientMain = new Client({ network: 'mainnet', wallet: "main.dat", host: host, password: pData[1], port: port, username: pData[0]});
+		_that.clientMain = new Client({ network: 'mainnet', wallet: "vault.dat", host: host, password: pData[1], port: port, username: pData[0]});
 		_that.clientVault= new Client({ network: 'mainnet', wallet: "game.dat", host: host, password: pData[1], port: port, username: pData[0]});
 		_that.client = _that.clientMain;
 			setTimeout(function() 
@@ -715,11 +773,24 @@ export class GlobalService implements OnDestroy {
   }
 	    
   
+  rescaleTheWindow(width, height)
+  {
+	 //Lets have 1280x720 as default, else resize proportionally to width
+	let zoomFactor = 1;
+	
+	if(width > 1280) 
+	{
+		zoomFactor = width / 1280;
+	}
+	
+    window.require('electron').webFrame.setZoomFactor(zoomFactor);	  
+  }
+  
   constructor(private http: Http, public persistenceService: PersistenceService, public translate: TranslateService, private router: Router) 
   { 
   
     this.inSynch = false;
-  
+    let _that = this;
     //Zeromq will not work in browser, outside electron
     var userAgent = navigator.userAgent.toLowerCase();
     if (userAgent.indexOf(' electron/') == -1) 
@@ -732,7 +803,7 @@ export class GlobalService implements OnDestroy {
 		
         var zmq = require('zeromq');
 		var subscriber = zmq.socket('sub');
-		var _that = this;
+		
 		
 		subscriber.on('message', (topicRaw: Buffer, bodyRaw: Buffer, ...tailRaw: Buffer[]) => {
 
@@ -744,7 +815,7 @@ export class GlobalService implements OnDestroy {
 			if (topic == 'rawtx') 
 			{
 				const rawTX = bodyRaw.toString('hex');
-			
+			    _that.lastKnownBlockDiff++;
 				
 				
 				//TODO - properly decode and check the logic before the notification
@@ -759,7 +830,7 @@ export class GlobalService implements OnDestroy {
 			} 
 			else if (topic == 'rawblock') 
 			{
-				console.log("raw");
+				 _that.lastKnownBlockDiff++;
 				const rawBlock = bodyRaw.toString('hex', 0, 80);
 				
 				_that.getOverviewInfo();
@@ -821,11 +892,29 @@ export class GlobalService implements OnDestroy {
 	  daemonpath = ""; // Right now we ommited custom daemon overwrite, but lets keep all code here intact for awhile, just forcing it to empty
 	  
 	  let rundaemon =  this.container.get('rundaemon');
-		
-	   if(rundaemon == undefined ||  rundaemon == null)
-	   {
+	  if(rundaemon == undefined ||  rundaemon == null)
+	  {
 			 rundaemon = true;
-	   } 
+	  } 
+	  
+	  
+	  let testnet =  this.container.get('testnet');
+	  if(testnet == undefined ||  testnet == null)
+	  {
+			 testnet = true; //TODO - change after wallet goes life to false
+	  } 	  
+	  let shellName = "shell.vbs";
+	  
+	  
+	  if(testnet == false)
+	  {
+		  shellName = "shell_main.vbs";
+		  
+		  
+          const main = window.require('electron').remote.require('./main.js');
+		  main.SetMainNetTray();		  
+		  
+	  }
 	  
 	  if(rundaemon)
 	  {
@@ -837,11 +926,11 @@ export class GlobalService implements OnDestroy {
 			  
 			  if(daemonpath == "")
 			  {
-				  shell.openItem(window.require('electron').remote.app.getAppPath() + '\\daemon\\shell.vbs');
+				  shell.openItem(window.require('electron').remote.app.getAppPath() + '\\daemon\\' + shellName);
 			  }
 			  else
 			  {
-				  shell.openItem(daemonpath + '\\shell.vbs');
+				  shell.openItem(daemonpath + '\\' + shellName);
 			  }
 			  
 		  }
@@ -854,11 +943,11 @@ export class GlobalService implements OnDestroy {
 			  
 			  if(daemonpath == "")
 			  {
-			  shell.openItem(window.require('electron').remote.app.getAppPath() + '\\..\\daemon\\shell.vbs');
+			  shell.openItem(window.require('electron').remote.app.getAppPath() + '\\..\\daemon\\' + shellName);
 			  }
 			  else
 			  {
-				  shell.openItem(daemonpath + '\\shell.vbs');
+				  shell.openItem(daemonpath + '\\' + shellName);
 			  }
 		  } 	
 	  }
@@ -866,6 +955,13 @@ export class GlobalService implements OnDestroy {
 	 
 	 
 	this.reconnectTheClient();
+	
+	
+ 
+    window.require('electron').ipcRenderer.on('resized', function(event, width, height) 
+	{
+        _that.rescaleTheWindow(width, height);
+    });
 
   }
 

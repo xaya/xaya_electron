@@ -9,7 +9,7 @@
                      <fieldset>
 						<div class="form-group">
 						    <div class="col-sm-12">
-							<textarea style = "width: 100%; height:380px !important; margin-top: 10px; background-color: #b3b3b3;">{{this.consoleText}}</textarea>
+							<textarea id = "controlformid" style = "width: 100%; height:380px !important; margin-top: 10px; background-color: #b3b3b3;">{{this.consoleText}}</textarea>
 							</div>
 							<div class="col-sm-12">
 								<input type="text" class="form-control" [value]="this.command" (input)="this.command = $event.target.value" (keydown)="onKeydown($event)">

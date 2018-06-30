@@ -110,7 +110,26 @@ export class DashboardComponent {
 			return !value && swal("Please provide the passkey", "Please provide the passkey", "error")
 		  }
 		})
+		
+		
+		const {value: name2} = await swal({
+		  title: this.translate.instant('SOVERVIEW.REPEATPASSWORD'),
+		  confirmButtonText: this.translate.instant('SOVERVIEW.ENCRYPTBTN'),
+		  input: 'password',
+		  inputPlaceholder: '',
+		  showCancelButton: true,
+		  inputValidator: (value) => {
+			return !value && swal("Please provide the passkey", "Please provide the passkey", "error")
+		  }
+		})		
+		
+		if(name != name2)
+		{
+			swal("Failed", "Passwords does not match");  
+			return;
+		}
 
+		
 		if (name) 
 		{
 		     return this.globalService.encryptWallet(name);

@@ -55,12 +55,16 @@ export class SendComponent  {
 		
 		if(this.sResult == "Wrong address")
 		{
-		     swal("Error", this.translate.instant('SSEND.WRONGADDRESS'), "error")
+		     swal("Error", this.translate.instant('SSEND.WRONGADDRESS'), "error");
 			 return false;			
 		}
 		else
 		{
-		     swal("Done", this.translate.instant(this.sResult))
+			
+			 this.address = "";
+			 this.amount = 0;
+			
+		     swal("Done", this.sResult);
 			 return false;				
 		}
 		

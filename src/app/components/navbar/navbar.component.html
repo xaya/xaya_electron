@@ -3,11 +3,16 @@
 
         <div class="navbar justify-content-end" style = "width:100%; "id="navigation">
 		
-
+			<button mat-raised-button class="navbar-toggler" type="button ignoreDrag" (click)="this.sidebarToggle()">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="navbar-toggler-icon icon-bar"></span>
+				<span class="navbar-toggler-icon icon-bar"></span>
+				<span class="navbar-toggler-icon icon-bar"></span>
+			</button>
 			
 			<div class="dropdown" id = "coinNavBar">
 				<button href="#" class="btn dropdown-toggle langsbutton" data-toggle="dropdown" aria-expanded="true" >
-					<i class="material-icons" id = "walletDrop">{{this.walletNameAndBalance }}</i>
+					<i class = "flag-icon wallet-default" id = "walletDrop">{{this.walletNameAndBalance }}</i>
 					<b class="caret"></b>
 				</button>
 				<ul class="dropdown-menu">
@@ -45,14 +50,7 @@
 			<a href = "#" class="navTopLink"(click)="this.showAbout(); $event.stopPropagation();">{{'NAVBAR.ABOUT' | translate }}</a>
 			<a href = "#" class="navTopLink" (click)="this.showHelp(); $event.stopPropagation();">{{'NAVBAR.HELP' | translate }}</a>
 			<a href = "#" class="navTopLink" (click)="this.minimizeMe(); $event.stopPropagation();">{{'NAVBAR.MINIMIZE' | translate }}</a>
-						
-			<button mat-raised-button class="navbar-toggler" type="button ignoreDrag" (click)="this.sidebarToggle()">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="navbar-toggler-icon icon-bar"></span>
-				<span class="navbar-toggler-icon icon-bar"></span>
-				<span class="navbar-toggler-icon icon-bar"></span>
-			</button>	
-			
+									
 		</div>
     </div>
 </nav>

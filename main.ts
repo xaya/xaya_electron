@@ -1,10 +1,11 @@
-import { app, BrowserWindow, screen, globalShortcut, Tray, Menu  } from 'electron';
+import { app, BrowserWindow, screen, globalShortcut, Tray, Menu,clipboard  } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import { PersistenceModule, IPersistenceContainer, StorageType } from 'angular-persistence';
 import * as notifier from 'electron-notification-desktop';
-
-
+ 
+ 
+let appIcon;
 let serve, daemonExternal ;
 let win: any;
 const args = process.argv.slice(1);
@@ -25,15 +26,39 @@ exports.NotifyTransaction  = (title, newmessage) =>
    })	
 }
 
+exports.CopyToClipboard  = (_text) => 
+{
+    clipboard.writeText(_text);	
+}
+
+		 
+		 
+
+
+exports.SetMainNetTray  = () => 
+{
+
+  let iconpath = "";
+  
+  if (serve) 
+  {
+	iconpath = path.join(__dirname, 'src/favicon_main.ico')  
+	
+  } 
+  else 
+  {
+	iconpath = path.join(__dirname, 'dist/favicon_main.ico')  
+	
+  }
+
+   appIcon.setImage(iconpath);
+
+}
 
 function createWindow() 
 {
 
-  const electronScreen = screen;
-  const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
-
-  
   // Create the browser window.
   win = new BrowserWindow({
     width: 1280,
@@ -42,7 +67,8 @@ function createWindow()
 	frame: false,
 	show: false,
 	backgroundColor: '#cc0000', 
-	titleBarStyle: 'hidden'
+	titleBarStyle: 'hidden',
+	title: "Xyon Platform Wallet"
   });
   
   if(serve)
@@ -83,7 +109,7 @@ function createWindow()
   }
   
 
-    let appIcon = new Tray(iconpath);
+    appIcon = new Tray(iconpath);
   
     let contextMenu = Menu.buildFromTemplate([
         {
@@ -105,11 +131,13 @@ function createWindow()
     win.isVisible() ? win.hide() : win.show()
     })
   
-
-  globalShortcut.register('CommandOrControl+X', () => 
-  {
-	  win.webContents.openDevTools();
-  })
+   if(serve)
+   {
+     globalShortcut.register('CommandOrControl+X', () => 
+     {
+	     win.webContents.openDevTools();
+     })
+   }
   
   win.once('ready-to-show', () => 
   {
@@ -131,6 +159,48 @@ function createWindow()
    win.on('show', function () {
         appIcon.setHighlightMode('always')
    })  
+   
+   
+	let oldSize;
+	
+	setInterval(() => 
+	{
+		if(win)
+		{
+		oldSize = win.getSize();
+		blockResizing--;
+		}
+	}, 10);
+ 
+   let blockResizing = 0; //Bug with drag/resize relations workaround
+   win.on('move', function () 
+   {
+	   blockResizing = 10;
+   }) 
+   
+   win.on('resize', function () {
+	   
+	    if(blockResizing > 0)
+		{
+			return;
+		}
+	   
+		let size = win.getSize();
+		let widthChanged = oldSize[0] != size[0];
+		var ratioY2X = 720 / 1280;
+		if (widthChanged)
+		{
+			win.setSize(size[0], parseInt((size[0] * ratioY2X).toString()));
+			win.webContents.send('resized', size[0], parseInt((size[0] * ratioY2X).toString()));
+		}
+		else
+		{
+			win.setSize(parseInt((size[1] / ratioY2X).toString()), size[1]);
+			win.webContents.send('resized', parseInt((size[1] / ratioY2X).toString()), size[1]);
+		}
+		  
+        
+   })     
    
    win.on('hide', function () {
         appIcon.setHighlightMode('never')

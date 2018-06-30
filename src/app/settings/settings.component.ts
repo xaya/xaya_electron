@@ -27,6 +27,7 @@ export class SettingsComponent {
 	private daemonpathorig:string = "";
 	public usedefault:boolean = true;
 	public rundaemon:boolean = true;
+	public testnet:boolean = true;
 	
 	public defaultClass: string = "";
 	public advancedClass: string = "";
@@ -104,6 +105,14 @@ export class SettingsComponent {
 		if( this.rundaemon == undefined ||  this.rundaemon == null)
 		{
 				 this.rundaemon = true;
+		}  	
+
+
+        this.testnet =  this.globalService.container.get('testnet');
+			
+		if( this.testnet == undefined ||  this.testnet == null)
+		{
+				 this.testnet = true; //TODO - change after wallet goes life to false
 		}  		
 		
 
@@ -164,7 +173,7 @@ export class SettingsComponent {
 		this.dirpath = "";
 	}
 	
-	backUpWallet()
+	backUpWallet(type)
 	{
 		window.require('electron').remote.dialog.showOpenDialog({title: 'Select backup destination', filters: [{name: 'Wallet Data', extensions: ['dat']}],  properties: ['promptToCreate']}, (filePath) => {
 			
@@ -175,7 +184,7 @@ export class SettingsComponent {
 		}
 			
 			
-		this.globalService.walletBackUp(filePath[0]);
+		this.globalService.walletBackUp(filePath[0], type);
 		
 		});		
 	}
@@ -197,6 +206,7 @@ export class SettingsComponent {
 			this.password = "";
 			this.daemonpath = "";
 			this.rundaemon = true;
+			this.testnet = true; //TODO - change after wallet goes life to false
 			this.dirpath = "";
 		}
 		
@@ -208,12 +218,13 @@ export class SettingsComponent {
 		this.globalService.container.set('daemonpath', this.daemonpath);
 		this.globalService.container.set('usedefault', this.usedefault);
 		this.globalService.container.set('rundaemon', this.rundaemon);
+		this.globalService.container.set('testnet', this.testnet);
 		
 		if(this.clearPathShedule)
 		{
 			const path = window.require('path');
 	        let basepath = window.require('electron').remote.app.getPath('appData');
-            let filename = path.join(basepath, './Chimaera/appdata.orvald');
+            let filename = path.join(basepath, './Chimaera/appdata.orv');
 	        const fs = window.require('fs');
 			
 			try { fs.unlinkSync(filename); }
@@ -232,7 +243,7 @@ export class SettingsComponent {
 		{
 			const path = window.require('path');
 	        let basepath = window.require('electron').remote.app.getPath('appData');
-            let filename = path.join(basepath, './Chimaera/appdata.orvald');
+            let filename = path.join(basepath, './Chimaera/appdata.orv');
 	        const fs = window.require('fs');	
 
 

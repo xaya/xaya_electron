@@ -71,18 +71,24 @@
                                   </th>
                                   <th>
                                       {{'SCHIMAERA.ADDRESS' | translate }}
-                                  </th>								  
+                                  </th>	
+                                  <th>
+                                      {{'SCHIMAERA.UPDATE' | translate }}
+                                  </th>									  
                               <tbody>
                                   <tr *ngFor="let row of nameAddressTableData">
-                                      <td>
+                                      <td class = "tdname">
                                           {{row.name}}
                                       </td>
-                                      <td>
+                                      <td class = "tdname">
                                           {{row.value}}
                                       </td>
-                                      <td>
+                                      <td class = "tdname">
                                           {{row.address}}
-                                      </td>									  
+                                      </td>	
+								      <td class = "tdname">
+									     <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas" (click)="updateNameBox(row.name); $event.stopPropagation();">{{'SCHIMAERA.UPDATE' | translate }}</button>
+									  </td>									  
                                   </tr>
                               </tbody>
                           </table>

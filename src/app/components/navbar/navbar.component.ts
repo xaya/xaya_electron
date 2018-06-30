@@ -127,10 +127,13 @@ export class NavbarComponent implements OnInit {
 
 			await this.globalService.updateWalletBalances1();
 			await this.globalService.updateWalletBalances2();
-			this.walletNameAndBalance = this.translate.instant("SOVERVIEW.VAULTWALLET") + this.globalService.getBalanceString();	
+			this.walletNameAndBalance = this.globalService.getBalanceString();	
 			this.walletNameAndBalanceVault = this.translate.instant("SOVERVIEW.VAULTWALLET") + this.globalService.getBalanceVaultString();
 			this.walletNameAndBalanceGame = this.translate.instant("SOVERVIEW.GAMEWALLET") + this.globalService.getBalanceGameString();			  
-		  
+
+			this.cdr.detectChanges();
+			
+		
 		} catch (error) {
 		  // Here are the operations to be done if predicate didn't succeed in the timeout
 		  console.log('Async operation failed: ', error);
@@ -147,10 +150,10 @@ export class NavbarComponent implements OnInit {
 	
 	setWalletDefault()
 	{
-		this.globalService.container.set('wallet', 'default');	
 	    $('#walletDrop').removeClass();
 		$('#walletDrop').addClass("flag-icon wallet-default");		
         this.globalService.setWalletDefault();
+		this.getActualBalanceTexts();
 	
 
 	}
@@ -159,11 +162,10 @@ export class NavbarComponent implements OnInit {
 	
 	setWalletGame()
 	{
-		this.globalService.container.set('wallet', 'game');
 		$('#walletDrop').removeClass();
 		$('#walletDrop').addClass("flag-icon wallet-game");		
         this.globalService.setWalletGame();	
-		
+		this.getActualBalanceTexts();
   	
 	}
 	
@@ -182,20 +184,6 @@ export class NavbarComponent implements OnInit {
 			$('#langdrop').addClass("flag-icon flag-icon-gb");
 		}
 
-        var wallet =  this.globalService.container.get('wallet');
-		
-		if(wallet == 'default')
-		{
-			$('#walletDrop').removeClass();
-			$('#walletDrop').addClass("flag-icon wallet-default");
-		
-		}
-		else
-		{
-			$('#walletDrop').removeClass();
-			$('#walletDrop').addClass("flag-icon wallet-game");
-		
-		}	
 
         this.getActualBalanceTexts();		
 		
