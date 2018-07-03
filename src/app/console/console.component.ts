@@ -112,7 +112,7 @@ export class ConsoleComponent  {
 		let result = await this.globalService.consoleCommand(cmd);
 		
 		
-		if(result.toString() == "[object Object]")
+		if(result.toString().includes("[object Object]"))
 		{
 			 result = JSON.stringify(result, undefined, 2);
 		}

@@ -34,7 +34,6 @@ export class NamecoinComponent implements OnInit {
 	 
 	 public namespaces = [
 					{value: 'p/', viewValue: 'p/ Reserve your account name'},
-					{value: 'c/', viewValue: 'c/ Reserve a currency name'},
 					{value: 'g/', viewValue: 'g/ Reserve a game name'},
 					{value: 'custom', viewValue: 'custom'}
 				    ];	 
@@ -87,7 +86,7 @@ export class NamecoinComponent implements OnInit {
 			  return;
 		  }
 		  
-		  _that.globalService.updateName(name, result.value[0], result.value[1]); 
+		  return _that.globalService.updateName(name, result.value[0], result.value[1]); 
 		  
 		  
 		}).catch(swal.noop)		

@@ -19,11 +19,13 @@ export class TransactionsComponent implements OnInit  {
     private walletChangeSubscription: ISubscription;
 	private timeChangeSubscription: ISubscription;
 	private skipFirstInit: boolean = true;
-
+	private start:number =0;
+	private showNext: boolean = false;
+	
 	constructor(private translate: TranslateService,private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
-	   this.transactionsTable = [];
-	   //this.initContinue(); 		
+	   this.transactionsTable = [];	
+	   $("prevlink").hide();
 	}
 	
 	
@@ -40,18 +42,36 @@ export class TransactionsComponent implements OnInit  {
 	  return time;
 	}
 	
+	clickPrev()
+	{
+		this.start -= 10;
+		this.showNext = false;
+        this.transactionsTable = [];
+		this.initContinue(); 			
+	}
+	
+	clickNext()
+	{
+		this.start += 10;
+		this.showNext = false;
+        this.transactionsTable = [];
+		this.initContinue(); 		
+	}
 
+	
 	async initContinue()
 	{
+
+		let transactionArray = await this.globalService.getTransactions(this.start);
 		
-		if ($.fn.DataTable.isDataTable("#example")) 
+		if(transactionArray.length < 10)
 		{
-		  $('#example').DataTable().clear().destroy();
-		}		  
-		
-		
-		let transactionArray = await this.globalService.getTransactions();
-		
+			this.showNext = false;
+		}
+		else
+		{
+			this.showNext = true;
+		}
 		
 		for(let d = transactionArray.length-1; d >= 0;d--)
 		{
@@ -63,27 +83,8 @@ export class TransactionsComponent implements OnInit  {
 
 		}    
 		
-
-		
-	    let _that = this;
-	    setTimeout(function () {
-		  $(function () {
-				 $('#example').DataTable
-					   (
-							 {
-								"paging":   true,
-								"ordering": false,
-								"info":     false,
-								"searching" : false,
-								"lengthChange" : false
-							 }
-					   );
-					   
-					   _that.cdr.detectChanges();
-					   _that.skipFirstInit = false;
-		  });
-		}, 100);
-	
+         this.skipFirstInit = true;
+	    return "";
 		
 	}	
 
@@ -106,6 +107,7 @@ export class TransactionsComponent implements OnInit  {
 		
 		if(this.skipFirstInit == false)
 		{
+	
 		  this.transactionsTable = [];
 		  this.initContinue(); 
 		}

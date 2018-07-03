@@ -10,7 +10,8 @@ import { IPersistenceContainer } from 'angular-persistence';
 import {TranslateService} from '@ngx-translate/core';
 import * as _lodash from "lodash";
 import { Router } from '@angular/router';
-
+import * as zmq from 'zeromq';
+ 
 declare var $:any;
 declare var swal:any;
 
@@ -66,6 +67,8 @@ export class GlobalService implements OnDestroy {
   private lastBalance: number = 0;
   private lastBalanceVault: number = 0;
   private lastBalanceGame: number = 0;
+  
+  private subscriber;
   
   private lastKnownBlockDiff:number = 51;
 
@@ -127,11 +130,25 @@ export class GlobalService implements OnDestroy {
   
   async updateName(name, value, address)
   {
-      const response = await this.client.name_update(name, value, address).catch(function(e) 
+
+      
+      let response;
+	  
+	  if(address != "")
 	  {
-		     swal("Error", JSON.stringify(e), "error");
-			 return [];
-      });	 
+		  response = await this.client.name_update(name, '', '{"destAddress":"' + address + '"}').catch(function(e) 
+		  {
+				 return JSON.stringify(e);
+		  });	
+	  }	  
+	  else
+	  {
+		 console.log("name upd");
+		  response = await this.client.name_update(name,value).catch(function(e) 
+		  {
+				 return JSON.stringify(e);
+		  });		  
+	  }
 
 	  if(response != null)
 	  {
@@ -143,7 +160,7 @@ export class GlobalService implements OnDestroy {
 		  
 	  }	  
 	  
-	  return "";
+	  return JSON.stringify(response);
   }
   
   async unlockWallet(passkey)
@@ -193,7 +210,7 @@ export class GlobalService implements OnDestroy {
 	  {
 		  if(response2[s].ismine == true)
 		  {
-		  var nObj = [response2[s].name, response2[s].value, ""];
+		  var nObj = [response2[s].name, response2[s].value, "pending"];
 		  trObj.push(nObj);
 		  }
 	  }	  
@@ -215,10 +232,10 @@ export class GlobalService implements OnDestroy {
   }
   
   
-  async getTransactions()
+  async getTransactions(start)
   {
 	  
-      const response = await this.client.listTransactions().catch(function(e) 
+      const response = await this.client.listTransactions("*", 10, start).catch(function(e) 
 	  {
 		     swal("Error", e, "error");
 			 return [];
@@ -318,14 +335,26 @@ export class GlobalService implements OnDestroy {
   {
 
       //Lets prevent spamming on initial synchronization
-	  
-	 
-	  
+	   let _that = this;
 	  if (this.inSynch == false && this.lastKnownBlockDiff < 50)
 	  {
 		  if(this.firsTimeConnected == true)
 		  {
-		  return;
+			  
+			//Underlying zeromq library seems to be having memory troubles
+            //So, during synchronization, we have to reinit it to allow 
+            //for cpu/memory to be freed
+            
+			this.subscriber.unsubscribe('raw');	
+			this.subscriber.disconnect('tcp://127.0.0.1:28332');
+			this.subscriber = null;
+
+			setTimeout(function() 
+			{
+				_that.connectZeroMQ();
+				
+			}, 3000);	
+
 		  }
 	  }
 	  
@@ -333,11 +362,11 @@ export class GlobalService implements OnDestroy {
 	  if(this.client == null || this.client == undefined)
 	  {
           
-		  return;
+		  return null;
 	  }
 	  
 	  
-      let _that = this;
+     
 	  var err = this._tErrorsChange;
 	  this.client.getBlockchainInfo().then(
 	  (help) =>  
@@ -382,7 +411,7 @@ export class GlobalService implements OnDestroy {
          err.next(e);
 		
 		 _that.reconnectTheClient();
-		 return;
+		 return null;
       });
 
 	  var err2 = this._tErrorsChange;
@@ -414,6 +443,7 @@ export class GlobalService implements OnDestroy {
 	  }
 	  ).catch(function(e) {
          err2.next(e);
+		 return null;
       });
 	  
 
@@ -427,9 +457,10 @@ export class GlobalService implements OnDestroy {
 	  }
 	  ).catch(function(e) {
          err3.next(e);
+		 return null;
       });
 	  
-	  
+	  return null;
 	  
   }  
   
@@ -592,6 +623,45 @@ export class GlobalService implements OnDestroy {
 
     return 	port;
 	  
+  }
+  
+ 
+  
+  connectZeroMQ()
+  {
+    let _that = this;
+	this.subscriber = zmq.socket('sub');
+	this.subscriber.on('message', (topicRaw: Buffer, bodyRaw: Buffer, ...tailRaw: Buffer[]) => 
+	{
+
+		const topic = topicRaw.toString();
+
+
+		if (topic == 'rawtx') 
+		{
+			_that.lastKnownBlockDiff++;
+			
+			
+			//TODO - properly decode and check the logic before the notification
+			if(this.inSynch)
+			{
+				//const main = window.require('electron').remote.require('./main.js');
+				//main.NotifyTransaction("NewTransactionTitle", "NewTransaction");
+			}
+			
+			_that.getOverviewInfo();
+
+		} 
+		else if (topic == 'rawblock') 
+		{
+			 _that.lastKnownBlockDiff++;
+			_that.getOverviewInfo();
+			
+		}
+	});
+	 
+	this.subscriber.connect('tcp://127.0.0.1:28332');
+	this.subscriber.subscribe('raw');	  
   }
   
   reconnectTheClient()
@@ -801,62 +871,24 @@ export class GlobalService implements OnDestroy {
 	{
 		
 		
-        var zmq = require('zeromq');
-		var subscriber = zmq.socket('sub');
-		
-		
-		subscriber.on('message', (topicRaw: Buffer, bodyRaw: Buffer, ...tailRaw: Buffer[]) => {
-
-			const sequenceRaw = tailRaw[tailRaw.length - 1];
-			const sequence = sequenceRaw.readInt32LE(0);
-			const topic = topicRaw.toString();
-
-
-			if (topic == 'rawtx') 
-			{
-				const rawTX = bodyRaw.toString('hex');
-			    _that.lastKnownBlockDiff++;
-				
-				
-				//TODO - properly decode and check the logic before the notification
-				if(this.inSynch)
-				{
-					//const main = window.require('electron').remote.require('./main.js');
-					//main.NotifyTransaction("NewTransactionTitle", "NewTransaction");
-				}
-				
-				_that.getOverviewInfo();
-
-			} 
-			else if (topic == 'rawblock') 
-			{
-				 _that.lastKnownBlockDiff++;
-				const rawBlock = bodyRaw.toString('hex', 0, 80);
-				
-				_that.getOverviewInfo();
-				
-			}
-		});
-		 
-		subscriber.connect('tcp://127.0.0.1:28332');
-		console.log('zeromq connected to port 28332');
-		 
-		subscriber.subscribe('raw');
-		
-		window.require('electron').remote.getCurrentWindow().on('close', () => 
-		{
-			   _that.client.stop().then(
-					  (help) =>  
-					  {
+	this.connectZeroMQ();
+	
+	
+	
+	window.require('electron').remote.getCurrentWindow().on('close', () => 
+	{
+		   _that.client.stop().then(
+				  (help) =>  
+				  {
 
 
-					  }
-				  ).catch(function(e) {
+				  }
+			  ).catch(function(e) {
 
 
-						 
-				  });	   
-		})	
+					 
+			  });	   
+	})	
 
 		
 	}

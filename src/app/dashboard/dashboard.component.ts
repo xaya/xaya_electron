@@ -103,6 +103,7 @@ export class DashboardComponent {
 		const {value: name} = await swal({
 		  title: this.translate.instant('SOVERVIEW.ENTERPASSWORD'),
 		  confirmButtonText: this.translate.instant('SOVERVIEW.ENCRYPTBTN'),
+		  footer: '<div style = "color: #ffffff; font-size: 12px;">If you lose this password you will lose all your coins in this vault</div>',
 		  input: 'password',
 		  inputPlaceholder: '',
 		  showCancelButton: true,
@@ -111,6 +112,10 @@ export class DashboardComponent {
 		  }
 		})
 		
+		if(!name)
+		{
+			return;
+		}
 		
 		const {value: name2} = await swal({
 		  title: this.translate.instant('SOVERVIEW.REPEATPASSWORD'),
