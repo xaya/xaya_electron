@@ -167,8 +167,7 @@ export class GlobalService implements OnDestroy {
   {
       const response = await this.client.walletPassphrase(passkey, 100).catch(function(e) 
 	  {
-		     swal("Error", JSON.stringify(e), "error");
-			 return [];
+			 return JSON.stringify(e);
       });	 
 
 	  if(response != null)
@@ -484,7 +483,6 @@ export class GlobalService implements OnDestroy {
   {
       const response = await this.client.validateAddress(address).catch(function(e) 
 	  {
-		     swal("Error", e.message, "error")
 			 return false;
       });		
 
@@ -495,8 +493,8 @@ export class GlobalService implements OnDestroy {
 	 
       const response2 = await this.client.sendToAddress(address, amount, label, "", fee).catch(function(e) 
 	  {
-		     swal("Error", e.message, "error")
-			 return false;
+		    
+			 return JSON.stringify(e.message);
       });	
 
 	  

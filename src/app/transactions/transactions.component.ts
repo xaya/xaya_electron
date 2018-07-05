@@ -19,8 +19,8 @@ export class TransactionsComponent implements OnInit  {
     private walletChangeSubscription: ISubscription;
 	private timeChangeSubscription: ISubscription;
 	private skipFirstInit: boolean = true;
-	private start:number =0;
-	private showNext: boolean = false;
+	public start:number =0;
+	public showNext: boolean = false;
 	
 	constructor(private translate: TranslateService,private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{

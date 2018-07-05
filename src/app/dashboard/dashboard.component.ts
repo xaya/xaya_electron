@@ -137,6 +137,15 @@ export class DashboardComponent {
 		
 		if (name) 
 		{
+			
+			
+			swal({
+			  title: "Processing...",
+			  text: "Please wait...",
+			  showConfirmButton: false,
+			  allowOutsideClick: false
+			});
+
 		     return this.globalService.encryptWallet(name);
 		}
 		

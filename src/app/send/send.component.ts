@@ -50,7 +50,7 @@ export class SendComponent  {
 			 sendAmount = sendAmount / 1000000;
 		 }		 
 	
-	    console.log("Send" + sendAmount + ":" + this.selected);
+	    console.log("Send" + sendAmount + " : " + this.selected);
 		this.sResult =  await this.globalService.sendPayment(this.address, sendAmount, this.label, this.fee);
 		
 		if(this.sResult == "Wrong address")
