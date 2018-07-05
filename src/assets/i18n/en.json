@@ -112,6 +112,8 @@
 	"NAMESPACECUSTOM": "Enter Custom Namespace, ex: k/",
 	"TITLE1" : "CLAIM YOUR UNIQUE NAME",
 	"TITLE2" : "IMMORTALISE YOURSELF IN THE BLOCKCHAIN",
-	"UPDATE": "Update"
+	"UPDATE": "Update",
+	"TRANSFER": "Transfer",
+	"UPDATET": "Update / Transfer"
   }
 }

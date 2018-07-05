@@ -29,10 +29,12 @@ export class SettingsComponent {
 	public rundaemon:boolean = true;
 	public testnet:boolean = true;
 	
+	
 	public defaultClass: string = "";
 	public advancedClass: string = "";
 	
 	private clearPathShedule: boolean = false;
+	private currentTestnet:boolean = true;
 	
 	constructor(private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
@@ -115,6 +117,7 @@ export class SettingsComponent {
 				 this.testnet = true; //TODO - change after wallet goes life to false
 		}  		
 		
+		this.currentTestnet = this.testnet;
 
 	}
 	
@@ -208,6 +211,18 @@ export class SettingsComponent {
 			this.rundaemon = true;
 			this.testnet = true; //TODO - change after wallet goes life to false
 			this.dirpath = "";
+		}
+		
+		if(this.currentTestnet != this.testnet)
+		{
+			if(this.testnet == true)
+			{
+				this.port = 18396;
+			}
+			else
+			{
+				this.port = 8396;
+			}
 		}
 		
 		this.globalService.container.set('host', this.host);

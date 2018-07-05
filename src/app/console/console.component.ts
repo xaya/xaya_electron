@@ -51,24 +51,30 @@ export class ConsoleComponent  {
 
 				const path = window.require('path');
 				let basepath = window.require('electron').remote.app.getPath('appData');
-				let filename = path.join(basepath, './Chimaera/debug.log');
+				let filename;
+				
+				
+				let testnet =  this.globalService.container.get('testnet');
+				if(testnet == undefined ||  testnet == null)
+				{
+						 testnet = true; //TODO - change after wallet goes life to false
+				} 					
+				
+				if(testnet == true)
+				{
+				   filename = path.join(basepath, './Chimaera/testnet/debug.log');
+				}
+				else
+				{
+				   filename = path.join(basepath, './Chimaera/debug.log');
+				}
+				
+				
 				const fs = window.require('fs');
 				
 
 				
-				if (fs.existsSync(filename)) 
-				{
-				}
-				else
-				{
-					 filename = path.join(basepath, './Chimaera/testnet/debug.log');
-					
-					if (!fs.existsSync(filename)) 
-					{
-						return;
-					}
-					
-				}
+
 				
 				
 				let contents = "Loding...";
@@ -108,7 +114,7 @@ export class ConsoleComponent  {
 	{
 		let cmd = this.command;		
 		cmd = cmd.trim();
-		
+		console.log(cmd);
 		let result = await this.globalService.consoleCommand(cmd);
 		
 		

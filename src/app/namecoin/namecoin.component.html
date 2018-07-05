@@ -73,7 +73,7 @@
                                       {{'SCHIMAERA.ADDRESS' | translate }}
                                   </th>	
                                   <th>
-                                      {{'SCHIMAERA.UPDATE' | translate }}
+                                      {{'SCHIMAERA.UPDATET' | translate }}
                                   </th>									  
                               <tbody>
                                   <tr *ngFor="let row of nameAddressTableData">
@@ -87,8 +87,9 @@
                                           {{row.address}}
                                       </td>	
 								      <td class = "tdname">
-									     <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas" (click)="updateNameBox(row.name); $event.stopPropagation();">{{'SCHIMAERA.UPDATE' | translate }}</button>
-									  </td>									  
+									     <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBasSmall" (click)="updateNameBox(row.name); $event.stopPropagation();">{{'SCHIMAERA.UPDATE' | translate }}</button>
+									     <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBasSmall" (click)="transferNameBox(row.name); $event.stopPropagation();">{{'SCHIMAERA.TRANSFER' | translate }}</button>
+									 </td>									  
                                   </tr>
                               </tbody>
                           </table>

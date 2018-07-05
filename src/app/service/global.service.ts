@@ -136,7 +136,10 @@ export class GlobalService implements OnDestroy {
 	  
 	  if(address != "")
 	  {
-		  response = await this.client.name_update(name, '', '{"destAddress":"' + address + '"}').catch(function(e) 
+
+          var objToSend = {destAddress:address};
+		  
+		  response = await this.client.name_update(name, '{}', objToSend).catch(function(e) 
 		  {
 				 return JSON.stringify(e);
 		  });	
@@ -508,6 +511,31 @@ export class GlobalService implements OnDestroy {
   {
 	  
 	  let constructCommand = command.split(" ");
+	  
+	  
+	  if(constructCommand.length > 1)
+	  {
+	  
+		  let tVal = parseInt(constructCommand[1]);
+		  
+		  if(tVal != NaN)
+		  {
+			  constructCommand[1] = tVal;
+		  }
+	  }
+	  
+      if(constructCommand.length > 2)
+	  {
+	  
+		  let tVal = parseInt(constructCommand[2]);
+		  
+		  if(tVal != NaN)
+		  {
+			  constructCommand[2] = tVal;
+		  }	  
+	  
+	  }
+
 	  let response;
 	  if(constructCommand.length == 1)
 	  {

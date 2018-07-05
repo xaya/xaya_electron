@@ -59,34 +59,63 @@ export class NamecoinComponent implements OnInit {
 		}		
 	}
 	
+	async transferNameBox(name)
+	{
+
+	    let _that = this;
+		swal({
+		  title: 'Transfer Name',
+		  html: '<input id="swal-input1" class="swal2-input" placeholder = "Enter Destination Address">',
+		  focusConfirm: false,
+		  showCancelButton: true,
+		  preConfirm: function () {
+			return new Promise(function (resolve) {
+			  resolve([
+				$('#swal-input1').val()
+			  ])
+			})
+		  }
+		}).then(function (result) 
+		{
+		  if(result.value[0] == "")
+		  {
+			  swal("Response", "No values were entered");  
+			  return;
+		  }
+		  
+		  return _that.globalService.updateName(name, "", result.value[0]); 
+		  
+		  
+		}).catch(swal.noop)		
+		
+		
+	}	
+	
 	async updateNameBox(name)
 	{
 
 	    let _that = this;
 		swal({
 		  title: 'Update Name',
-		  html:
-			'<input id="swal-input1" class="swal2-input" placeholder = "Enter Value">' +
-			'<input id="swal-input2" class="swal2-input" placeholder = "Enter Destination Address">',
+		  html: '<input id="swal-input1" class="swal2-input" placeholder = "Enter Value">',
 		  focusConfirm: false,
 		  showCancelButton: true,
 		  preConfirm: function () {
 			return new Promise(function (resolve) {
 			  resolve([
-				$('#swal-input1').val(),
-				$('#swal-input2').val()
+				$('#swal-input1').val()
 			  ])
 			})
 		  }
 		}).then(function (result) 
 		{
-		  if(result.value[0] == "" && result.value[1] == "")
+		  if(result.value[0] == "")
 		  {
 			  swal("Response", "No values were entered");  
 			  return;
 		  }
 		  
-		  return _that.globalService.updateName(name, result.value[0], result.value[1]); 
+		  return _that.globalService.updateName(name, result.value[0], ""); 
 		  
 		  
 		}).catch(swal.noop)		
