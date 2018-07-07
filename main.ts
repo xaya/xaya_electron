@@ -60,16 +60,35 @@ function createWindow()
 
 
   // Create the browser window.
-  win = new BrowserWindow({
-    width: 1280,
-    height: 720,
-	webPreferences: {webSecurity: false},
-	frame: false,
-	show: false,
-	backgroundColor: '#cc0000', 
-	titleBarStyle: 'hidden',
-	title: "Xyon Platform Wallet"
-  });
+  
+  if(serve)
+  {
+  
+	  win = new BrowserWindow({
+		width: 1280,
+		height: 720,
+		webPreferences: {webSecurity: false},
+		frame: false,
+		show: false,
+		backgroundColor: '#cc0000', 
+		titleBarStyle: 'hidden',
+		title: "Xyon Platform Wallet"
+	  });
+  }
+  else
+  {
+	  win = new BrowserWindow({
+		width: 1280,
+		height: 720,
+		webPreferences: {webSecurity: false},
+		frame: false,
+		show: false,
+		backgroundColor: '#cc0000',
+        icon: path.join(__dirname, 'dist/favicon.256x256.png'),	
+		titleBarStyle: 'hidden',
+		title: "Xyon Platform Wallet"
+	  });	  
+  }
   
   if(serve)
   {
@@ -113,13 +132,15 @@ function createWindow()
   
     let contextMenu = Menu.buildFromTemplate([
         {
-            label: 'Show App', click: function () {
+            label: 'Show App', click: function () 
+			{
                 win.show()
             }
         },
         {
-            label: 'Quit', click: function () {
-                app.quit()
+            label: 'Quit', click: function () 
+			{
+				win.close();
             }
         }
     ])
@@ -143,11 +164,6 @@ function createWindow()
   {
 	    
 	  win.show()
-
-       notifier.notify('Test Message', {
-				  message: 'App Started',
-	   })			
-		
 	  
   })
   

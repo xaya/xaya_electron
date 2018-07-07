@@ -8,6 +8,7 @@ import { AddressesComponent } from '../../addresses/addresses.component';
 import { SendComponent } from '../../send/send.component';
 import { TransactionsComponent } from '../../transactions/transactions.component';
 import { NamecoinComponent } from '../../namecoin/namecoin.component';
+import { NamecoinlistComponent } from '../../namecoinlist/namecoinlist.component';
 import { SettingsComponent } from '../../settings/settings.component';
 import { ConsoleComponent } from '../../console/console.component';
 
@@ -46,6 +47,7 @@ import {
     SendComponent,
     TransactionsComponent,
     NamecoinComponent,
+	NamecoinlistComponent,
     SettingsComponent,
     ConsoleComponent,
   ]

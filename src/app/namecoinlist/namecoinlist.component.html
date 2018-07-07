@@ -1,0 +1,52 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title ">{{'SCHIMAERA.TITLE' | translate }}</h4>
+                      <p class="card-category"></p>
+                  </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table">
+                              <thead class=" text-primary">
+                                  <th>
+                                      {{'SCHIMAERA.ACCOUNTNAME' | translate }}
+                                  </th>
+                                  <th>
+                                      {{'SCHIMAERA.VALUE' | translate }}
+                                  </th>
+                                  <th>
+                                      {{'SCHIMAERA.ADDRESS' | translate }}
+                                  </th>	
+                                  <th>
+                                      {{'SCHIMAERA.UPDATET' | translate }}
+                                  </th>									  
+                              <tbody>
+                                  <tr *ngFor="let row of nameAddressTableData">
+                                      <td class = "tdname">
+                                          {{row.name}}
+                                      </td>
+                                      <td class = "tdname">
+                                          {{row.value}}
+                                      </td>
+                                      <td class = "tdname">
+                                          {{row.address}}
+                                      </td>	
+								      <td class = "tdname">
+									     <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBasSmall" (click)="updateNameBox(row.name); $event.stopPropagation();">{{'SCHIMAERA.UPDATE' | translate }}</button>
+									     <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBasSmall" (click)="transferNameBox(row.name); $event.stopPropagation();">{{'SCHIMAERA.TRANSFER' | translate }}</button>
+									 </td>									  
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+			
+        </div>
+    </div>
+</div>

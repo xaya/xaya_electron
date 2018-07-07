@@ -137,7 +137,7 @@ min-height: calc(100vh - 113px);
 {
 	color: #ff0000 !important;
 	font-family: 'Orbitron' !important;
-    background-image: url(../../assets/img/chiimage.png);
+    background-image: url(../../assets/img/nd4spd.png);
     width: 34px;
     height: 42px;		
 	background-size: contain;
@@ -334,6 +334,13 @@ body
 .iconioverview
 {
 	background: url(../../assets/img/ioverview.png) 50% 50% no-repeat !important;
+	width: 42px !important;
+	height: 42px;
+}
+
+.iconnamelist
+{
+	background: url(../../assets/img/inamelist.png) 50% 50% no-repeat !important;
 	width: 42px !important;
 	height: 42px;
 }
@@ -786,7 +793,7 @@ td
 
 .chisymbol
 {
-  background-image: url(../../assets/img/chiimage.png);
+  background-image: url(../../assets/img/nd4spd.png);
   width: 34px;
   height: 42px;	
   display: inline-block  !important;

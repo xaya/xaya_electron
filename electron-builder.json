@@ -5,7 +5,7 @@
     "output": "app-builds"
   },
   "win": {
-    "icon": "dist",
+    "icon": "build/icon.ico",
     "target": [
       "nsis"
     ]
@@ -28,6 +28,7 @@
   "nsis": {
       "artifactName": "${productName}-${version}.${ext}",
       "oneClick": false,
+	  "installerIcon": "icon.ico",
       "allowToChangeInstallationDirectory": true,
 	  "allowElevation" : true,
 	  "perMachine": true,

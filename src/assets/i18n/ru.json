@@ -14,6 +14,7 @@
 	"TRANSACTIONS": "Транзакции",
 	"SETTINGS": "Настройки",
 	"NAMECOIN": "Создание Имени",
+	"NAMECOINLIST": "Список Имён",
 	"SEND": "Отправить",
 	"CONSOLE": "Консоль",
 	"EXIT": "Выход"
@@ -24,7 +25,7 @@
 	"BLOCK": "Блок",
 	"CONNECTIONS": "Соединений",
 	"NETTYPE": "Тип сети",
-	"WALLETVERSION": "Версия кошелька",
+	"WALLETVERSION": "Версия daemon",
 	"BLOCKPROGRESSION": "Прогресс блоков",
 	"PRUNED" : "Отрезана?",
 	"DIFFICULTY" : "Сложность",
