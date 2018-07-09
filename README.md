@@ -10,7 +10,7 @@ Uses angular + electron to build the wallet
 Clone this repository locally :
 
 ``` bash
-git clone https://github.com/chimaera/angu_elec_chimaera.git
+git clone https://github.com/xaya/xaya.git
 ```
 
 Install dependencies with npm :

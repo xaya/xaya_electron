@@ -239,7 +239,7 @@ export class SettingsComponent {
 		{
 			const path = window.require('path');
 	        let basepath = window.require('electron').remote.app.getPath('appData');
-            let filename = path.join(basepath, './Chimaera/appdata.orv');
+            let filename = path.join(basepath, './Xaya/appdata.orv');
 	        const fs = window.require('fs');
 			
 			try { fs.unlinkSync(filename); }
@@ -258,7 +258,7 @@ export class SettingsComponent {
 		{
 			const path = window.require('path');
 	        let basepath = window.require('electron').remote.app.getPath('appData');
-            let filename = path.join(basepath, './Chimaera/appdata.orv');
+            let filename = path.join(basepath, './Xaya/appdata.orv');
 	        const fs = window.require('fs');	
 
 

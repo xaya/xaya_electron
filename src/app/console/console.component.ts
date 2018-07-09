@@ -62,11 +62,11 @@ export class ConsoleComponent  {
 				
 				if(testnet == true)
 				{
-				   filename = path.join(basepath, './Chimaera/testnet/debug.log');
+				   filename = path.join(basepath, './Xaya/testnet/debug.log');
 				}
 				else
 				{
-				   filename = path.join(basepath, './Chimaera/debug.log');
+				   filename = path.join(basepath, './Xaya/debug.log');
 				}
 				
 				

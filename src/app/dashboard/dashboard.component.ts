@@ -46,16 +46,15 @@ export class DashboardComponent {
 	private tBlockMaxSs: ISubscription;
 	
 	public tPruned: string;
-	public tDifficulty: string;
 	public tMedianTime: string;
 	
 	private tPrunedSs: ISubscription;
-	private tDifficultySs: ISubscription;
 	private tMedianTimeSs: ISubscription;
 	
 	public precisionText: string;
 	public barFillPercentage: string;
 	public synchText: string;
+	public tWalletBuildVersion: string;
 
 	constructor(private translate: TranslateService, private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
@@ -66,10 +65,10 @@ export class DashboardComponent {
 		this.tConnections = 0;
 		this.tNetType = "";
 		this.tWalletVersion = 0;
+		this.tWalletBuildVersion =  window.require('electron').remote.app.getVersion();
 		this.tBlockStatus = "";
 		
         this.tPruned = "";
-		this.tDifficulty = "";
 		this.tMedianTime = "";
 		
 		
@@ -305,7 +304,6 @@ export class DashboardComponent {
 	 this.tBlockMaxSs.unsubscribe();
 
 	 this.tPrunedSs.unsubscribe();	
-	 this.tDifficultySs.unsubscribe();	
 	 this.tMedianTimeSs.unsubscribe();	
 	 
 
@@ -320,12 +318,7 @@ export class DashboardComponent {
         value => {
         this.tPruned = value + "";
      });	
-
-     this.tDifficultySs = this.globalService.tDifficultyChanged$.subscribe
-	 (
-        value => {
-        this.tDifficulty = value + "";
-     });	
+	
 
      this.tMedianTimeSs = this.globalService.tMedianTimeChanged$.subscribe
 	 (

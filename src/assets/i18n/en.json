@@ -1,10 +1,9 @@
 ﻿{
-
   "NAVBAR": {
     "ABOUT": "About",
     "HELP": "Help",
-	"HELPTEXT" : "Documentation and source code for the wallet can be found here:<br><br>https://github.com/xyonplatform/xyon<br><br>General help is available through the community site at:<br><br>https://forum.xyon.io/<br><br>Questions that must be posed in confidence can be sent to:<br><br>support@xyon.io<br><br>",
-	"ABOUTEXT" : "Copyright Bitcoin developers, Namecoin developers and Xyon developers<br><br>Please contribute if you find Xyon useful. Visit https://chimaera.io for further information about the software.<br>The source code is available from https://github.com/xyonplatform/<br><br><br>This is experimental software.<br>Distributed under the MIT software license, see the accompanying file COPYING<br>or https://opensource.org/licenses/MIT<br><br>This product includes software developed by the OpenSSL Project for use in the<br>OpenSSL Toolkit https://www.openssl.org and cryptographic software written by<br>Eric Young and UPnP software written by Thomas Bernard.<br><br>Based on nodeJS, angular, electron and complementing packages made by different nodeJS contributors",	
+	"HELPTEXT" : "Documentation and source code for the wallet can be found here:<br><br>https://github.com/xaya/xaya<br><br>General help is available through the community site at:<br><br>https://forum.xaya.io/<br><br>Questions that must be posed in confidence can be sent to:<br><br>support@xaya.io<br><br>",
+	"ABOUTEXT" : "Copyright Bitcoin developers, Namecoin developers and Xaya developers<br><br>Please contribute if you find Xaya useful. Visit https://xaya.io for further information about the software.<br>The source code is available from https://github.com/xaya/<br><br><br>This is experimental software.<br>Distributed under the MIT software license, see the accompanying file COPYING<br>or https://opensource.org/licenses/MIT<br><br>This product includes software developed by the OpenSSL Project for use in the<br>OpenSSL Toolkit https://www.openssl.org and cryptographic software written by<br>Eric Young and UPnP software written by Thomas Bernard.<br><br>Based on nodeJS, angular, electron and complementing packages made by different nodeJS contributors",	
 	"MINIMIZE" : "Minimize"
   },
   
@@ -26,6 +25,7 @@
 	"CONNECTIONS": "Connections",
 	"NETTYPE": "Net Type",
 	"WALLETVERSION": "Daemon Version",
+	"WALLETBUILDVERSION": "Wallet Version",
 	"BLOCKPROGRESSION": "Block Progression",
 	"PRUNED" : "Is Pruned?",
 	"DIFFICULTY" : "Difficulty",
@@ -101,7 +101,7 @@
 	"DEBUGTOGGLE": "Debug Log Toggle"
   },
    "SCHIMAERA": {
-    "ACCOUNTNAME": "Xyon Name",
+    "ACCOUNTNAME": "Xaya Name",
 	"VALUE": "Name Value (optional)",
 	"ADDRESS": "Address",
 	"TITLE": "Owned Names",

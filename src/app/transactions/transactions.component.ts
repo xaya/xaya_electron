@@ -31,14 +31,22 @@ export class TransactionsComponent implements OnInit  {
 	
 	 timeConverter(UNIX_timestamp){
 	  var a = new Date(UNIX_timestamp * 1000);
-	  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+	  var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
 	  var year = a.getFullYear();
 	  var month = months[a.getMonth()];
 	  var date = a.getDate();
 	  var hour = a.getHours();
 	  var min = a.getMinutes();
 	  var sec = a.getSeconds();
-	  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+	  
+	  var sdate = "" + date;
+	  
+	  if(date < 10)
+	  {
+		  sdate = "0" + date;
+	  }
+	  
+	  var time = year + '-' + month + '-' + sdate + ' ' + hour + ':' + min + ':' + sec ;
 	  return time;
 	}
 	
@@ -77,7 +85,6 @@ export class TransactionsComponent implements OnInit  {
 		{
 	
 			var formattedTime =this.timeConverter(transactionArray[d].time);
-			
 			let newEntry = {"time" : formattedTime, "address": transactionArray[d].address, "name" : transactionArray[d].label, "category" : transactionArray[d].category, "amount" : transactionArray[d].amount, "confirmations" : transactionArray[d].confirmations };	
 			this.transactionsTable.push(newEntry);
 

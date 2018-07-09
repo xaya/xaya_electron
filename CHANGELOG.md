@@ -1,2 +1,2 @@
 ### Changelog
-[0.5] initial alpha
+[0.5.8] initial 

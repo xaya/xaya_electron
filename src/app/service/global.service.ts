@@ -711,16 +711,16 @@ export class GlobalService implements OnDestroy {
 			 testnet = true; //TODO - change after wallet goes life to false
 	  } 	  	
 	
-    let filename = path.join(basepath, './Chimaera/.cookie');
+    let filename = path.join(basepath, './Xaya/.cookie');
 	
 	if(testnet == true)
 	{
-		filename = path.join(basepath, './Chimaera/testnet/.cookie');
+		filename = path.join(basepath, './Xaya/testnet/.cookie');
 	}
 	
 	const fs = window.require('fs');
 	
-    let filenameRewrite = path.join(basepath, './Chimaera/appdata.orv');
+    let filenameRewrite = path.join(basepath, './Xaya/appdata.orv');
 	
 	if (fs.existsSync(filenameRewrite)) 
 	{
@@ -924,7 +924,7 @@ export class GlobalService implements OnDestroy {
 	translate.setDefaultLang('en');
 	
 	this.container = persistenceService.createContainer(
-		'org.CHIMAERA.global',
+		'org.XAYA.global',
 		{type: StorageType.LOCAL, timeout: 220752000000}
 	);		
 

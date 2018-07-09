@@ -1,5 +1,5 @@
 {
-  "productName": "xyonwallet",
+  "productName": "xayawallet",
   "npmSkipBuildFromSource" : "true",
   "directories": {
     "output": "app-builds"
