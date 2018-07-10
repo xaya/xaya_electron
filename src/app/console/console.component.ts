@@ -19,7 +19,7 @@ export class ConsoleComponent  {
 
 	public command:string = "";
 	private consoleTextHolder:string = "";
-	public consoleText:string = "";
+	public consoleText:string = "This is for testing only. Do not use this for sending coins or writing anything to the wallet.";
     public carretOn:boolean = false;
 	public viewDebugON:boolean = false;
 	

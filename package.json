@@ -1,8 +1,8 @@
 {
-  "name": "xyonwallet",
-  "version": "0.5.8",
-  "description": "xayawallet",
-  "homepage": "https://github.com/xaya/xayawallet",
+  "name": "XAYA",
+  "version": "0.5.9",
+  "description": "XAYA",
+  "homepage": "https://github.com/xaya/xaya_electron",
   "author": {
     "name": "Typhon LTD",
     "email": "info@xyon.io"

@@ -67,6 +67,7 @@ export class GlobalService implements OnDestroy {
   private lastBalance: number = 0;
   private lastBalanceVault: number = 0;
   private lastBalanceGame: number = 0;
+  private timestemp:number  =0;
   
   private subscriber;
   
@@ -332,16 +333,41 @@ export class GlobalService implements OnDestroy {
 	  return " " + this.lastBalanceGame + " CHI";
   }	   
   
+  
+ 
+  
+  testIfLastBlock()
+  {
+	
+	  let curTime = Date.now();
+	  
+	  if(this.timestemp == 0)
+	  {
+		  this.timestemp = curTime;
+		  return;
+	  }
+	  
+	  if(curTime - this.timestemp > 5000)
+	  {
+		  this.getOverviewInfo();
+	  }
+	  
+	  
+	   this.timestemp = curTime;
+	  
+  }
 	
   getOverviewInfo()
   {
 
       //Lets prevent spamming on initial synchronization
-	   let _that = this;
+	  let _that = this;
+	  
+	  
+
+	  
 	  if (this.inSynch == false && this.lastKnownBlockDiff < 50)
 	  {
-		  if(this.firsTimeConnected == true)
-		  {
 			  
 			//Underlying zeromq library seems to be having memory troubles
             //So, during synchronization, we have to reinit it to allow 
@@ -356,14 +382,25 @@ export class GlobalService implements OnDestroy {
 				_that.connectZeroMQ();
 				
 			}, 3000);	
-
-		  }
+			
+			let curTime = Date.now();
+			this.timestemp = curTime;
+			
+	        //Fir the last bunch of block, zeromq will not arrive on synch, so we need this final extra check
+			setTimeout(function() 
+			{
+				_that.testIfLastBlock();
+				
+			}, 6000);				
+			
+	  }
+	  else
+	  {
 	  }
 	  
 	  //Could not be connected yet, but zeroMQ my trigger this functions
 	  if(this.client == null || this.client == undefined)
 	  {
-          
 		  return null;
 	  }
 	  
@@ -373,6 +410,7 @@ export class GlobalService implements OnDestroy {
 	  this.client.getBlockchainInfo().then(
 	  (help) =>  
 	  {
+		  
 		  if(_that.firsTimeConnected == false)
 		  {
 			 _that.firsTimeConnected = true;
@@ -409,7 +447,7 @@ export class GlobalService implements OnDestroy {
 	  ).catch(function(e) 
 	  {
 		  
-		  
+		 console.log("ERROR:" + JSON.stringify(e));
          err.next(e);
 		
 		 _that.reconnectTheClient();

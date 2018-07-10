@@ -84,8 +84,15 @@ export class TransactionsComponent implements OnInit  {
 		for(let d = transactionArray.length-1; d >= 0;d--)
 		{
 	
+	        let tr = transactionArray[d].amount;
+			
+			if(transactionArray[d].label == "send")
+			{
+			  tr = transactionArray[d].amount + transactionArray[d].fee;
+			}
+			
 			var formattedTime =this.timeConverter(transactionArray[d].time);
-			let newEntry = {"time" : formattedTime, "address": transactionArray[d].address, "name" : transactionArray[d].label, "category" : transactionArray[d].category, "amount" : transactionArray[d].amount, "confirmations" : transactionArray[d].confirmations };	
+			let newEntry = {"time" : formattedTime, "address": transactionArray[d].address, "name" : transactionArray[d].label, "category" : transactionArray[d].category, "amount" : tr, "confirmations" : transactionArray[d].confirmations };	
 			this.transactionsTable.push(newEntry);
 
 		}    
