@@ -46,7 +46,7 @@ export class TransactionsComponent implements OnInit  {
 		  sdate = "0" + date;
 	  }
 	  
-	  var time = year + '-' + month + '-' + sdate + ' ' + hour + ':' + min + ':' + sec ;
+	  var time = year + '-' + month + '-' + sdate + ' ' + ('0' + hour).slice(-2) + ':' + ('0' + min).slice(-2) + ':' + ('0' + sec).slice(-2) ;
 	  return time;
 	}
 	
@@ -84,15 +84,33 @@ export class TransactionsComponent implements OnInit  {
 		for(let d = transactionArray.length-1; d >= 0;d--)
 		{
 	
-	        let tr = transactionArray[d].amount;
+	        let tr = 0.000001;
+			tr = transactionArray[d].amount;
+			let trnm = transactionArray[d].label;
 			
-			if(transactionArray[d].label == "send")
+			if(transactionArray[d].category == "send")
 			{
 			  tr = transactionArray[d].amount + transactionArray[d].fee;
+			  
+			  if(transactionArray[d].name != undefined && transactionArray[d].comment != undefined)
+			  {
+			    trnm = transactionArray[d].name + transactionArray[d].comment;
+			  }
+			  else if(transactionArray[d].name != undefined)
+			  {
+				  trnm = transactionArray[d].name;
+			  }
+			  else
+			  {
+				 if(transactionArray[d].comment != undefined)
+				 {
+				   trnm = transactionArray[d].comment;
+				 }
+			  }
 			}
 			
 			var formattedTime =this.timeConverter(transactionArray[d].time);
-			let newEntry = {"time" : formattedTime, "address": transactionArray[d].address, "name" : transactionArray[d].label, "category" : transactionArray[d].category, "amount" : tr, "confirmations" : transactionArray[d].confirmations };	
+			let newEntry = {"time" : formattedTime, "address": transactionArray[d].address, "name" : trnm, "category" : transactionArray[d].category, "amount" : tr, "confirmations" : transactionArray[d].confirmations };	
 			this.transactionsTable.push(newEntry);
 
 		}    

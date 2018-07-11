@@ -86,7 +86,7 @@ export class GlobalService implements OnDestroy {
 	  {
 		  const response = await this.clientMain.backupWallet(path).catch(function(e) 
 		  {
-				 swal("Error", e, "error")
+				 swal(this.translate.instant('SOVERVIEW.ERROR'), e, "error")
 				 return [];
 		  });	 
 	  }	  
@@ -94,13 +94,13 @@ export class GlobalService implements OnDestroy {
 	  {
 		  const response = await this.clientVault.backupWallet(path).catch(function(e) 
 		  {
-				 swal("Error", e, "error")
+				 swal(this.translate.instant('SOVERVIEW.ERROR'), e, "error")
 				 return [];
 		  });		  
 	  }
 	  
 	  
-	  swal("Back Up Done", "" + path)
+	  swal(this.translate.instant('SOVERVIEW.BUDONE'), "" + path)
 	
   }
   
@@ -119,14 +119,23 @@ export class GlobalService implements OnDestroy {
   async encryptWallet(passkey)
   {
 	  
-	  
+	  let _that = this;
       const response = await this.client.encryptWallet(passkey).catch(function(e) 
 	  {
-		     swal("Error", e, "error");
+		     swal(this.translate.instant('SOVERVIEW.ERROR'), e, "error");
 			 return [];
       });	 
 
 	  swal("", JSON.stringify(response), "success");
+	  
+	  if(JSON.stringify(response).length > 10)
+	  {
+			setTimeout(function() 
+			{
+				_that.shutDown();
+				
+			}, 5000);		  
+	  }
   }
   
   async updateName(name, value, address)
@@ -147,7 +156,6 @@ export class GlobalService implements OnDestroy {
 	  }	  
 	  else
 	  {
-		 console.log("name upd");
 		  response = await this.client.name_update(name,value).catch(function(e) 
 		  {
 				 return JSON.stringify(e);
@@ -156,11 +164,11 @@ export class GlobalService implements OnDestroy {
 
 	  if(response != null)
 	  {
-	    swal("Response", JSON.stringify(response));  
+	    swal(this.translate.instant('SCHIMAERA.RESPONSE'), JSON.stringify(response));  
 	  }
 	  else
 	  {
-		  swal("Success", "Updated");  
+		  swal(this.translate.instant('SOVERVIEW.SUCCESS'), this.translate.instant('SOVERVIEW.UPDATED'));  
 		  
 	  }	  
 	  
@@ -176,7 +184,7 @@ export class GlobalService implements OnDestroy {
 
 	  if(response != null)
 	  {
-	    swal("Response", JSON.stringify(response));  
+	    swal(this.translate.instant('SCHIMAERA.RESPONSE'), JSON.stringify(response));  
 	  }
 	  else
 	  {
@@ -191,7 +199,7 @@ export class GlobalService implements OnDestroy {
   {
       const response = await this.client.name_list().catch(function(e) 
 	  {
-		     swal("Error", e, "error");
+		     swal(this.translate.instant('SOVERVIEW.ERROR'), e, "error");
 			 return [];
       });	
 
@@ -205,7 +213,7 @@ export class GlobalService implements OnDestroy {
 	  
       const response2 = await this.client.name_pending().catch(function(e) 
 	  {
-		     swal("Error", e, "error");
+		     swal(this.translate.instant('SOVERVIEW.ERROR'), e, "error");
 			 return [];
       });
 
@@ -213,7 +221,7 @@ export class GlobalService implements OnDestroy {
 	  {
 		  if(response2[s].ismine == true)
 		  {
-		  var nObj = [response2[s].name, response2[s].value, "pending"];
+		  var nObj = [response2[s].name, response2[s].value, this.translate.instant('SOVERVIEW.PENDING')];
 		  trObj.push(nObj);
 		  }
 	  }	  
@@ -226,7 +234,7 @@ export class GlobalService implements OnDestroy {
   {
       const response = await this.client.getNewAddress(label).catch(function(e) 
 	  {
-		     swal("Error", e, "error");
+		     swal(this.translate.instant('SOVERVIEW.ERROR'), e, "error");
 			 return [];
       });	
 
@@ -240,7 +248,7 @@ export class GlobalService implements OnDestroy {
 	  
       const response = await this.client.listTransactions("*", 10, start).catch(function(e) 
 	  {
-		     swal("Error", e, "error");
+		     swal(this.translate.instant('SOVERVIEW.ERROR'), e, "error");
 			 return [];
       });	
 
@@ -251,16 +259,24 @@ export class GlobalService implements OnDestroy {
   
   timeConverter(UNIX_timestamp){
 	  var a = new Date(UNIX_timestamp * 1000);
-	  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+	  var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
 	  var year = a.getFullYear();
 	  var month = months[a.getMonth()];
 	  var date = a.getDate();
 	  var hour = a.getHours();
 	  var min = a.getMinutes();
 	  var sec = a.getSeconds();
-	  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+	  
+	  var sdate = "" + date;
+	  
+	  if(date < 10)
+	  {
+		  sdate = "0" + date;
+	  }
+	  
+	  var time = year + '-' + month + '-' + sdate + ' ' + hour + ':' + min + ':' + sec ;
 	  return time;
-  }
+	}
   
   getEncryptStatus()
   {
@@ -385,18 +401,24 @@ export class GlobalService implements OnDestroy {
 			
 			let curTime = Date.now();
 			this.timestemp = curTime;
-			
-	        //Fir the last bunch of block, zeromq will not arrive on synch, so we need this final extra check
-			setTimeout(function() 
-			{
-				_that.testIfLastBlock();
-				
-			}, 6000);				
-			
 	  }
 	  else
 	  {
 	  }
+	  
+	  
+	  
+	  if (this.inSynch == false )
+	  {
+		//For the last bunch of block, zeromq will not arrive on synch, so we need this final extra check
+		setTimeout(function() 
+		{
+			_that.testIfLastBlock();
+			
+		}, 6000);	
+	  }
+
+		
 	  
 	  //Could not be connected yet, but zeroMQ my trigger this functions
 	  if(this.client == null || this.client == undefined)
@@ -414,7 +436,7 @@ export class GlobalService implements OnDestroy {
 		  if(_that.firsTimeConnected == false)
 		  {
 			 _that.firsTimeConnected = true;
-		     console.log("Connected");
+		     console.log(this.translate.instant('SOVERVIEW.CONNECTED'));
 		  }
 		  
 		  _that._tBlockChange.next(help.blocks);
@@ -447,7 +469,7 @@ export class GlobalService implements OnDestroy {
 	  ).catch(function(e) 
 	  {
 		  
-		 console.log("ERROR:" + JSON.stringify(e));
+		 console.log(this.translate.instant('SOVERVIEW.ERROR') + ":" + JSON.stringify(e));
          err.next(e);
 		
 		 _that.reconnectTheClient();
@@ -511,8 +533,6 @@ export class GlobalService implements OnDestroy {
 
       const response = await this.client.name_register(nname, nvalue).catch(function(e) 
 	  {
-		 
-		     swal("Error", JSON.stringify(e), "error")
 			 return JSON.stringify(e);
       });	
 
@@ -529,7 +549,7 @@ export class GlobalService implements OnDestroy {
 
 	 if( response.isvalid == false)
 	 {
-		 return "Wrong address";
+		 return this.translate.instant('SSEND.WRONGADDRESS');
 	 }
 	 
       const response2 = await this.client.sendToAddress(address, amount, label, "", fee).catch(function(e) 
@@ -607,7 +627,7 @@ export class GlobalService implements OnDestroy {
   {
       const response = await this.client.listlabels().catch(function(e) 
 	  {
-		     swal("Error", JSON.stringify(e), "error")
+		     swal(this.translate.instant('SOVERVIEW.ERROR'), JSON.stringify(e), "error")
 			 return false;
       });	
 
@@ -618,7 +638,7 @@ export class GlobalService implements OnDestroy {
   {
       const response = await this.client.getaddressesbylabel(label).catch(function(e) 
 	  {
-		     swal("Error", JSON.stringify(e), "error")
+		     swal(this.translate.instant('SOVERVIEW.ERROR'), JSON.stringify(e), "error")
 			 return false;
       });	
 
@@ -629,7 +649,7 @@ export class GlobalService implements OnDestroy {
   {
       const response = await this.client.validateAddress(address).catch(function(e) 
 	  {
-		     swal("Error", e, "error")
+		     swal(this.translate.instant('SOVERVIEW.ERROR'), e, "error")
 			 return false;
       });	
 
@@ -731,7 +751,7 @@ export class GlobalService implements OnDestroy {
   reconnectTheClient()
   {
 	
-	console.log("Reconnecting the client...");
+	console.log(this.translate.instant('SOVERVIEW.RECONNECTING'));
     var userAgent = navigator.userAgent.toLowerCase();
     if (userAgent.indexOf(' electron/') == -1) 
 	{
@@ -812,7 +832,7 @@ export class GlobalService implements OnDestroy {
 
     let contents = "";
 	
-	console.log("Getting cookies...");
+	console.log(this.translate.instant('SOVERVIEW.GCOKKIES'));
 	
 	fs.readFile(filename, 'utf8', function(err, data) 
 	{
@@ -835,7 +855,7 @@ export class GlobalService implements OnDestroy {
 		}  		
 		
 		
-		console.log("Connecting to RPC on port " + port);
+		console.log(_that.translate.instant('SOVERVIEW.CTORPC') + port);
 		setTimeout(function() 
 		{
 		

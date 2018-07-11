@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef  } from '@angular/core';
 import { ISubscription } from "rxjs/Subscription";
 import { GlobalService } from '../service/global.service';
-
+import {TranslateService} from '@ngx-translate/core';
 
 declare var $:any;
 declare var swal:any;
@@ -36,7 +36,7 @@ export class SettingsComponent {
 	private clearPathShedule: boolean = false;
 	private currentTestnet:boolean = true;
 	
-	constructor(private globalService:GlobalService, private cdr: ChangeDetectorRef) 
+	constructor(private translate: TranslateService, private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
 
 		this.host =  this.globalService.container.get('host');
@@ -123,11 +123,11 @@ export class SettingsComponent {
 	
 	selectDaemonBtnClick()
 	{
-        window.require('electron').remote.dialog.showOpenDialog({title: 'Select daemon destination',  properties: ['openDirectory']}, (filePath) => {
+        window.require('electron').remote.dialog.showOpenDialog({title: this.translate.instant('SSETTINGS.DAEMONDIST'),  properties: ['openDirectory']}, (filePath) => {
 			
 			if (filePath === undefined)
 			{
-				swal("Error", "You didn't select a path", "error");
+				swal(this.translate.instant('SOVERVIEW.ERROR'), this.translate.instant('SSETTINGS.SELPATH'), "error");
 				return;
 			}	
 
@@ -154,11 +154,11 @@ export class SettingsComponent {
 	
 	selectPathBtnClick()
 	{
-        window.require('electron').remote.dialog.showOpenDialog({title: 'Select datadir destination',  properties: ['openDirectory']}, (filePath) => {
+        window.require('electron').remote.dialog.showOpenDialog({title: this.translate.instant('SSETTINGS.SEDDDARIPT'),  properties: ['openDirectory']}, (filePath) => {
 			
 			if (filePath === undefined)
 			{
-				swal("Error", "You didn't select a path", "error");
+				swal(this.translate.instant('SOVERVIEW.ERROR'), this.translate.instant('SSETTINGS.SELPATH'), "error");
 				return;
 			}	
 
@@ -178,11 +178,11 @@ export class SettingsComponent {
 	
 	backUpWallet(type)
 	{
-		window.require('electron').remote.dialog.showOpenDialog({title: 'Select backup destination', filters: [{name: 'Wallet Data', extensions: ['dat']}],  properties: ['promptToCreate']}, (filePath) => {
+		window.require('electron').remote.dialog.showOpenDialog({title: this.translate.instant('SSETTINGS.SELBUDIST'), filters: [{name: 'Wallet Data', extensions: ['dat']}],  properties: ['promptToCreate']}, (filePath) => {
 			
 		if (filePath === undefined)
 		{
-			swal("Error", "You didn't select a file", "error");
+			swal(this.translate.instant('SOVERVIEW.ERROR'), this.translate.instant('SSETTINGS.NOFILESEL'), "error");
 			return;
 		}
 			
@@ -243,7 +243,7 @@ export class SettingsComponent {
 	        const fs = window.require('fs');
 			
 			try { fs.unlinkSync(filename); }
-			catch(e) { swal("Error", 'Failed to save the file !', "error"); }		
+			catch(e) { swal(this.translate.instant('SOVERVIEW.ERROR'), this.translate.instant('SSETTINGS.FAILSAVE'), "error"); }		
 		}
 		
 
@@ -263,7 +263,7 @@ export class SettingsComponent {
 
 
 		    try { fs.writeFileSync(filename, this.dirpath, 'utf-8'); }
-			catch(e) { swal("Error", 'Failed to save the file !', "error"); }				
+			catch(e) { swal(this.translate.instant('SOVERVIEW.ERROR'), this.translate.instant('SSETTINGS.FAILSAVE'), "error"); }				
 
 			
 		}		
@@ -279,11 +279,11 @@ export class SettingsComponent {
 		
 		if(normalWarningType)
 		{
-		   swal("Success", "Settings Saved", "success")
+		   swal(this.translate.instant('SOVERVIEW.SUCCESS'), this.translate.instant('SSETTINGS.SETTINGSSAVED'), "success")
 		}
 		else
 		{
-		   swal("Success", "Settings Saved, you need to restart Wallet now", "success")	
+		   swal(this.translate.instant('SOVERVIEW.SUCCESS'), this.translate.instant('SSETTINGS.NEEDRESTART'), "success")	
 		}
 		
 	}

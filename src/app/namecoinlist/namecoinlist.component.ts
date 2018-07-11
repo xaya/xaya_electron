@@ -35,15 +35,34 @@ export class NamecoinlistComponent implements OnInit {
 		
 	}
 	
-	
+
 	async fillNames()
 	{
         let addressArray = await this.globalService.getNameList();
 		
 		for(let d = 0; d < addressArray.length;d++)
 		{
+		
+            let valuenn = addressArray[d][1];
+			let sCopy = valuenn;
+			for(let s  =0; s < valuenn.length; s += 50)
+			{
+				let tempStr = valuenn.substr(s * 50, 50);
+				
+				if(tempStr.indexOf(' ') < 0)
+				{
+                     let position = (s+1 * 50);
+					 
+					 if(position < sCopy.length)
+					 {
+						 sCopy = [sCopy.slice(0, position), " +", sCopy.slice(position)].join('');
+					 }    					
+				}
+			}
 			
-			let newEntry = {"name": addressArray[d][0], "value" : addressArray[d][1], address: addressArray[d][2]};
+			valuenn = sCopy;
+			
+			let newEntry = {"name": addressArray[d][0], "value" : valuenn, address: addressArray[d][2]};
 		    this.nameAddressTableData.push(newEntry);					
 	
 		}		
@@ -55,7 +74,7 @@ export class NamecoinlistComponent implements OnInit {
 	    let _that = this;
 		swal({
 		  title: 'Transfer Name',
-		  html: '<input id="swal-input1" class="swal2-input" placeholder = "Enter Destination Address">',
+		  html: '<input id="swal-input1" class="swal2-input" placeholder = "'+this.translate.instant('SCHIMAERA.DESTADDR')+'">',
 		  focusConfirm: false,
 		  showCancelButton: true,
 		  preConfirm: function () {
@@ -69,7 +88,7 @@ export class NamecoinlistComponent implements OnInit {
 		{
 		  if(result.value[0] == "")
 		  {
-			  swal("Response", "No values were entered");  
+			  swal("Response", this.translate.instant('SCHIMAERA.NOVALUES'));  
 			  return;
 		  }
 		  
@@ -87,7 +106,7 @@ export class NamecoinlistComponent implements OnInit {
 	    let _that = this;
 		swal({
 		  title: 'Update Name',
-		  html: '<input id="swal-input1" class="swal2-input" placeholder = "Enter Value">',
+		  html: '<input id="swal-input1" class="swal2-input" placeholder = "'+this.translate.instant('SCHIMAERA.ENTERVAL')+'">',
 		  focusConfirm: false,
 		  showCancelButton: true,
 		  preConfirm: function () {
@@ -101,7 +120,7 @@ export class NamecoinlistComponent implements OnInit {
 		{
 		  if(result.value[0] == "")
 		  {
-			  swal("Response", "No values were entered");  
+			  swal(this.translate.instant('SCHIMAERA.RESPONSE'), this.translate.instant('SCHIMAERA.NOVALUES'));  
 			  return;
 		  }
 		  

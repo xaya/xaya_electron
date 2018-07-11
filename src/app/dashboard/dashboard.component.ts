@@ -102,12 +102,12 @@ export class DashboardComponent {
 		const {value: name} = await swal({
 		  title: this.translate.instant('SOVERVIEW.ENTERPASSWORD'),
 		  confirmButtonText: this.translate.instant('SOVERVIEW.ENCRYPTBTN'),
-		  footer: '<div style = "color: #ffffff; font-size: 12px;">If you lose this password you will lose all your coins in this vault</div>',
+		  footer: '<div style = "color: #ffffff; font-size: 12px;">'+this.translate.instant('SOVERVIEW.FOOTERWARN')+'</div>',
 		  input: 'password',
 		  inputPlaceholder: '',
 		  showCancelButton: true,
 		  inputValidator: (value) => {
-			return !value && swal("Please provide the passkey", "Please provide the passkey", "error")
+			return !value && swal(this.translate.instant('SOVERVIEW.PROVIDEPASS'), this.translate.instant('SOVERVIEW.PROVIDEPASS'), "error")
 		  }
 		})
 		
@@ -123,13 +123,13 @@ export class DashboardComponent {
 		  inputPlaceholder: '',
 		  showCancelButton: true,
 		  inputValidator: (value) => {
-			return !value && swal("Please provide the passkey", "Please provide the passkey", "error")
+			return !value && swal(this.translate.instant('SOVERVIEW.PROVIDEPASS'), this.translate.instant('SOVERVIEW.PROVIDEPASS'), "error")
 		  }
 		})		
 		
 		if(name != name2)
 		{
-			swal("Failed", "Passwords does not match");  
+			swal("Failed", this.translate.instant('SOVERVIEW.PASSNOMATCH'));  
 			return;
 		}
 
@@ -139,8 +139,8 @@ export class DashboardComponent {
 			
 			
 			swal({
-			  title: "Processing...",
-			  text: "Please wait...",
+			  title: this.translate.instant('SOVERVIEW.PROCESSING'),
+			  text: this.translate.instant('SOVERVIEW.PWAIT'),
 			  showConfirmButton: false,
 			  allowOutsideClick: false
 			});
@@ -173,7 +173,7 @@ export class DashboardComponent {
 		  inputPlaceholder: '',
 		  showCancelButton: true,
 		  inputValidator: (value) => {
-			return !value && swal("Please provide the passkey", "Please provide the passkey", "error")
+			return !value && swal(this.translate.instant('SOVERVIEW.PROVIDEPASS'), this.translate.instant('SOVERVIEW.PROVIDEPASS'), "error")
 		  }
 		})
 

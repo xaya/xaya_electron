@@ -58,7 +58,7 @@ exports.SetMainNetTray  = () =>
 function createWindow() 
 {
 
-
+   
   // Create the browser window.
   
   if(serve)
@@ -242,6 +242,9 @@ function createWindow()
 }
 
 try {
+
+  let userDataPath = app.getPath ('userData');
+  app.setPath ('userData', userDataPath + "/../XayaWalletData/");
 
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.

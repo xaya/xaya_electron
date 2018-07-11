@@ -136,7 +136,7 @@ export class NavbarComponent implements OnInit {
 		
 		} catch (error) {
 		  // Here are the operations to be done if predicate didn't succeed in the timeout
-		  console.log('Async operation failed: ', error);
+		  console.log(this.translate.instant('NAVBAR.OFAIL'), error);
 		}	
 	
 	

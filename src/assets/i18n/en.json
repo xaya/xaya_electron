@@ -4,12 +4,12 @@
     "HELP": "Help",
 	"HELPTEXT" : "Documentation and source code for the wallet can be found here:<br><br>https://github.com/xaya/xaya<br><br>General help is available through the community site at:<br><br>https://forum.xaya.io/<br><br>Questions that must be posed in confidence can be sent to:<br><br>support@xaya.io<br><br>",
 	"ABOUTEXT" : "Copyright Bitcoin developers, Namecoin developers and Xaya developers<br><br>Please contribute if you find Xaya useful. Visit https://xaya.io for further information about the software.<br>The source code is available from https://github.com/xaya/<br><br><br>This is experimental software.<br>Distributed under the MIT software license, see the accompanying file COPYING<br>or https://opensource.org/licenses/MIT<br><br>This product includes software developed by the OpenSSL Project for use in the<br>OpenSSL Toolkit https://www.openssl.org and cryptographic software written by<br>Eric Young and UPnP software written by Thomas Bernard.<br><br>Based on nodeJS, angular, electron and complementing packages made by different nodeJS contributors",	
-	"MINIMIZE" : "Minimize"
+	"MINIMIZE" : "Minimize",
+	"OFAIL" : "Async operation failed: "
   },
-  
   "LEFTMENU": {
     "OVERVIEW": "Overview",
-    "ADDRESSES": "Addresses",
+    "ADDRESSES": "Receive",
 	"TRANSACTIONS": "Transactions",
 	"SETTINGS": "Settings",
 	"NAMECOIN": "Name Creation",
@@ -38,9 +38,21 @@
 	"ENCRYPTBTN" :"Encrypt",
 	"UNLOCK" : "Unlock Wallet",
 	"UNLOCKTEXT" : "Unlocked until",
-	"REPEATPASSWORD" : "Repeat Password"
-	
-	
+	"REPEATPASSWORD" : "Repeat Password",
+	"FOOTERWARN" : "If you lose this password you will lose all your coins in this vault",
+	"PROVIDEPASS" : "Please provide the passkey",
+	"PASSNOMATCH" : "Passwords does not match",
+	"PROCESSING" : "Processing...",
+	"PWAIT" : "Please wait...",
+	"ERROR" : "Error",
+	"BUDONE" : "Back Up Done",
+	"SUCCESS" : "Success",
+	"UPDATED" : "Updated",
+	"PENDING" : "pending",
+	"RECONNECTING" : "Reconnecting the client...",
+	"GCOKKIES" : "Getting cookies...",
+	"CTORPC" : "Connecting to RPC on port ",
+	"CONNECTED" : "Connected"
   },
    "SSETTINGS": {
     "CONNECTIONSETTINGS": "Connection Settings",
@@ -57,7 +69,15 @@
 	"CLEARPATH" : "Clear Path",
 	"DEFAULT" : "Default",
 	"ADVANCED" : "Advanced",
-	"WARN" : "Always create a backup of your wallet, keep your keys and password in a safe place"
+	"WARN" : "Always create a backup of your wallet, keep your keys and password in a safe place",
+	"DAEMONDIST" : "Select daemon destination",
+	"SELPATH" : "You didn't select a path",
+	"SEDDDARIPT" : "Select datadir destination",
+	"SELBUDIST" : "Select backup destination",
+	"NOFILESEL" : "You didn't select a file",
+	"FAILSAVE" : "Failed to save the file !",
+	"SETTINGSSAVED" : "Settings Saved",
+	"NEEDRESTART" : "Settings Saved, your wallet will restart now"
   },
    "SADDRESSES": {
     "SENDINGADDRESSES": "Sending Addresses",
@@ -84,7 +104,10 @@
 	"SUBSTRACTFEEFROMAMOUNT": "Substract fee from amount?",
     "WRONGADDRESS": "Wrong Address",
 	"USEDEFAULT" : "Use Default",
-	"RUNDAEMON" : "Run Daemon on Startup?"
+	"RUNDAEMON" : "Run Daemon on Startup?",
+	"CONFIRM1" : "Confirm Transaction",
+	"CONFIRM2" : "You you really want to sent ",
+	"CONFIRM" : "Confirm"
   },
    "STRANSACTIONS": {
     "TRANSACTIONHISTORY": "Transaction History",
@@ -98,7 +121,9 @@
   },
    "SCONSOLE": {
     "SEND": "Send",
-	"DEBUGTOGGLE": "Debug Log Toggle"
+	"DEBUGTOGGLE": "Debug Log Toggle",
+	"CWARNTEXT" : "This is for testing only. Do not use this for sending coins or writing anything to the wallet.",
+	"LOADING": "Loading...."
   },
    "SCHIMAERA": {
     "ACCOUNTNAME": "Xaya Name",
@@ -115,6 +140,16 @@
 	"TITLE2" : "IMMORTALISE YOURSELF IN THE BLOCKCHAIN",
 	"UPDATE": "Update",
 	"TRANSFER": "Transfer",
-	"UPDATET": "Update / Transfer"
+	"UPDATET": "Update / Transfer",
+	"RESERVE": "Reserve your account name",
+	"RESERVE2": "Reserve a game name",
+	"RESERVE3": "custom",
+	"NONAMEERR": "Please, select the namespace",
+	"SUCCESS1": "Name '",
+	"SUCCESS2": "' is pending and will appear soon",
+	"DESTADDR" : "Enter Destination Address",
+	"NOVALUES" : "No values were entered",
+	"ENTERVAL" : "Enter Value",
+	"RESPONSE" : "Response"
   }
 }

@@ -4,11 +4,12 @@
     "HELP": "Помощь",
 	"HELPTEXT" : "Documentation and source code for the wallet can be found here:<br><br>https://github.com/xaya/xaya<br><br>General help is available through the community site at:<br><br>https://forum.xaya.io/<br><br>Questions that must be posed in confidence can be sent to:<br><br>support@xaya.io<br><br>",
 	"ABOUTEXT" : "Copyright Bitcoin developers, Namecoin developers and Xaya developers<br><br>Please contribute if you find Xaya useful. Visit https://xaya.io for further information about the software.<br>The source code is available from https://github.com/xaya/<br><br><br>This is experimental software.<br>Distributed under the MIT software license, see the accompanying file COPYING<br>or https://opensource.org/licenses/MIT<br><br>This product includes software developed by the OpenSSL Project for use in the<br>OpenSSL Toolkit https://www.openssl.org and cryptographic software written by<br>Eric Young and UPnP software written by Thomas Bernard.<br><br>Based on nodeJS, angular, electron and complementing packages made by different nodeJS contributors",		
-	"MINIMIZE" : "Минимизировать"
+	"MINIMIZE" : "Минимизировать",
+	"OFAIL" : "Выполнении функции провалено: "
   },
   "LEFTMENU": {
     "OVERVIEW": "Обзор",
-    "ADDRESSES": "Адреса",
+    "ADDRESSES": "Входящие",
 	"TRANSACTIONS": "Транзакции",
 	"SETTINGS": "Настройки",
 	"NAMECOIN": "Создание Имени",
@@ -37,7 +38,21 @@
 	"ENCRYPTBTN" :"Шифровать",
 	"UNLOCK" : "Разблокировать Кошелёк",
 	"UNLOCKTEXT" : "Разблокирован до:",
-	"REPEATPASSWORD" : "Повторите пароль"
+	"REPEATPASSWORD" : "Повторите пароль",
+	"FOOTERWARN" : "Если вы потеряете этот пароль, вы полностью утратите все деньги в этом кошельке",
+	"PROVIDEPASS" : "Пожалуйста, введите пароль",
+	"PASSNOMATCH" : "Пароли не совпадают",
+	"PROCESSING" : "Обрабатываем...",
+	"PWAIT" : "Пожалуйста, полождите...",
+	"ERROR" : "Ошибка",
+	"BUDONE" : "Резервная копия готова",
+	"SUCCESS" : "Успех",
+	"UPDATED" : "Обновлено",
+	"PENDING" : "в процессе",
+	"RECONNECTING" : "Переподключаю клиент...",
+	"GCOKKIES" : "Получаю куки...",
+	"CTORPC" : "Подключаютя к RPC порту ",
+	"CONNECTED" : "Подключено"
   },
    "SSETTINGS": {
     "CONNECTIONSETTINGS": "Настройки Соединения",
@@ -54,8 +69,15 @@
 	"CLEARPATH" : "Очистить путь",
 	"DEFAULT" : "По Умолчанию",
 	"ADVANCED" : "Расширенные",
-	"WARN" : "Всегда имейте резервную копию кошелька, и держите приватные ключи в сохранности"
-
+	"WARN" : "Всегда имейте резервную копию кошелька, и держите приватные ключи в сохранности",
+	"DAEMONDIST" : "Выберите путь размещения daemon",
+	"SELPATH" : "Вы не выбрали путь",
+	"SEDDDARIPT" : "Выберите путь размещения datadir",
+	"SELBUDIST" : "Выберите путь размещения резервной копии",
+	"NOFILESEL" : "Вы не выбрали файл",
+	"FAILSAVE" : "Не удалось сохранить файл !",
+	"SETTINGSSAVED" : "Настройки сохранены",
+	"NEEDRESTART" : "Настройки сохранены, теперь кошелёк перезагрузится"
   },
    "SADDRESSES": {
     "SENDINGADDRESSES": "Адреса Отправки",
@@ -82,7 +104,10 @@
 	"SUBSTRACTFEEFROMAMOUNT": "Вычесть пошлину из общей суммы?",
     "WRONGADDRESS": "Неверный Адрес",
 	"USEDEFAULT" : "Пользовать настройки по умолчанию",
-	"RUNDAEMON" : "Запускать Daemon при запсуке?"
+	"RUNDAEMON" : "Запускать Daemon при запсуке?",
+	"CONFIRM1" : "Подтверидть транзакцию",
+	"CONFIRM2" : "Вы действительно хотите отправить ",
+	"CONFIRM" : "Подтвердить"
   },
    "STRANSACTIONS": {
     "TRANSACTIONHISTORY": "История Транзакций",
@@ -96,7 +121,9 @@
   },
    "SCONSOLE": {
     "SEND": "Отправить",
-	"DEBUGTOGGLE": "Переключиться на логи отладчика"
+	"DEBUGTOGGLE": "Переключиться на логи отладчика",
+	"CWARNTEXT" : "Эта консоль предназначена для тестирования. Не используйте её для денежных операций и операций с кошельком.",
+	"LOADING": "Загрузка...."
   },
    "SCHIMAERA": {
     "ACCOUNTNAME": "Имя Xaya",
@@ -113,6 +140,16 @@
 	"TITLE2" : "ОБРЕТИ БЕССМЕРТИЕ В СЕТИ БЛОКЧЕЙНА",
 	"UPDATE": "Обновить",
 	"TRANSFER": "Переместить",
-	"UPDATET": "Обновить / Переместить"
+	"UPDATET": "Обновить / Переместить",
+	"RESERVE": "Зарезервируйте ваше учётное имя",
+	"RESERVE2": "Зарезервируйте игровое имя",
+	"RESERVE3": "Ввести самому",
+	"NONAMEERR": "Пожалуйста, выберите префикс к имени",
+	"SUCCESS1": "Имя '",
+	"SUCCESS2": "' ожидает проверки сетью и скоро появится в списках",
+	"DESTADDR" : "Введите адрес назначения",
+	"NOVALUES" : "Значения не были введены",
+	"ENTERVAL" : "Введите значение",
+	"RESPONSE" : "Ответ"
   }
 }

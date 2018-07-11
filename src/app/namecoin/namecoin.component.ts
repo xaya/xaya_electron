@@ -25,16 +25,16 @@ export class NamecoinComponent implements OnInit {
 	 public namespace:string = "";
 	 public nnamespacestom:string = "";
 	 
-	 public namespaces = [
-					{value: 'p/', viewValue: 'p/ Reserve your account name'},
-					{value: 'g/', viewValue: 'g/ Reserve a game name'},
-					{value: 'custom', viewValue: 'custom'}
-				    ];	 
+	 public namespaces; 
  
 	constructor(private translate: TranslateService,private globalService:GlobalService) 
 	{
 
-	  
+     this.namespaces= [
+					{value: 'p/', viewValue: 'p/ '+this.translate.instant('SCHIMAERA.RESERVE')},
+					{value: 'g/', viewValue: 'g/ '+this.translate.instant('SCHIMAERA.RESERVE2')},
+					{value: 'custom', viewValue: this.translate.instant('SCHIMAERA.RESERVE3')}
+				    ];	 	  
 		
 	}
 	
@@ -50,13 +50,22 @@ export class NamecoinComponent implements OnInit {
 		}
 	}
 	
+    escapeHtml(text) {
+		  return text
+		  .replace(/&/g, "&amp;")
+		  .replace(/</g, "&lt;")
+		  .replace(/>/g, "&gt;")
+		  .replace(/"/g, "&quot;")
+		  .replace(/'/g, "&#039;");
+    }
+	
 	async submitTheName()
 	{
 
 	    if(this.namespace == "" && this.nnamespacestom == "")
 		{
 			
-			 swal("Error", "Please, select the namespace", "error")
+			 swal("Error", this.translate.instant('SCHIMAERA.NONAMEERR'), "error")
 			 return false;	
 		}
 	
@@ -75,12 +84,13 @@ export class NamecoinComponent implements OnInit {
 		
 		if(this.sResult.indexOf("code") > 0 || this.sResult.indexOf("not valid") > 0 || this.sResult.indexOf("error") > 0 )
 		{
-		     swal("Error", this.sResult, "error")
+		     swal("Error", this.sResult, "error");
 			 return false;			
 		}
 		else
 		{
-			swal("Success", "Name '" + tname + "' is pending and will appear soon", "success")
+			swal("Success", '<pre style = "color: #ffffff;">' + this.translate.instant('SCHIMAERA.SUCCESS1') + this.escapeHtml(tname) + this.translate.instant('SCHIMAERA.SUCCESS2') + '</pre>', "success");
+			return true;	
 		}
 		
 		

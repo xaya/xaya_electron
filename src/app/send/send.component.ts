@@ -35,11 +35,32 @@ export class SendComponent  {
 
 		
 	}
+	
+	
+	async paymentProceed(sendAmount)
+	{
+		this.sResult =  await this.globalService.sendPayment(this.address, sendAmount, this.label, this.fee);
+		
+		if(this.sResult == "Wrong address")
+		{
+			 swal("Error", this.translate.instant('SSEND.WRONGADDRESS'), "error");
+			 return false;			
+		}
+		else
+		{
+			
+			 this.address = "";
+			 this.amount = 0;
+			
+			 swal("Done", this.sResult);
+			 return false;				
+		}		
+	}
 
 	async makeThePayment()
 	{
          var sendAmount = this.amount;
-		 
+		 let _that = this;
 	     if(this.selected == "mnmc")
 		 {
 			 sendAmount = sendAmount / 1000;
@@ -50,22 +71,22 @@ export class SendComponent  {
 			 sendAmount = sendAmount / 1000000;
 		 }		 
 	
-		this.sResult =  await this.globalService.sendPayment(this.address, sendAmount, this.label, this.fee);
-		
-		if(this.sResult == "Wrong address")
+	
+        swal({
+		  title: this.translate.instant('SSEND.CONFIRM2') + sendAmount + ' CHI?',
+		  confirmButtonText: this.translate.instant('SSEND.CONFIRM'),
+		  footer: '<div style = "color: #ffffff; font-size: 12px;">'+this.translate.instant('SSEND.CONFIRM1') +'</div>',
+		  type: 'info',
+		  showCancelButton: true,
+		}).then((result) => 
 		{
-		     swal("Error", this.translate.instant('SSEND.WRONGADDRESS'), "error");
-			 return false;			
-		}
-		else
-		{
-			
-			 this.address = "";
-			 this.amount = 0;
-			
-		     swal("Done", this.sResult);
-			 return false;				
-		}
+			if(result.value)
+			{
+               _that.paymentProceed(sendAmount);
+			}
+        })	     
+	
+
 		
 	}
 	

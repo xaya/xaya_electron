@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef  } from '@angular/core';
 import { ISubscription } from "rxjs/Subscription";
 import { GlobalService } from '../service/global.service';
-
+import {TranslateService} from '@ngx-translate/core';
 
 declare var $:any;
 declare var swal:any;
@@ -19,13 +19,13 @@ export class ConsoleComponent  {
 
 	public command:string = "";
 	private consoleTextHolder:string = "";
-	public consoleText:string = "This is for testing only. Do not use this for sending coins or writing anything to the wallet.";
+	public consoleText:string;
     public carretOn:boolean = false;
 	public viewDebugON:boolean = false;
 	
-	constructor(private globalService:GlobalService, private cdr: ChangeDetectorRef) 
+	constructor(private translate: TranslateService, private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
-		
+		this.consoleText = this.translate.instant('SCONSOLE.CWARNTEXT');
 	}
 	
 	
@@ -77,7 +77,7 @@ export class ConsoleComponent  {
 
 				
 				
-				let contents = "Loding...";
+				let contents = this.translate.instant('SCONSOLE.LOADING');
 				_that.consoleText = contents;
 			    _that.cdr.detectChanges();
 					 
