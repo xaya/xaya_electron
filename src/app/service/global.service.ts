@@ -128,6 +128,7 @@ export class GlobalService implements OnDestroy {
 
 	  swal("", JSON.stringify(response), "success");
 	  
+  
 	  if(JSON.stringify(response).length > 10)
 	  {
 			setTimeout(function() 
@@ -372,6 +373,15 @@ export class GlobalService implements OnDestroy {
 	   this.timestemp = curTime;
 	  
   }
+  
+  disconnectZRMQ()
+  {
+	  
+	this.subscriber.unsubscribe('raw');	
+	this.subscriber.disconnect('tcp://127.0.0.1:28332');
+	this.subscriber = null;	 
+	
+  }
 	
   getOverviewInfo()
   {
@@ -380,31 +390,28 @@ export class GlobalService implements OnDestroy {
 	  let _that = this;
 	  
 	  
-
-	  
-	  if (this.inSynch == false && this.lastKnownBlockDiff < 50)
+      if(_that.firsTimeConnected == true)
 	  {
-			  
-			//Underlying zeromq library seems to be having memory troubles
-            //So, during synchronization, we have to reinit it to allow 
-            //for cpu/memory to be freed
-            
-			this.subscriber.unsubscribe('raw');	
-			this.subscriber.disconnect('tcp://127.0.0.1:28332');
-			this.subscriber = null;
-
-			setTimeout(function() 
-			{
-				_that.connectZeroMQ();
+		  if (this.inSynch == false && this.lastKnownBlockDiff > 50)
+		  {
+				  
+				//Underlying zeromq library seems to be having memory troubles
+				//So, during synchronization, we have to reinit it to allow 
+				//for cpu/memory to be freed
 				
-			}, 3000);	
-			
-			let curTime = Date.now();
-			this.timestemp = curTime;
+				this.disconnectZRMQ();
+
+				setTimeout(function() 
+				{
+					_that.connectZeroMQ();
+					
+				}, 3000);	
+				
+				let curTime = Date.now();
+				this.timestemp = curTime;
+		  }
 	  }
-	  else
-	  {
-	  }
+
 	  
 	  
 	  

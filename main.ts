@@ -244,7 +244,7 @@ function createWindow()
 try {
 
   let userDataPath = app.getPath ('userData');
-  app.setPath ('userData', userDataPath + "/../XayaWalletData/");
+  app.setPath ('userData', userDataPath + "/../XayaConfig/");
 
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.

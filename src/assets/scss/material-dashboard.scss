@@ -1082,8 +1082,11 @@ background-color:rgba(0,0,0,0.92);
 .tdname
 {
  vertical-align: initial !important;
- white-space:pre-wrap !important;
- 
+}
+
+.wrapPreline
+{
+ white-space:pre-wrap !important; /* for some reason, looks different when build */
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
