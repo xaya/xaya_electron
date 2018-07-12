@@ -81,26 +81,40 @@ export class GlobalService implements OnDestroy {
   
   async walletBackUp(path, type)
   {
-	 
+	  
+	swal({
+	  title: this.translate.instant('SOVERVIEW.PROCESSING'),
+	  text: this.translate.instant('SOVERVIEW.PWAIT'),
+	  showConfirmButton: false,
+	  allowOutsideClick: false
+	});	  
+	  
+	  
+	 let response;
 	  if(type == 0)
 	  {
-		  const response = await this.clientMain.backupWallet(path).catch(function(e) 
+		  response = await this.clientMain.backupWallet(path).catch(function(e) 
 		  {
-				 swal(this.translate.instant('SOVERVIEW.ERROR'), e, "error")
-				 return [];
+				 return e;
 		  });	 
 	  }	  
 	  else
 	  {
-		  const response = await this.clientVault.backupWallet(path).catch(function(e) 
+		  response = await this.clientVault.backupWallet(path).catch(function(e) 
 		  {
-				 swal(this.translate.instant('SOVERVIEW.ERROR'), e, "error")
-				 return [];
+				 return e;
 		  });		  
 	  }
 	  
 	  
-	  swal(this.translate.instant('SOVERVIEW.BUDONE'), "" + path)
+	  if(response.code == -4)
+	  {
+	   swal(this.translate.instant('SOVERVIEW.PERROR'),  JSON.stringify(response), "error");
+	  }
+	  else
+	  {
+	   swal(this.translate.instant('SOVERVIEW.BUDONE'),  JSON.stringify(response), "success");
+	  }
 	
   }
   

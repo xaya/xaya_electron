@@ -1,5 +1,5 @@
 {
-  "productName": "XAYA",
+  "productName": "XAYA Electron",
   "npmSkipBuildFromSource" : "true",
   "directories": {
     "output": "app-builds"
@@ -34,7 +34,7 @@
 	  "perMachine": true,
 	  "license" : "LICENSE.md",
 	  "warningsAsErrors": false,
-	  "deleteAppDataOnUninstall": true
+	  "deleteAppDataOnUninstall": false
   },
   "extraResources": [
       "daemon/*",
