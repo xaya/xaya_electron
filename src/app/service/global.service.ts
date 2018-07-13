@@ -79,6 +79,15 @@ export class GlobalService implements OnDestroy {
   }
 
   
+  IsJsonString(str) {
+		try {
+			JSON.parse(str);
+		} catch (e) {
+			return false;
+		}
+		return true;
+  }  
+  
   async walletBackUp(path, type)
   {
 	  
@@ -107,13 +116,13 @@ export class GlobalService implements OnDestroy {
 	  }
 	  
 	  
-	  if(response.code == -4)
+	  if((typeof response === 'string' || response instanceof String))
 	  {
-	   swal(this.translate.instant('SOVERVIEW.PERROR'),  JSON.stringify(response), "error");
+	   swal(this.translate.instant('SOVERVIEW.BUDONE'),  JSON.stringify(response), "success");
 	  }
 	  else
 	  {
-	   swal(this.translate.instant('SOVERVIEW.BUDONE'),  JSON.stringify(response), "success");
+	    swal(this.translate.instant('SOVERVIEW.PERROR'),  JSON.stringify(response), "error");
 	  }
 	
   }
