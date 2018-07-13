@@ -116,9 +116,9 @@ export class GlobalService implements OnDestroy {
 	  }
 	  
 	  
-	  if((typeof response === 'string' || response instanceof String))
+	  if(response == null)
 	  {
-	   swal(this.translate.instant('SOVERVIEW.BUDONE'),  JSON.stringify(response), "success");
+	   swal(this.translate.instant('SOVERVIEW.BUDONE'),  this.translate.instant('SOVERVIEW.BUDONE'), "success");
 	  }
 	  else
 	  {

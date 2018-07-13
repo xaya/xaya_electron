@@ -34,7 +34,7 @@
 	  "perMachine": true,
 	  "license" : "LICENSE.md",
 	  "warningsAsErrors": false,
-	  "deleteAppDataOnUninstall": false
+	  "deleteAppDataOnUninstall": true
   },
   "extraResources": [
       "daemon/*",
