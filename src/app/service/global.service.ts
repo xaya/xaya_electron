@@ -466,7 +466,7 @@ export class GlobalService implements OnDestroy {
 		  if(_that.firsTimeConnected == false)
 		  {
 			 _that.firsTimeConnected = true;
-		     console.log(this.translate.instant('SOVERVIEW.CONNECTED'));
+		     console.log(_that.translate.instant('SOVERVIEW.CONNECTED'));
 		  }
 		  
 		  _that._tBlockChange.next(help.blocks);
@@ -499,7 +499,7 @@ export class GlobalService implements OnDestroy {
 	  ).catch(function(e) 
 	  {
 		  
-		 console.log(this.translate.instant('SOVERVIEW.ERROR') + ":" + JSON.stringify(e));
+		 console.log(_that.translate.instant('SOVERVIEW.ERROR') + ":" + JSON.stringify(e));
          err.next(e);
 		
 		 _that.reconnectTheClient();
@@ -732,7 +732,7 @@ export class GlobalService implements OnDestroy {
 		
 	if(port == undefined || port == null)
 	{
-			port = 18396;
+			port = 8396;
 	}  		
 
     return 	port;
