@@ -71,6 +71,7 @@
 	"DEFAULT" : "DEFAULT",
 	"ADVANCED" : "ADVANCED",
 	"WARN" : "Always create a backup of your wallet. Keep your backup, keys and password in a safe place.",
+	"WARN2" : "Backup in this wallet is currently disabled. Browse to your datadir and manually copy your vault and game folders to a safe place. Make sure the wallet is not running.",
 	"DAEMONDIST" : "Select daemon destination",
 	"SELPATH" : "The path is empty.",
 	"SEDDDARIPT" : "Select datadir destination",

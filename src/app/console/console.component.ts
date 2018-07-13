@@ -57,7 +57,7 @@ export class ConsoleComponent  {
 				let testnet =  this.globalService.container.get('testnet');
 				if(testnet == undefined ||  testnet == null)
 				{
-						 testnet = true; //TODO - change after wallet goes life to false
+						 testnet = false;
 				} 					
 				
 				if(testnet == true)

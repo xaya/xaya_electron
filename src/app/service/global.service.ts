@@ -99,7 +99,7 @@ export class GlobalService implements OnDestroy {
 	});	  
 	  
 	  
-	 let response;
+	  let response;
 	  if(type == 0)
 	  {
 		  response = await this.clientMain.backupWallet(path).catch(function(e) 
@@ -118,11 +118,11 @@ export class GlobalService implements OnDestroy {
 	  
 	  if(response == null)
 	  {
-	   swal(this.translate.instant('SOVERVIEW.BUDONE'),  this.translate.instant('SOVERVIEW.BUDONE'), "success");
+	      swal(this.translate.instant('SOVERVIEW.BUDONE'),  this.translate.instant('SOVERVIEW.BUDONE'), "success");
 	  }
 	  else
 	  {
-	    swal(this.translate.instant('SOVERVIEW.PERROR'),  JSON.stringify(response), "error");
+	      swal(this.translate.instant('SOVERVIEW.PERROR'),  JSON.stringify(response), "error");
 	  }
 	
   }
@@ -793,11 +793,11 @@ export class GlobalService implements OnDestroy {
     const path = window.require('path');
 	let basepath = window.require('electron').remote.app.getPath('appData');
 	
-      let testnet =  this.container.get('testnet');
-	  if(testnet == undefined ||  testnet == null)
-	  {
-			 testnet = true; //TODO - change after wallet goes life to false
-	  } 	  	
+    let testnet =  this.container.get('testnet');
+	if(testnet == undefined ||  testnet == null)
+	{
+			 testnet = false;
+	} 	  	
 	
     let filename = path.join(basepath, './Xaya/.cookie');
 	
@@ -1047,7 +1047,7 @@ export class GlobalService implements OnDestroy {
 	  let testnet =  this.container.get('testnet');
 	  if(testnet == undefined ||  testnet == null)
 	  {
-			 testnet = true; //TODO - change after wallet goes life to false
+			 testnet = false;
 	  } 	  
 	  let shellName = "shell.vbs";
 	  

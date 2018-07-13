@@ -114,7 +114,7 @@ export class SettingsComponent {
 			
 		if( this.testnet == undefined ||  this.testnet == null)
 		{
-				 this.testnet = true; //TODO - change after wallet goes life to false
+				 this.testnet = false;
 		}  		
 		
 		this.currentTestnet = this.testnet;
@@ -209,7 +209,6 @@ export class SettingsComponent {
 			this.password = "";
 			this.daemonpath = "";
 			this.rundaemon = true;
-			this.testnet = true; //TODO - change after wallet goes life to false
 			this.dirpath = "";
 		}
 		
@@ -277,6 +276,11 @@ export class SettingsComponent {
 			normalWarningType = false;
 		}
 		
+		if(this.currentTestnet != this.testnet)
+		{
+			normalWarningType = false;
+		}
+		
 		if(normalWarningType)
 		{
 		   swal(this.translate.instant('SOVERVIEW.SUCCESS'), this.translate.instant('SSETTINGS.SETTINGSSAVED'), "success")
@@ -286,6 +290,8 @@ export class SettingsComponent {
 		   swal(this.translate.instant('SOVERVIEW.SUCCESS'), this.translate.instant('SSETTINGS.NEEDRESTART'), "success")	
 		}
 		
+		this.dirpathorig = this.dirpath;
+		this.currentTestnet = this.testnet;
 	}
 	
 }
