@@ -26,8 +26,10 @@ export class NamecoinlistComponent implements OnInit {
      public nameAddressTableData;
 	 private sResult:string = "";
 	 private walletChangeSubscription: ISubscription;
+	 private timeChangeSubscription: ISubscription;
+     private updateGuard:boolean = false; 
 	 
-
+	 
 	constructor(private translate: TranslateService,private globalService:GlobalService) 
 	{
 
@@ -38,6 +40,25 @@ export class NamecoinlistComponent implements OnInit {
 
 	async fillNames()
 	{
+		let _that = this;
+		
+		/* Needs this to prevent table filling 2 times due tu simultanious change event updates, seems like angular bug(?)*/
+		if(this.updateGuard)
+		{
+			return;
+		}
+		
+		this.updateGuard = true;
+		
+		setTimeout(function() 
+		{
+					
+			_that.updateGuard = false;
+			
+		}, 1000);	
+		
+		
+		
         let addressArray = await this.globalService.getNameList();
 		
 		for(let d = 0; d < addressArray.length;d++)
@@ -66,6 +87,8 @@ export class NamecoinlistComponent implements OnInit {
 		    this.nameAddressTableData.push(newEntry);					
 	
 		}		
+		
+	
 	}
 	
 	async transferNameBox(name)
@@ -139,12 +162,21 @@ export class NamecoinlistComponent implements OnInit {
 		
 		 this.walletChangeSubscription = this.globalService.walletChanged$.subscribe
 		 (
-			value => {
+			value => 
+			{
               this.nameAddressTableData = [];
 	          this.fillNames();
 		 });
 	   		
+         this.timeChangeSubscription = this.globalService.tMedianTimeChanged$.subscribe
+	     (
+		     value => 
+			 {
 		
+				  this.nameAddressTableData = [];
+				  this.fillNames();
+			
+	     });	   		
 
     }
 	
@@ -152,6 +184,7 @@ export class NamecoinlistComponent implements OnInit {
     ngOnDestroy()
 	{
 	 this.walletChangeSubscription.unsubscribe();
+	 this.timeChangeSubscription.unsubscribe();
 	}		
 	
 }

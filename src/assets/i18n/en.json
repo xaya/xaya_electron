@@ -79,7 +79,7 @@
 	"NOFILESEL" : "No file was selected.",
 	"FAILSAVE" : "Could not save the file.",
 	"SETTINGSSAVED" : "Settings Saved",
-	"NEEDRESTART" : "Settings Saved. Your wallet will restart now."
+	"NEEDRESTART" : "Settings Saved. Your wallet will close now automatically, please restart."
   },
    "SADDRESSES": {
     "SENDINGADDRESSES": "Sending Addresses",
@@ -120,7 +120,8 @@
 	"AMOUNT": "Amount",
 	"SEARCHTRANSACTIONS": "Search transactions",
 	"DATE" : "Date",
-	"CONFIRMATIONS" : "Confirmations"
+	"CONFIRMATIONS" : "Confirmations",
+	"TXID": "txid"
   },
    "SCONSOLE": {
     "SEND": "Send",

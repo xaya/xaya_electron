@@ -31,6 +31,9 @@
 										  <th>
 											  {{'STRANSACTIONS.CONFIRMATIONS' | translate }}
 										  </th>	
+										  <th>
+											  {{'STRANSACTIONS.TXID' | translate }}
+										  </th>											  
 									  </tr>
 									  <tbody>
 										  <tr *ngFor="let row of transactionsTable">
@@ -51,7 +54,11 @@
 											  </td>		
 											  <td>
 												  {{row.confirmations}}
-											  </td>												  
+											  </td>	
+                                              <td>
+											  <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBasSmall" (click)="this.showTxID(row.txid); $event.stopPropagation();">{{'STRANSACTIONS.TXID' | translate }}</button>
+											  </td>
+											  
 										  </tr>
 									  </tbody>
 								  </table>

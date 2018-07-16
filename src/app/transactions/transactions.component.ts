@@ -18,10 +18,11 @@ export class TransactionsComponent implements OnInit  {
 	public transactionsTable;
     private walletChangeSubscription: ISubscription;
 	private timeChangeSubscription: ISubscription;
-	private skipFirstInit: boolean = true;
 	public start:number =0;
 	public showNext: boolean = false;
-	
+	private updateGuard:boolean = false; 
+	 
+	 
 	constructor(private translate: TranslateService,private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
 	   this.transactionsTable = [];	
@@ -67,9 +68,31 @@ export class TransactionsComponent implements OnInit  {
 	}
 
 	
+	showTxID(txstring)
+	{
+		swal(txstring);
+	}
+	
 	async initContinue()
 	{
 
+        let _that = this;
+		
+		/* Needs this to prevent table filling 2 times due tu simultanious change event updates, seems like angular bug(?)*/
+		if(this.updateGuard)
+		{
+			return;
+		}
+		
+		this.updateGuard = true;
+		
+		setTimeout(function() 
+		{
+					
+			_that.updateGuard = false;
+			
+		}, 1000);		
+	
 		let transactionArray = await this.globalService.getTransactions(this.start);
 		
 		if(transactionArray.length < 10)
@@ -109,13 +132,14 @@ export class TransactionsComponent implements OnInit  {
 			  }
 			}
 			
+			tr = Math.round(tr * 1000000000000) / 1000000000000;
+			
 			var formattedTime =this.timeConverter(transactionArray[d].time);
-			let newEntry = {"time" : formattedTime, "address": transactionArray[d].address, "name" : trnm, "category" : transactionArray[d].category, "amount" : tr, "confirmations" : transactionArray[d].confirmations };	
+			let newEntry = {"time" : formattedTime, "address": transactionArray[d].address, "name" : trnm, "category" : transactionArray[d].category, "amount" : tr, "confirmations" : transactionArray[d].confirmations, "txid" : transactionArray[d].txid  };	
 			this.transactionsTable.push(newEntry);
 
 		}    
 		
-         this.skipFirstInit = true;
 	    return "";
 		
 	}	
@@ -137,12 +161,9 @@ export class TransactionsComponent implements OnInit  {
 	   (
 		value => {
 		
-		if(this.skipFirstInit == false)
-		{
-	
 		  this.transactionsTable = [];
 		  this.initContinue(); 
-		}
+
 	   });	   
 	   
 

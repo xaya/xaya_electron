@@ -25,10 +25,13 @@ export class SettingsComponent {
 	private dirpathorig:string = "";
 	public daemonpath: string = "";
 	private daemonpathorig:string = "";
+	
 	public usedefault:boolean = true;
 	public rundaemon:boolean = true;
 	public testnet:boolean = true;
 	
+	public usernameOrig:string = "";
+	public passwordOrig:string = "";
 	
 	public defaultClass: string = "";
 	public advancedClass: string = "";
@@ -76,6 +79,8 @@ export class SettingsComponent {
 				 this.username = "";
 		}  
 		
+		this.usernameOrig = this.username;
+		
 		this.password =  this.globalService.container.get('password');
 			
 		if(this.password == undefined || this.password == null)
@@ -83,6 +88,7 @@ export class SettingsComponent {
 				this.password = "";
 		}  	 
 		
+		this.passwordOrig = this.password;
 		
 		this.dirpath = this.globalService.container.get('dirpath');
 		
@@ -200,6 +206,7 @@ export class SettingsComponent {
     updateSettingsDetails()
 	{
 		
+		let _that = this;
 		
 		if(this.usedefault == true)
 		{
@@ -269,7 +276,7 @@ export class SettingsComponent {
 		
 		
 		
-		this.globalService.reconnectTheClient();
+		
 		
 		if(this.dirpath != this.dirpathorig || this.daemonpath != this.daemonpathorig )
 		{
@@ -281,13 +288,33 @@ export class SettingsComponent {
 			normalWarningType = false;
 		}
 		
+		if(this.usernameOrig != this.username)
+		{
+			normalWarningType = false;
+		}		
+		
+		if(this.passwordOrig != this.password)
+		{
+			normalWarningType = false;
+		}		
+		
 		if(normalWarningType)
 		{
-		   swal(this.translate.instant('SOVERVIEW.SUCCESS'), this.translate.instant('SSETTINGS.SETTINGSSAVED'), "success")
+		   swal(this.translate.instant('SOVERVIEW.SUCCESS'), this.translate.instant('SSETTINGS.SETTINGSSAVED'), "success");
+		   this.globalService.reconnectTheClient();
 		}
 		else
 		{
-		   swal(this.translate.instant('SOVERVIEW.SUCCESS'), this.translate.instant('SSETTINGS.NEEDRESTART'), "success")	
+		   swal(this.translate.instant('SOVERVIEW.SUCCESS'), this.translate.instant('SSETTINGS.NEEDRESTART'), "success");
+
+
+		   setTimeout(function() 
+		   {
+			  _that.globalService.shutDown();
+				
+		   }, 3500);		  
+	
+		   
 		}
 		
 		this.dirpathorig = this.dirpath;

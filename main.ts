@@ -152,13 +152,12 @@ function createWindow()
     win.isVisible() ? win.hide() : win.show()
     })
   
-   if(serve)
-   {
-     globalShortcut.register('CommandOrControl+X', () => 
-     {
+
+    globalShortcut.register('CommandOrControl+H', () => 
+    {
 	     win.webContents.openDevTools();
-     })
-   }
+    })
+
   
   win.once('ready-to-show', () => 
   {

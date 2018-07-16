@@ -231,8 +231,11 @@ export class GlobalService implements OnDestroy {
      
 	  for(var s =0; s < response.length;s++)
 	  {
-		  var nObj = [response[s].name, response[s].value, response[s].address];
-		  trObj.push(nObj);
+		  if(response[s].ismine == true)
+		  {
+			  var nObj = [response[s].name, response[s].value, response[s].address];
+			  trObj.push(nObj);
+		  }
 	  }
 	  
       const response2 = await this.client.name_pending().catch(function(e) 
@@ -245,8 +248,8 @@ export class GlobalService implements OnDestroy {
 	  {
 		  if(response2[s].ismine == true)
 		  {
-		  var nObj = [response2[s].name, response2[s].value, this.translate.instant('SOVERVIEW.PENDING')];
-		  trObj.push(nObj);
+			  var nObj = [response2[s].name, response2[s].value, this.translate.instant('SOVERVIEW.PENDING')];
+			  trObj.push(nObj);
 		  }
 	  }	  
 	  
@@ -836,6 +839,7 @@ export class GlobalService implements OnDestroy {
 	   
 	}
 	
+	let readFromFile = true;
 	
 	if (!fs.existsSync(filename)) 
 	{
@@ -846,7 +850,15 @@ export class GlobalService implements OnDestroy {
 			
 		}, 1500);		
 				 
-		return;	
+		let usernameT =  this.container.get('username');	 
+		if(usernameT != "" && usernameT != undefined)
+		{
+			readFromFile = false;
+		}			
+        else
+		{			
+		  return;	
+		}
     }	  
 	  
 
@@ -864,50 +876,63 @@ export class GlobalService implements OnDestroy {
 	
 	console.log(this.translate.instant('SOVERVIEW.GCOKKIES'));
 	
-	fs.readFile(filename, 'utf8', function(err, data) 
+	
+	if(readFromFile)
 	{
-		if (err) throw err;
-		contents = data;
+		fs.readFile(filename, 'utf8', function(err, data) 
+		{
+			if (err) throw err;
+			contents = data;
+			_that.continueConnect(readFromFile, port, host,contents);
+		}); 
+	}
+	else
+	{
+	  this.continueConnect(readFromFile, port, host, "");
+	}
+	  
+  }
+  
+  continueConnect(readFromFile, port, host, contents)
+  {
+	 
+	let _that = this;
+    let pData = ["",""];
 
-		let pData = contents.split(":");
-		
-		
-		let usernameG =  _that.container.get('username');	
-		if(usernameG != "" && usernameG != undefined)
-		{
-				pData[0] = usernameG;
-		}  
-		
-		let passwordG =  _that.container.get('password');	
-		if(passwordG != "" && passwordG != undefined)
-		{
-				pData[1] = passwordG;
-		}  		
-		
-		
-		console.log(_that.translate.instant('SOVERVIEW.CTORPC') + port);
+	if(readFromFile)
+	{
+      pData = contents.split(":");
+	}
+	
+	let usernameG =  this.container.get('username');	
+	if(usernameG != "" && usernameG != undefined)
+	{
+			pData[0] = usernameG;
+	}  
+	
+	let passwordG =  this.container.get('password');	
+	if(passwordG != "" && passwordG != undefined)
+	{
+			pData[1] = passwordG;
+	}  		
+	
+	
+	console.log(_that.translate.instant('SOVERVIEW.CTORPC') + port);
+	setTimeout(function() 
+	{
+	
+	
+	_that.clientMain = new Client({ network: 'mainnet', wallet: "vault.dat", host: host, password: pData[1], port: port, username: pData[0]});
+	_that.clientVault= new Client({ network: 'mainnet', wallet: "game.dat", host: host, password: pData[1], port: port, username: pData[0]});
+	_that.client = _that.clientMain;
 		setTimeout(function() 
 		{
-		
-		
-		_that.clientMain = new Client({ network: 'mainnet', wallet: "vault.dat", host: host, password: pData[1], port: port, username: pData[0]});
-		_that.clientVault= new Client({ network: 'mainnet', wallet: "game.dat", host: host, password: pData[1], port: port, username: pData[0]});
-		_that.client = _that.clientMain;
-			setTimeout(function() 
-			{
-			_that.getOverviewInfo();
-			}, 1000);
-		
-		}, 1000);		
-		
-		
-		
-						
-	  
-	});   
+		_that.getOverviewInfo();
+		}, 1000);
 	
-
-	  
+	}, 1000);		
+		
+	 
   }
   
   getOverviewIfConnected()
