@@ -16,7 +16,7 @@ export class SendComponent  {
 
      public address: string = "";
 	 public label: string = "";
-     public amount: number = 0; 
+     public amount: number; 
 	 public selected:string = 'nmc';
 	 public fee: boolean = false;
 	 

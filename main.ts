@@ -134,7 +134,8 @@ function createWindow()
         {
             label: 'Show App', click: function () 
 			{
-                win.show()
+                win.restore();
+				win.show();
             }
         },
         {
@@ -149,7 +150,8 @@ function createWindow()
 	
 	appIcon.on('click', () => 
 	{
-    win.isVisible() ? win.hide() : win.show()
+       win.restore();
+	   win.show();
     })
   
 
@@ -168,7 +170,7 @@ function createWindow()
   
   win.on('minimize', function (event) {
         event.preventDefault()
-        win.hide()
+        win.minimize()
    })
 
    win.on('show', function () {
@@ -218,7 +220,7 @@ function createWindow()
    })     
    
    win.on('hide', function () {
-        appIcon.setHighlightMode('never')
+        appIcon.setHighlightMode('always')
    })     
 
   

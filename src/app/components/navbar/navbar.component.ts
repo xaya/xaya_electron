@@ -78,7 +78,7 @@ export class NavbarComponent implements OnInit {
 	
 	minimizeMe()
 	{
-		window.require('electron').remote.getCurrentWindow().hide();
+		window.require('electron').remote.getCurrentWindow().minimize();
 	}
 	
 	showHelp()

@@ -79,7 +79,7 @@
 	"NOFILESEL" : "No file was selected.",
 	"FAILSAVE" : "Could not save the file.",
 	"SETTINGSSAVED" : "Settings Saved",
-	"NEEDRESTART" : "Settings Saved. Your wallet will close now automatically, please restart."
+	"NEEDRESTART" : "Settings Saved. Your wallet will close automatically now, please restart."
   },
    "SADDRESSES": {
     "SENDINGADDRESSES": "Sending Addresses",

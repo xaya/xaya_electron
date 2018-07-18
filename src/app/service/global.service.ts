@@ -68,10 +68,10 @@ export class GlobalService implements OnDestroy {
   private lastBalanceVault: number = 0;
   private lastBalanceGame: number = 0;
   private timestemp:number  =0;
+  private stopZeroMQSpam: boolean = false;
   
   private subscriber;
   
-  private lastKnownBlockDiff:number = 51;
 
   announceCurrencyChange(todo) 
   {
@@ -400,47 +400,27 @@ export class GlobalService implements OnDestroy {
 	  
   }
   
-  disconnectZRMQ()
-  {
-	  
-	this.subscriber.unsubscribe('raw');	
-	this.subscriber.disconnect('tcp://127.0.0.1:28332');
-	this.subscriber = null;	 
-	
-  }
 	
   getOverviewInfo()
   {
 
+
+  
+  
       //Lets prevent spamming on initial synchronization
-	  let _that = this;
 	  
+	  let _that = this;
 	  
       if(_that.firsTimeConnected == true)
 	  {
-		  if (this.inSynch == false && this.lastKnownBlockDiff > 50)
+		  if (this.inSynch == false)
 		  {
-				  
-				//Underlying zeromq library seems to be having memory troubles
-				//So, during synchronization, we have to reinit it to allow 
-				//for cpu/memory to be freed
-				
-				this.disconnectZRMQ();
-
-				setTimeout(function() 
-				{
-					_that.connectZeroMQ();
-					
-				}, 3000);	
-				
 				let curTime = Date.now();
 				this.timestemp = curTime;
 		  }
 	  }
 
-	  
-	  
-	  
+
 	  if (this.inSynch == false )
 	  {
 		//For the last bunch of block, zeromq will not arrive on synch, so we need this final extra check
@@ -474,7 +454,6 @@ export class GlobalService implements OnDestroy {
 		  
 		  _that._tBlockChange.next(help.blocks);
           _that._tBlockMaxChange.next(help.headers);
-          _that.lastKnownBlockDiff = 0;
 		  
 		  if(help.blocks == help.headers && help.headers > 0)
 		  {
@@ -750,15 +729,27 @@ export class GlobalService implements OnDestroy {
 	this.subscriber = zmq.socket('sub');
 	this.subscriber.on('message', (topicRaw: Buffer, bodyRaw: Buffer, ...tailRaw: Buffer[]) => 
 	{
-
+		
+		if(_that.stopZeroMQSpam)
+		{
+			return;
+		}
+		
+		_that.stopZeroMQSpam = true;
+		
+		setTimeout(function() 
+		{
+					
+			_that.stopZeroMQSpam = false;
+			
+		}, 1000);	
+		
 		const topic = topicRaw.toString();
 
 
 		if (topic == 'rawtx') 
 		{
-			_that.lastKnownBlockDiff++;
-			
-			
+
 			//TODO - properly decode and check the logic before the notification
 			if(this.inSynch)
 			{
@@ -771,7 +762,6 @@ export class GlobalService implements OnDestroy {
 		} 
 		else if (topic == 'rawblock') 
 		{
-			 _that.lastKnownBlockDiff++;
 			_that.getOverviewInfo();
 			
 		}

@@ -1,6 +1,6 @@
 {
   "name": "XAYA-Electron",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "XAYA",
   "homepage": "https://github.com/xaya/xaya_electron",
   "author": {
@@ -58,9 +58,9 @@
     "chartist": "0.11.0",
     "classlist.js": "1.1.20150312",
     "core-js": "2.4.1",
-    "datatables.net": "^1.10.16",
-    "datatables.net-bs": "^1.10.16",
-    "datatables.net-responsive": "^2.2.1",
+    "datatables.net": "^1.10.19",
+    "datatables.net-bs": "^1.10.19",
+    "datatables.net-responsive": "^2.2.3",
     "dtrace-provider": "^0.8.6",
     "electron-node-loader-chimaera": "^1.1.1",
     "electron-notification-desktop": "0.0.4",
