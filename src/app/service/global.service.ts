@@ -512,7 +512,7 @@ export class GlobalService implements OnDestroy {
 			  _that.encryptStatus  = 0;
 
 		  }
-		  this._tWalletVersionChange.next(help.walletversion);
+		  
 		  return null;
 
 	  }
@@ -529,6 +529,8 @@ export class GlobalService implements OnDestroy {
 
 		  _that._tConnectionsChange.next(help.connections);
 		  _that._tErrorsChange.next(help.warnings);
+		  _that._tWalletVersionChange.next(help.version);
+		  
 		  return null;
 	  }
 	  ).catch(function(e) {

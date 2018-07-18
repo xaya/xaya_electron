@@ -146,7 +146,7 @@
 	"TRANSFER": "Transfer",
 	"UPDATET": "Update/Transfer",
 	"RESERVE": "Reserve your account name",
-	"RESERVE2": "Reserve a game name",
+	"RESERVE2": "Reserve a game title",
 	"RESERVE3": "custom",
 	"NONAMEERR": "Select a predefined namespace or enter a custom namespace.",
 	"SUCCESS1": "Name '",
