@@ -749,16 +749,14 @@ export class GlobalService implements OnDestroy {
 
 		if (topic == 'rawtx') 
 		{
-
 			//TODO - properly decode and check the logic before the notification
-			if(this.inSynch)
+			if(!this.inSynch)
 			{
 				//const main = window.require('electron').remote.require('./main.js');
 				//main.NotifyTransaction("NewTransactionTitle", "NewTransaction");
+				
+				_that.getOverviewInfo();
 			}
-			
-			_that.getOverviewInfo();
-
 		} 
 		else if (topic == 'rawblock') 
 		{
