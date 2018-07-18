@@ -545,7 +545,10 @@ export class GlobalService implements OnDestroy {
   
   async AddNewName(nname, nvalue)
   {
-	  nvalue = '{"' + nname + '":"' + nvalue + '"}';
+	  if(nvalue == null || nvalue == undefined || nvalue == "")
+	  {
+		  nvalue = "{}";
+	  }
 
       const response = await this.client.name_register(nname, nvalue).catch(function(e) 
 	  {
