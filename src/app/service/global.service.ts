@@ -475,7 +475,7 @@ export class GlobalService implements OnDestroy {
 		  _that._tPrunedChange.next(help.pruned);
 		  _that._tDifficultyChange.next(help.difficulty);
 		  _that._tMedianTimeChange.next(_that.timeConverter(help.mediantime));
-		  
+		  return null;
 		  
 	  }
 	  ).catch(function(e) 
@@ -492,28 +492,29 @@ export class GlobalService implements OnDestroy {
 	  this.client.getWalletInfo().then(
 	  (help) =>  
 	  {
-		  this._tBalanceChange.next(help.balance);
+		  _that._tBalanceChange.next(help.balance);
 
 
 		  if(help.hasOwnProperty("unlocked_until"))
 		  {
 			  if(help.unlocked_until > 0)
 			  {
-				  this.encryptStatus  = 2;
-				  this.unlockTime = this.timeConverter(help.unlocked_until);
+				  _that.encryptStatus  = 2;
+				  _that.unlockTime = _that.timeConverter(help.unlocked_until);
 			  }
 			  else
 			  {
-				  this.encryptStatus  = 1;
+				  _that.encryptStatus  = 1;
 			  }
 		  }
 		  else
 		  {
-			  this.encryptStatus  = 0;
+			  _that.encryptStatus  = 0;
 
 		  }
 		  
-		  this._tWalletVersionChange.next(help.walletversion);
+		  return null;
+
 	  }
 	  ).catch(function(e) {
          err2.next(e);
@@ -526,8 +527,9 @@ export class GlobalService implements OnDestroy {
 	  (help) =>  
 	  {
 
-		  this._tConnectionsChange.next(help.connections);
-		  this._tErrorsChange.next(help.warnings);
+		  _that._tConnectionsChange.next(help.connections);
+		  _that._tErrorsChange.next(help.warnings);
+		  return null;
 	  }
 	  ).catch(function(e) {
          err3.next(e);
@@ -746,7 +748,6 @@ export class GlobalService implements OnDestroy {
 		
 		const topic = topicRaw.toString();
 
-
 		if (topic == 'rawtx') 
 		{
 			//TODO - properly decode and check the logic before the notification
@@ -755,8 +756,10 @@ export class GlobalService implements OnDestroy {
 				//const main = window.require('electron').remote.require('./main.js');
 				//main.NotifyTransaction("NewTransactionTitle", "NewTransaction");
 				
-				_that.getOverviewInfo();
+				
 			}
+			
+			_that.getOverviewInfo();
 		} 
 		else if (topic == 'rawblock') 
 		{

@@ -50,7 +50,7 @@ export class SendComponent  {
 		{
 			
 			 this.address = "";
-			 this.amount = 0;
+			 this.amount = null;
 			
 			 swal("Done", this.sResult);
 			 return false;				
