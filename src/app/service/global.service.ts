@@ -512,7 +512,7 @@ export class GlobalService implements OnDestroy {
 			  _that.encryptStatus  = 0;
 
 		  }
-		  
+		  this._tWalletVersionChange.next(help.walletversion);
 		  return null;
 
 	  }
