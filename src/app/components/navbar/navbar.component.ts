@@ -88,7 +88,7 @@ export class NavbarComponent implements OnInit {
 	
 	showAbout()
 	{
-		swal(this.translate.instant("NAVBAR.ABOUT"), this.translate.instant("NAVBAR.ABOUTEXT"))
+		swal(this.translate.instant("NAVBAR.ABOUT"), this.translate.instant("NAVBAR.ABOUTEXT") + window.require('electron').remote.app.getVersion())
 	}
 	
 	

@@ -184,7 +184,7 @@ export class SettingsComponent {
 	
 	backUpWallet(type)
 	{
-		window.require('electron').remote.dialog.showOpenDialog({title: this.translate.instant('SSETTINGS.SELBUDIST'), filters: [{name: 'Wallet Data', extensions: ['dat']}],  properties: ['promptToCreate']}, (filePath) => {
+		window.require('electron').remote.dialog.showSaveDialog({title: this.translate.instant('SSETTINGS.SELBUDIST'), filters: [{name: 'Wallet Data', extensions: ['dat']}]}, (filePath) => {
 			
 		if (filePath === undefined)
 		{
@@ -305,16 +305,20 @@ export class SettingsComponent {
 		}
 		else
 		{
-		   swal(this.translate.instant('SOVERVIEW.SUCCESS'), this.translate.instant('SSETTINGS.NEEDRESTART'), "success");
 
-
-		   setTimeout(function() 
-		   {
-			  _that.globalService.shutDown();
-				
-		   }, 3500);		  
-	
-		   
+			swal({
+			  title: this.translate.instant('SSETTINGS.NEEDRESTART'),
+			  confirmButtonText: this.translate.instant('SSEND.CONFIRM3'),
+			  type: 'info',
+			  showCancelButton: false,
+			}).then((result) => 
+			{
+				if(result.value)
+				{
+				    _that.globalService.shutDown();
+				}
+			})		   
+		   	  
 		}
 		
 		this.dirpathorig = this.dirpath;

@@ -55,16 +55,40 @@ export class TransactionsComponent implements OnInit  {
 	{
 		this.start -= 10;
 		this.showNext = false;
+		this.updateGuard = false;
         this.transactionsTable = [];
-		this.initContinue(); 			
+		this.initContinue(); 
+        this.cdr.detectChanges();
+		
+		setTimeout(function() 
+		{	
+		   const elemMainPanel = <HTMLElement>document.querySelector('.main-panel');
+           const elemSidebar = <HTMLElement>document.querySelector('.sidebar .sidebar-wrapper');
+		   elemMainPanel.scrollTop = 0;
+           elemSidebar.scrollTop = 0;
+
+		}, 100);	
+		
+		
 	}
 	
 	clickNext()
 	{
 		this.start += 10;
 		this.showNext = false;
+		this.updateGuard = false;
         this.transactionsTable = [];
-		this.initContinue(); 		
+		this.initContinue(); 
+        this.cdr.detectChanges();
+		
+		setTimeout(function() 
+		{	
+		   const elemMainPanel = <HTMLElement>document.querySelector('.main-panel');
+           const elemSidebar = <HTMLElement>document.querySelector('.sidebar .sidebar-wrapper');
+		   elemMainPanel.scrollTop = 0;
+           elemSidebar.scrollTop = 0;
+		}, 100);
+		
 	}
 
 	
@@ -76,6 +100,8 @@ export class TransactionsComponent implements OnInit  {
 	async initContinue()
 	{
 
+	 
+		
         let _that = this;
 		
 		/* Needs this to prevent table filling 2 times due tu simultanious change event updates, seems like angular bug(?)*/
@@ -85,6 +111,7 @@ export class TransactionsComponent implements OnInit  {
 		}
 		
 		this.updateGuard = true;
+		this.transactionsTable = [];
 		
 		setTimeout(function() 
 		{
@@ -95,7 +122,9 @@ export class TransactionsComponent implements OnInit  {
 	
 		let transactionArray = await this.globalService.getTransactions(this.start);
 		
-		if(transactionArray.length < 10)
+		
+		
+		if(transactionArray.length < 11)
 		{
 			this.showNext = false;
 		}
@@ -104,7 +133,23 @@ export class TransactionsComponent implements OnInit  {
 			this.showNext = true;
 		}
 		
-		for(let d = transactionArray.length-1; d >= 0;d--)
+		let lenV = transactionArray.length;
+		
+		
+		let limitCheck = 1;
+		
+		if(lenV > 10)
+		{
+			lenV = 10;
+		}
+		else
+		{
+			lenV -= 1;
+			limitCheck = 0;
+		}
+
+		
+		for(let d = lenV; d >= limitCheck;d--)
 		{
 	
 	        let tr = 0.000001;
@@ -140,6 +185,9 @@ export class TransactionsComponent implements OnInit  {
 
 		}    
 		
+		
+		
+		
 	    return "";
 		
 	}	
@@ -152,8 +200,9 @@ export class TransactionsComponent implements OnInit  {
 	   (
 		value => {
 			
-		this.transactionsTable = [];
+	    this.start = 0;
 		this.initContinue(); 
+		this.cdr.detectChanges();		
 	   });
 	   
 	   
@@ -161,8 +210,8 @@ export class TransactionsComponent implements OnInit  {
 	   (
 		value => {
 		
-		  this.transactionsTable = [];
 		  this.initContinue(); 
+		  this.cdr.detectChanges();		
 
 	   });	   
 	   

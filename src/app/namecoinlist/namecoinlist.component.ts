@@ -48,6 +48,7 @@ export class NamecoinlistComponent implements OnInit {
 			return;
 		}
 		
+		this.nameAddressTableData = [];
 		this.updateGuard = true;
 		
 		setTimeout(function() 
@@ -164,7 +165,6 @@ export class NamecoinlistComponent implements OnInit {
 		 (
 			value => 
 			{
-              this.nameAddressTableData = [];
 	          this.fillNames();
 		 });
 	   		
@@ -173,7 +173,6 @@ export class NamecoinlistComponent implements OnInit {
 		     value => 
 			 {
 		
-				  this.nameAddressTableData = [];
 				  this.fillNames();
 			
 	     });	   		

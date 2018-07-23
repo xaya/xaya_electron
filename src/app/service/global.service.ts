@@ -273,7 +273,7 @@ export class GlobalService implements OnDestroy {
   async getTransactions(start)
   {
 	  
-      const response = await this.client.listTransactions("*", 10, start).catch(function(e) 
+      const response = await this.client.listTransactions("*", 11, start).catch(function(e) 
 	  {
 		     swal(this.translate.instant('SOVERVIEW.ERROR'), e, "error");
 			 return [];
@@ -612,6 +612,18 @@ export class GlobalService implements OnDestroy {
 		  }	  
 	  
 	  }
+	  
+      if(constructCommand.length > 3)
+	  {
+	  
+		  let tVal = parseInt(constructCommand[3]);
+		  
+		  if(tVal != NaN)
+		  {
+			  constructCommand[3] = tVal;
+		  }	  
+	  
+	  }	  
 
 	  let response;
 	  if(constructCommand.length == 1)
@@ -637,6 +649,14 @@ export class GlobalService implements OnDestroy {
 				 return e;
 		  });
 	  }	  
+	  else if(constructCommand.length == 4)
+	  {
+		   response = await this.client.command(constructCommand[0], constructCommand[1], constructCommand[2], constructCommand[3]).catch(function(e) 
+		  {
+				 return e;
+		  });
+	  }	 	  
+	  
 
 
 	 return response;  	  

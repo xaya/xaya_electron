@@ -37,9 +37,9 @@ export class SendComponent  {
 	}
 	
 	
-	async paymentProceed(sendAmount)
+	async paymentProceed(sendAmount, sendAddress)
 	{
-		this.sResult =  await this.globalService.sendPayment(this.address, sendAmount, this.label, this.fee);
+		this.sResult =  await this.globalService.sendPayment(sendAddress, sendAmount, this.label, this.fee);
 		
 		if(this.sResult == "Wrong address")
 		{
@@ -60,6 +60,8 @@ export class SendComponent  {
 	async makeThePayment()
 	{
          var sendAmount = this.amount;
+		 var sendAddress = this.address;
+		 
 		 let _that = this;
 	     if(this.selected == "mnmc")
 		 {
@@ -82,7 +84,7 @@ export class SendComponent  {
 		{
 			if(result.value)
 			{
-               _that.paymentProceed(sendAmount);
+               _that.paymentProceed(sendAmount, sendAddress);
 			}
         })	     
 	
