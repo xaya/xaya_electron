@@ -25,7 +25,7 @@ export class ConsoleComponent  {
 	
 	constructor(private translate: TranslateService, private globalService:GlobalService, private cdr: ChangeDetectorRef) 
 	{
-		this.consoleText = this.translate.instant('SCONSOLE.CWARNTEXT');
+		this.consoleText = "";
 	}
 	
 	

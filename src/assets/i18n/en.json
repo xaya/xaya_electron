@@ -127,7 +127,7 @@
    "SCONSOLE": {
     "SEND": "Send",
 	"DEBUGTOGGLE": "Debug Log Toggle",
-	"CWARNTEXT" : "This is for testing only. Do not use this for sending coins or writing anything to the wallet.",
+	"CWARNTEXT" : "WARNING : This console is for testing purposes only. Do not use for sending coins, updating names, or any other commands that involve your wallet.",
 	"LOADING": "Loading..."
   },
    "SCHIMAERA": {
