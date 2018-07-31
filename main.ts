@@ -33,7 +33,17 @@ exports.CopyToClipboard  = (_text) =>
 
 		 
 		 
-
+exports.isProcess64  = () => 
+{
+	if(process.arch == "x64")
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 
 exports.SetMainNetTray  = () => 
 {
