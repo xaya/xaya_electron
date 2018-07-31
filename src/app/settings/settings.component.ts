@@ -195,7 +195,7 @@ export class SettingsComponent {
 			}
 				
 				
-			this.globalService.walletBackUp(filePath[0], type);
+			this.globalService.walletBackUp(filePath, type);
 			
 			});	
 		}
@@ -210,7 +210,8 @@ export class SettingsComponent {
 			}
 				
 				
-			this.globalService.walletBackUp(filePath[0], type);
+			
+			this.globalService.walletBackUp(filePath, type);
 			
 			});				
 		}	
@@ -259,6 +260,18 @@ export class SettingsComponent {
 		this.globalService.container.set('rundaemon', this.rundaemon);
 		this.globalService.container.set('testnet', this.testnet);
 		
+			
+			
+		//We must erase on empty, or bat file will load from file
+		if(this.dirpath != this.dirpathorig)
+		{
+			if(this.dirpath == "")
+			{
+				this.clearPathShedule = true;
+			}
+		}		
+		
+		
 		if(this.clearPathShedule)
 		{
 			const path = window.require('path');
@@ -299,6 +312,7 @@ export class SettingsComponent {
 		if(this.dirpath != this.dirpathorig || this.daemonpath != this.daemonpathorig )
 		{
 			normalWarningType = false;
+	
 		}
 		
 		if(this.currentTestnet != this.testnet)

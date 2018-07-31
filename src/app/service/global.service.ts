@@ -829,7 +829,15 @@ export class GlobalService implements OnDestroy {
 	
     let filenameRewrite = path.join(basepath, './Xaya/appdata.orv');
 	
-	if (fs.existsSync(filenameRewrite)) 
+	
+	let dirpath = this.container.get('dirpath');
+	
+	if(dirpath == undefined || dirpath == null)
+	{
+			dirpath = "";
+	}  		
+	
+	if (fs.existsSync(filenameRewrite) && dirpath != "") 
 	{
 			fs.readFile(filenameRewrite, 'utf8', function(err, data) 
 			{
@@ -839,7 +847,8 @@ export class GlobalService implements OnDestroy {
 	}	
 	
 	
-
+     
+	
 	if(this.rewritePath == "")
 	{
 	}
@@ -852,7 +861,7 @@ export class GlobalService implements OnDestroy {
 	   {
 		filename = path.join(basepath, './testnet/.cookie');
 	   }
-	   
+
 	}
 	
 	let readFromFile = true;
