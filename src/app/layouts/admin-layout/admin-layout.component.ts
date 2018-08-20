@@ -2,9 +2,13 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy, PopStateEvent } from '@angular/common';
 import 'rxjs/add/operator/filter';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { GlobalService } from '../../service/global.service';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
+import {TranslateService} from '@ngx-translate/core';
+
+declare var swal:any;
 
 @Component({
   selector: 'app-admin-layout',
@@ -17,7 +21,7 @@ export class AdminLayoutComponent implements OnInit {
   private yScrollStack: number[] = [];
   private ps:PerfectScrollbar;
   
-  constructor( public location: Location, private router: Router) {}
+  constructor( public location: Location, private router: Router, private globalService:GlobalService,private translate: TranslateService) {}
 
   ngOnInit() {
       const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
@@ -83,6 +87,12 @@ export class AdminLayoutComponent implements OnInit {
   
   runOnRouteChange(): void 
   {
+	 
+	 
+	if(this.globalService.getEncryptStatus() == 0)
+	{
+		swal(this.translate.instant('SOVERVIEW.ENCRYPTWARN'),  this.translate.instant('SOVERVIEW.ENCRYPTWARN'), "error");
+	}
 	 
     if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) 
 	{

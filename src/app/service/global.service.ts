@@ -91,12 +91,12 @@ export class GlobalService implements OnDestroy {
   async walletBackUp(path, type)
   {
 	  
-	swal({
-	  title: this.translate.instant('SOVERVIEW.PROCESSING'),
-	  text: this.translate.instant('SOVERVIEW.PWAIT'),
-	  showConfirmButton: false,
-	  allowOutsideClick: false
-	});	  
+		swal({
+		  title: this.translate.instant('SOVERVIEW.PROCESSING'),
+		  text: this.translate.instant('SOVERVIEW.PWAIT'),
+		  showConfirmButton: false,
+		  allowOutsideClick: false
+		});	  
 	  
 	  
 	  let response;

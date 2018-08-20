@@ -53,7 +53,8 @@
 	"GCOKKIES" : "Getting cookies...",
 	"CTORPC" : "Connecting to RPC on port ",
 	"CONNECTED" : "Connected",
-	"PERROR": "Permission Error"
+	"PERROR": "Permission Error",
+	"ENCRYPTWARN" : "Please, encrypt your Vault Wallet"
   },
    "SSETTINGS": {
     "CONNECTIONSETTINGS": "Connection Settings",
