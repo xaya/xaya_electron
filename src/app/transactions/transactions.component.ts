@@ -72,6 +72,60 @@ export class TransactionsComponent implements OnInit  {
 		
 	}
 	
+	
+	async SaveSCVToFile(filePath)
+	{
+			let transactionArray = await this.globalService.getAllTransactions();
+			
+			let lenV = transactionArray.length;
+			
+
+			let input = [];
+			let dArraS = ["category", "amount","name","comment","address","txid"];
+			input.push(dArraS);
+			for(let d = lenV-1; d >= 0;d--)
+			{
+				let dArra = [transactionArray[d].category, transactionArray[d].amount,transactionArray[d].name,transactionArray[d].comment,transactionArray[d].address,transactionArray[d].txid];
+				input.push(dArra);
+			}	
+			
+			
+			
+			let _that = this;
+			const stringify = window.require('csv-stringify')
+			stringify(input, function(err, output)
+			{
+				
+				const fs = window.require('fs');
+				fs.writeFileSync(filePath,output);
+				swal(_that.translate.instant('STRANSACTIONS.EDONE'), _that.translate.instant('STRANSACTIONS.EDONE'), "success");
+				
+			});		
+	}
+	
+	async exportCSV()
+	{
+		let filePath;
+		let _that = this;
+		window.require('electron').remote.dialog.showSaveDialog({title: this.translate.instant('SSETTINGS.SELBUDIST'), defaultPath: '~/transactions.csv',  filters: [{name: 'Transactions Data', extensions: ['csv']}]}, (filePath) => 
+		{
+			if (filePath === undefined)
+			{
+				swal(this.translate.instant('SOVERVIEW.ERROR'), this.translate.instant('SSETTINGS.NOFILESEL'), "error");
+				return;
+			}	
+
+      
+		
+		    _that.SaveSCVToFile(filePath);
+		
+
+		
+		});	
+		
+		
+	}
+	
 	clickNext()
 	{
 		this.start += 10;

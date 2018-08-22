@@ -76,7 +76,7 @@
 	"DAEMONDIST" : "Select daemon destination",
 	"SELPATH" : "The path is empty.",
 	"SEDDDARIPT" : "Select datadir destination",
-	"SELBUDIST" : "Select backup destination",
+	"SELBUDIST" : "Select destination",
 	"NOFILESEL" : "No file was selected.",
 	"FAILSAVE" : "Could not save the file.",
 	"SETTINGSSAVED" : "Settings Saved",
@@ -123,7 +123,9 @@
 	"SEARCHTRANSACTIONS": "Search transactions",
 	"DATE" : "Date",
 	"CONFIRMATIONS" : "Confirmations",
-	"TXID": "txid"
+	"TXID": "txid",
+	"EXPORT": "Export CSV",
+	"EDONE": "Export Done!"
   },
    "SCONSOLE": {
     "SEND": "Send",

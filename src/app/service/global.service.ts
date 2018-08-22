@@ -270,6 +270,19 @@ export class GlobalService implements OnDestroy {
   }
   
   
+  async getAllTransactions()
+  {
+	  
+      const response = await this.client.listTransactions("*", 999999, 0).catch(function(e) 
+	  {
+		     swal(this.translate.instant('SOVERVIEW.ERROR'), e, "error");
+			 return [];
+      });	
+
+	  
+	return response;
+  }  
+  
   async getTransactions(start)
   {
 	  

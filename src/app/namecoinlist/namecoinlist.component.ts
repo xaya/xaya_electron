@@ -92,6 +92,81 @@ export class NamecoinlistComponent implements OnInit {
 	
 	}
 	
+	
+    async SaveSCVToFile(filePath)
+	{
+        let addressArray = await this.globalService.getNameList();
+		
+        let input = [];
+		let dArraS = ["name", "value","address"];
+		input.push(dArraS);		
+		
+		for(let d = 0; d < addressArray.length;d++)
+		{
+		
+            let valuenn = addressArray[d][1];
+			let sCopy = valuenn;
+			for(let s  =0; s < valuenn.length; s += 50)
+			{
+				let tempStr = valuenn.substr(s * 50, 50);
+				
+				if(tempStr.indexOf(' ') < 0)
+				{
+                     let position = (s+1 * 50);
+					 
+					 if(position < sCopy.length)
+					 {
+						 sCopy = [sCopy.slice(0, position), " +", sCopy.slice(position)].join('');
+					 }    					
+				}
+			}
+			
+			valuenn = sCopy;
+			
+			let newEntry = [addressArray[d][0], valuenn, addressArray[d][2]];
+		    input.push(newEntry);							
+	
+		}	
+			
+			
+			
+		let _that = this;
+		const stringify = window.require('csv-stringify')
+		stringify(input, function(err, output)
+		{
+			
+			const fs = window.require('fs');
+			fs.writeFileSync(filePath,output);
+			swal(_that.translate.instant('STRANSACTIONS.EDONE'), _that.translate.instant('STRANSACTIONS.EDONE'), "success");
+			
+		});
+
+		
+	}
+	
+	async exportCSV()
+	{
+		let filePath;
+		let _that = this;
+		window.require('electron').remote.dialog.showSaveDialog({title: this.translate.instant('SSETTINGS.SELBUDIST'), defaultPath: '~/transactions.csv',  filters: [{name: 'Transactions Data', extensions: ['csv']}]}, (filePath) => 
+		{
+			if (filePath === undefined)
+			{
+				swal(this.translate.instant('SOVERVIEW.ERROR'), this.translate.instant('SSETTINGS.NOFILESEL'), "error");
+				return;
+			}	
+
+      
+		
+		    _that.SaveSCVToFile(filePath);
+		
+
+		
+		});	
+		
+		
+	}	
+	
 	async transferNameBox(name)
 	{
 
