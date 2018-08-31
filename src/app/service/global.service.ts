@@ -1089,9 +1089,9 @@ export class GlobalService implements OnDestroy {
 
 	var lang = this.container.get('lang');
 	
-	if(lang == undefined || lang == null)
+	if(lang == undefined || lang == null || lang == "en")
 	{
-		lang = "en";
+		lang = "gb";
 	}
 	
 	translate.use(lang);
