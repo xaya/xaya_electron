@@ -320,6 +320,12 @@ export class GlobalService implements OnDestroy {
   
   getEncryptStatus()
   {
+	  
+	  if(this.walletType != "default")
+	  {
+		  return 1;
+	  }
+	  
 	  return this.encryptStatus;
   }
 	
