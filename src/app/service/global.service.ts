@@ -881,20 +881,22 @@ export class GlobalService implements OnDestroy {
 	
 	if (!fs.existsSync(filename)) 
 	{
-		setTimeout(function() 
-		{
-					
-			_that.reconnectTheClient();
-			
-		}, 1500);		
-				 
+			 
 		let usernameT =  this.container.get('username');	 
 		if(usernameT != "" && usernameT != undefined)
 		{
 			readFromFile = false;
 		}			
         else
-		{			
+		{		
+
+		  setTimeout(function() 
+		  {
+					
+			_that.reconnectTheClient();
+			
+		  }, 1500);	
+		
 		  return;	
 		}
     }	  
