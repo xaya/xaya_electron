@@ -164,8 +164,8 @@ function createWindow()
 	   win.show();
     })
   
-
-    globalShortcut.register('CommandOrControl+H', () => 
+    const electronLocalshortcut = require('electron-localshortcut');
+    electronLocalshortcut.register(win, 'CommandOrControl+H', () => 
     {
 	     win.webContents.openDevTools();
     })
@@ -241,8 +241,8 @@ function createWindow()
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
 
-	
-
+	const electronLocalshortcut = require('electron-localshortcut');
+    electronLocalshortcut.unregisterAll(win);
     win = null;
 	
   });
