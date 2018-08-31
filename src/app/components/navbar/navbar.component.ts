@@ -92,24 +92,14 @@ export class NavbarComponent implements OnInit {
 	}
 	
 	
-	setLangEN()
+	setLang(lang)
 	{
-		this.globalService.container.set('lang', 'en');
-		
-		$('#langsNavBar').click();
-		this.translate.use('en');
+		this.globalService.container.set('lang', lang);
+		$('#langdrop').removeClass();
+		$('#langdrop').addClass("flag-icon flag-icon-"+lang);		
+		this.translate.use(lang);
 		this.cdr.detectChanges();
 	}
-	
-	setLangRU()
-	{
-		this.globalService.container.set('lang', 'ru');
-		
-		$('#langsNavBar').click();
-		this.translate.use( 'ru');
-		this.cdr.detectChanges();
-	}
-	
 	
 
 	async getActualBalanceTexts()
@@ -173,16 +163,9 @@ export class NavbarComponent implements OnInit {
     {
         var lang =  this.globalService.container.get('lang');
 		
-		if(lang == 'ru')
-		{
-			$('#langdrop').removeClass();
-			$('#langdrop').addClass("flag-icon flag-icon-ru");
-		}
-		else
-		{
-			$('#langdrop').removeClass();
-			$('#langdrop').addClass("flag-icon flag-icon-gb");
-		}
+		$('#langdrop').removeClass();
+		$('#langdrop').addClass("flag-icon flag-icon-"+lang);
+
 
 
         this.getActualBalanceTexts();		

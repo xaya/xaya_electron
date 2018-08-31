@@ -36,15 +36,30 @@
 				</button>
 				<ul class="dropdown-menu">
 					<li>
-						<a class = "dropdown-item aHref" (click)="setLangEN(); $event.stopPropagation();">
+						<a class = "dropdown-item aHref" (click)="this.setLang('gb');">
 							<i class="pe-7s- flag-icon flag-icon-gb"></i> English
 						</a>
 					</li>
 					<li>
-						<a class = "dropdown-item aHref" (click)="setLangRU(); $event.stopPropagation();">
+						<a class = "dropdown-item aHref" (click)="this.setLang('ru');">
 							<i class="pe-7s- flag-icon flag-icon-ru"></i> Русский
 						</a>
 					</li>
+					<li>
+						<a class = "dropdown-item aHref" (click)="this.setLang('cn');">
+							<i class="pe-7s- flag-icon flag-icon-cn"></i> 中文
+						</a>
+					</li>		
+					<li>
+						<a class = "dropdown-item aHref" (click)="this.setLang('pt');">
+							<i class="pe-7s- flag-icon flag-icon-pt"></i> Português
+						</a>
+					</li>	
+					<li>
+						<a class = "dropdown-item aHref" (click)="this.setLang('es');">
+							<i class="pe-7s- flag-icon flag-icon-es"></i> Español
+						</a>
+					</li>						
 				</ul>
 			</div>
 			<a href = "#" class="navTopLink"(click)="this.showAbout(); $event.stopPropagation();">{{'NAVBAR.ABOUT' | translate }}</a>
