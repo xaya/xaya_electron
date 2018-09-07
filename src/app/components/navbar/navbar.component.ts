@@ -96,7 +96,8 @@ export class NavbarComponent implements OnInit {
 	{
 		this.globalService.container.set('lang', lang);
 		$('#langdrop').removeClass();
-		$('#langdrop').addClass("flag-icon flag-icon-"+lang);		
+		$('#langdrop').addClass("flag-icon flag-icon-"+lang);	
+        this.getActualBalanceTexts();		
 		this.translate.use(lang);
 		this.cdr.detectChanges();
 	}
