@@ -155,6 +155,9 @@ function createWindow()
             }
         }
     ])
+	
+	
+
 
     appIcon.setContextMenu(contextMenu) 
 	
@@ -268,7 +271,13 @@ try {
 	  app.quit();
 	}
 
-
+	require('electron-context-menu')({
+		prepend: (params, browserWindow) => [{
+			label: 'Edit'
+		}]
+	});
+	
+	
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
