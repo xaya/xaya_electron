@@ -164,6 +164,11 @@ export class NavbarComponent implements OnInit {
     {
         var lang =  this.globalService.container.get('lang');
 		
+		if(lang == undefined || lang == null || lang == "en")
+		{
+				lang = "gb";
+		}
+		
 		$('#langdrop').removeClass();
 		$('#langdrop').addClass("flag-icon flag-icon-"+lang);
 
