@@ -125,7 +125,9 @@
 	"CONFIRMATIONS" : "Onaylar",
 	"TXID": "txid",
 	"EXPORT": "CSV olarak dışarı aktar",
-	"EDONE": "Dışarı aktarma tamamlandı!"
+	"EDONE": "Dışarı aktarma tamamlandı!",
+	"PREV": "PREV",
+	"NEXT": "NEXT"
   },
    "SCONSOLE": {
     "SEND": "Gönder",

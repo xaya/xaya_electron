@@ -52,7 +52,7 @@ export class SendComponent  {
 			 this.address = "";
 			 this.amount = null;
 			
-			 swal("Done", this.sResult);
+			 swal(this.translate.instant('SOVERVIEW.SUCCESS'), this.sResult);
 			 return false;				
 		}		
 	}

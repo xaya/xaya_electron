@@ -70,11 +70,11 @@
 								  <div class  = "navLinksTr">
 								  
 								     <div *ngIf="this.start != 0" style = "display: inline-block;">
-								       <button id = "prevlink" (click)="this.clickPrev(); $event.stopPropagation();">PREV</button >
+								       <button id = "prevlink" (click)="this.clickPrev(); $event.stopPropagation();">{{'STRANSACTIONS.PREV' | translate }}</button >
 									 </div>
 									 
 									 <div *ngIf="this.showNext==true" style = "display: inline-block;">
-									 <button  id = "nextlink" (click)="this.clickNext(); $event.stopPropagation();">NEXT</button >
+									 <button  id = "nextlink" (click)="this.clickNext(); $event.stopPropagation();">{{'STRANSACTIONS.NEXT' | translate }}</button >
 									 </div>
 									 
 								 </div>

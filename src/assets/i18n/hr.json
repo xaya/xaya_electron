@@ -125,7 +125,9 @@
 	"CONFIRMATIONS" : "Potvrde",
 	"TXID": "txid",
 	"EXPORT": "Izvezi CSV",
-	"EDONE": "Izvoz učinjen!"
+	"EDONE": "Izvoz učinjen!",
+	"PREV": "PREV",
+	"NEXT": "NEXT"
   },
    "SCONSOLE": {
     "SEND": "Pošalji",

@@ -125,7 +125,9 @@
 	"CONFIRMATIONS" : "Confirmações",
 	"TXID": "txid",
 	"EXPORT": "Exportar CSV",
-	"EDONE": "Exportação Concluída!"
+	"EDONE": "Exportação Concluída!",
+	"PREV": "PREV",
+	"NEXT": "NEXT"
   },
    "SCONSOLE": {
     "SEND": "Enviar",

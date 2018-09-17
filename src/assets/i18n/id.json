@@ -125,7 +125,9 @@
 	"CONFIRMATIONS" : "Konfirmasi",
 	"TXID": "ID Transaksi",
 	"EXPORT": "Eksport CSV",
-	"EDONE": "Eksport Selesai!"
+	"EDONE": "Eksport Selesai!",
+	"PREV": "PREV",
+	"NEXT": "NEXT"
   },
    "SCONSOLE": {
     "SEND": "Kirim",

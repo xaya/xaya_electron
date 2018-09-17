@@ -125,7 +125,9 @@
 	"CONFIRMATIONS" : "確認",
 	"TXID": "txid",
 	"EXPORT": "輸出CSVする",
-	"EDONE": "完了エクスポート!"
+	"EDONE": "完了エクスポート!",
+	"PREV": "PREV",
+	"NEXT": "NEXT"
   },
    "SCONSOLE": {
     "SEND": "Send",

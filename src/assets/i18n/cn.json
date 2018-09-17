@@ -125,7 +125,9 @@
 	"CONFIRMATIONS" : "确认数",
 	"TXID": "txid",
 	"EXPORT": "导出CSV",
-	"EDONE": "导出完成!"
+	"EDONE": "导出完成!",
+	"PREV": "PREV",
+	"NEXT": "NEXT"
   },
    "SCONSOLE": {
     "SEND": "发送",
