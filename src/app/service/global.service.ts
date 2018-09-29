@@ -791,6 +791,24 @@ export class GlobalService implements OnDestroy {
 		}, 1000);	
 		
 		const topic = topicRaw.toString();
+		
+		
+		if(_that.inSynch == false && _that.client != undefined)
+		{
+		
+			var err2 = this._tErrorsChange;
+			_that.client.getWalletInfo().then(
+			(help) =>  
+			{
+			  _that._tBalanceChange.next(help.balance);
+			  return null;
+
+			}
+			).catch(function(e) {
+			 err2.next(e);
+			 return null;
+			});	
+		}
 
 		if (topic == 'rawtx') 
 		{
