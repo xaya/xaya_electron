@@ -985,6 +985,18 @@ export class GlobalService implements OnDestroy {
 	setTimeout(function() 
 	{
 	
+	//We have reports about always resynching wallets, lets try and catch the issue here
+	//as it might be related to folder being quarantied by antivirus
+	const fs = window.require('fs');
+	const path = window.require('path');
+	let basepath = window.require('electron').remote.app.getPath('appData');
+	let filenameCheck = path.join(basepath, './Xaya/');
+	
+	if (!fs.existsSync(filenameCheck)) 
+	{
+		swal("Can not detect daemon folder. Please take screenshot and report to konstantin@xaya.io or forum.xaya.io; Ошибка обнаружения папки с даемоном, пожалуйста, вышлите скриншот на адрес konstantin@xaya или forum.xaya.io", JSON.stringify(e), "error")
+	}	
+	
 	
 	_that.clientMain = new Client({ network: 'mainnet', wallet: "vault.dat", host: host, password: pData[1], port: port, username: pData[0]});
 	_that.clientVault= new Client({ network: 'mainnet', wallet: "game.dat", host: host, password: pData[1], port: port, username: pData[0]});
