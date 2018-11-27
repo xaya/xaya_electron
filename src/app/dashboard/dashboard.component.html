@@ -45,12 +45,9 @@
 		
 		<div class = "synchronizingbar">
 		  <div class = "barfillinfo" [style.width]="this.barFillPercentage"></div>
+		  <div class = "synchText">{{this.synchText}}{{this.tErrors}}</div>
 		  <div class = "synchBlockVals">{{'SOVERVIEW.BLOCKPROGRESSION' | translate }}: {{this.tBlockStatus}}</div>
 		</div>
-		
-		<div class = "synchText">{{this.synchText}}{{this.tErrors}}</div>
-		<button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas2" (click)="askIfResynch(); $event.stopPropagation();">{{'SSETTINGS.RESYNCH' | translate }}</button>
-        <div class="clearfix"></div>
 		
     </div>
 </div>

@@ -814,7 +814,7 @@ export class GlobalService implements OnDestroy {
 					
 			_that.stopZeroMQSpam = false;
 			
-		}, 1000);	
+		}, 5000);	
 		
 		const topic = topicRaw.toString();
 		
