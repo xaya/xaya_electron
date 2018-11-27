@@ -1018,7 +1018,7 @@ export class GlobalService implements OnDestroy {
 	
 	if (!fs.existsSync(filenameCheck)) 
 	{
-		swal("Can not detect daemon folder. Please take screenshot and report to konstantin@xaya.io or forum.xaya.io; Ошибка обнаружения папки с даемоном, пожалуйста, вышлите скриншот на адрес konstantin@xaya или forum.xaya.io", JSON.stringify(e), "error")
+		swal("Can not detect daemon folder. Please take screenshot and report to konstantin@xaya.io or forum.xaya.io; Ошибка обнаружения папки с даемоном, пожалуйста, вышлите скриншот на адрес konstantin@xaya или forum.xaya.io", "error", "error")
 	}	
 	
 	
