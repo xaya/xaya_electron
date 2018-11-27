@@ -80,6 +80,9 @@
 	"NOFILESEL" : "Walang file na napili.",
 	"FAILSAVE" : "Hindi mai-save ang file.",
 	"SETTINGSSAVED" : "I-saved ang iyong Settings",
+	"RESYNCH" : "Delete Chain",
+	"RESYNCHWARN" : "Warning! This will completely delete your chain and restart the wallet. Use only when you were synced before, but now having troubles. Proceed?",
+	"RESYNCHCANCEL" : "Cancel",
 	"NEEDRESTART" : "Nasaved na ang iyong Settings. Ang inyong wallet ay otomatikong magsasara na ngayon, pakiusap i-restart na."
   },
    "SADDRESSES": {

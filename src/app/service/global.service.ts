@@ -715,6 +715,30 @@ export class GlobalService implements OnDestroy {
 
   }
   
+  shutDownButNotClose()
+  {
+	  
+	if(this.client == null || this.client == undefined)
+	{
+	  return false;
+	}
+
+	var _that = this;
+	this.client.stop().then(
+	  (help) =>  
+	  {
+		  return true;
+	  }
+	).catch(function(e) 
+	{
+		  return false;
+	});		  
+  }  
+  
+  closeWithoutShutDown()
+  {
+	window.require('electron').remote.getCurrentWindow().close();  
+  }
   
   shutDown()
   {
@@ -1170,6 +1194,7 @@ export class GlobalService implements OnDestroy {
 			  
 			  if(daemonpath == "")
 			  {
+				  
 				  shell.openItem(window.require('electron').remote.app.getAppPath() + '\\daemon\\' + shellName);
 			  }
 			  else

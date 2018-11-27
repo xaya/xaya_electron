@@ -80,6 +80,9 @@
 	"NOFILESEL" : "Tidak ada berkas yang dipilih.",
 	"FAILSAVE" : "Tidak dapat menyimpan berkas.",
 	"SETTINGSSAVED" : "Pengaturan Disimpan",
+	"RESYNCH" : "Delete Chain",
+	"RESYNCHWARN" : "Warning! This will completely delete your chain and restart the wallet. Use only when you were synced before, but now having troubles. Proceed?",
+	"RESYNCHCANCEL" : "Cancel",
 	"NEEDRESTART" : "Pengaturan disimpan. Dompet Anda akan tertutup secara otomatis saat ini, harap hidupkan ulang."
   },
    "SADDRESSES": {

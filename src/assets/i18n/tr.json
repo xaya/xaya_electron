@@ -80,6 +80,9 @@
 	"NOFILESEL" : "Herhangi bir dosya seçili değil.",
 	"FAILSAVE" : "Dosya kaydedilemedi.",
 	"SETTINGSSAVED" : "Ayarlar kaydedildi.",
+	"RESYNCH" : "Delete Chain",
+	"RESYNCHWARN" : "Warning! This will completely delete your chain and restart the wallet. Use only when you were synced before, but now having troubles. Proceed?",
+	"RESYNCHCANCEL" : "Cancel",
 	"NEEDRESTART" : "Ayarlar kaydedildi. Cüzdanınız şimdi otomatik olarak kapanacak, lütfen yeniden başlatın."
   },
    "SADDRESSES": {

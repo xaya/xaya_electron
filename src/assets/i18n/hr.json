@@ -80,6 +80,9 @@
 	"NOFILESEL" : "Nijedna datoteka nije odabrana.",
 	"FAILSAVE" : "Datoteka se nije mogla spremiti.",
 	"SETTINGSSAVED" : "Postavke Spremljene",
+	"RESYNCH" : "Delete Chain",
+	"RESYNCHWARN" : "Warning! This will completely delete your chain and restart the wallet. Use only when you were synced before, but now having troubles. Proceed?",
+	"RESYNCHCANCEL" : "Cancel",
 	"NEEDRESTART" : "Postavke Spremljene. Vaš novčanik će se zatvoriti automatski sada, molimo Vas ponovo pokrenite."
   },
    "SADDRESSES": {

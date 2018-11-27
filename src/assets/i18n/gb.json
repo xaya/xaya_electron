@@ -80,6 +80,9 @@
 	"NOFILESEL" : "No file was selected.",
 	"FAILSAVE" : "Could not save the file.",
 	"SETTINGSSAVED" : "Settings Saved",
+	"RESYNCH" : "Delete Chain",
+	"RESYNCHWARN" : "Warning! This will completely delete your chain and restart the wallet. Use only when you were synced before, but now having troubles. Proceed?",
+	"RESYNCHCANCEL" : "Cancel",
 	"NEEDRESTART" : "Settings Saved. Your wallet will close automatically now, please restart."
   },
    "SADDRESSES": {

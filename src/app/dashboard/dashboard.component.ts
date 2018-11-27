@@ -30,7 +30,6 @@ export class DashboardComponent {
 	public cBlock: number;
 	public cBlockMax: number;
 	
-	
 	private subscription2: ISubscription;
 	
 	private lastNum: any;
@@ -70,7 +69,6 @@ export class DashboardComponent {
 		
         this.tPruned = "";
 		this.tMedianTime = "";
-		
 		
         var precision =  this.globalService.container.get('precision');
 		
@@ -153,6 +151,24 @@ export class DashboardComponent {
 		
 	}
 	
+	
+	deleteFolderRecursive (path) 
+	 {
+	  var _that = this;
+	  const fs = window.require('fs');
+	  if (fs.existsSync(path)) {
+		fs.readdirSync(path).forEach(function(file, index){
+		  var curPath = path + "/" + file;
+		  if (fs.lstatSync(curPath).isDirectory()) {
+			_that.deleteFolderRecursive(curPath);
+		  } else {
+			fs.unlinkSync(curPath);
+		  }
+		});
+		fs.rmdirSync(path);
+	  }
+	}
+	
 	isWalletVault()
 	{
 		if(this.globalService.walletType == "default")
@@ -161,6 +177,111 @@ export class DashboardComponent {
 		}
 		
 		return false;
+	}
+	
+	askIfResynch()
+	{
+		swal({
+		  title: this.translate.instant('SSETTINGS.RESYNCHWARN'),
+		  confirmButtonText: this.translate.instant('SSEND.CONFIRM'),
+		  cancelButtonText: this.translate.instant('SSETTINGS.RESYNCHCANCEL'),
+		  type: 'info',
+		  showCancelButton: true,
+		}).then((result) => 
+		{
+			if(result.value)
+			{
+					let _that = this;
+					const path = window.require('path');
+					let basepath = window.require('electron').remote.app.getPath('appData');
+					
+					let testnet =  this.globalService.container.get('testnet');
+					if(testnet == undefined ||  testnet == null)
+					{
+							 testnet = false;
+					} 	  	
+					
+					let filename = path.join(basepath, './Xaya/blocks/');
+					let filename_cs = path.join(basepath, './Xaya/chainstate/');
+					
+					if(testnet == true)
+					{
+						 filename = path.join(basepath, './Xaya/testnet/blocks/');
+						 filename_cs = path.join(basepath, './Xaya/testnet/chainstate/');
+					}
+					
+					const fs = window.require('fs');
+					
+					let filenameRewrite = path.join(basepath, './Xaya/appdata.orv');
+					
+					var rewritePath = "";
+					
+					let dirpath = this.globalService.container.get('dirpath');
+					
+					if(dirpath == undefined || dirpath == null)
+					{
+							dirpath = "";
+					}  		
+					
+					if (fs.existsSync(filenameRewrite) && dirpath != "") 
+					{
+							fs.readFile(filenameRewrite, 'utf8', function(err, data) 
+							{
+								if (err) throw err;
+								rewritePath = data;
+							});  	
+					}	
+					
+					if(rewritePath == "")
+					{
+					}
+					else
+					{
+						
+					   basepath = rewritePath;
+					   filename = path.join(basepath, './Xaya/blocks/');
+					   filename_cs = path.join(basepath, './Xaya/chainstate/');
+					   
+					   if(testnet == true)
+					   {
+						filename = path.join(basepath, './Xaya/testnet/blocks/');
+						filename_cs = path.join(basepath, './Xaya/testnet/chainstate/');
+					   }
+					   
+					}
+					
+					_that.globalService.shutDownButNotClose();
+					_that.deleteDataAndShutDown(filename, filename_cs);
+					
+
+					
+
+			}
+		})		   		
+	}
+	
+	sleep(ms)
+	{
+		return new Promise(resolve=>{
+			setTimeout(resolve,ms)
+		})
+	}
+	
+	async deleteDataAndShutDown(filename, filename_cs)
+	{
+		//Daemon might still be holding files locked
+		//So we do this in loop until success
+		try
+		{
+		   this.deleteFolderRecursive(filename);
+		   this.deleteFolderRecursive(filename_cs);
+		   this.globalService.closeWithoutShutDown();	
+		}
+        catch
+		{
+			await this.sleep(1000);
+			this.deleteDataAndShutDown(filename, filename_cs);
+		}			
 	}
 	
 	async unlockWallet()

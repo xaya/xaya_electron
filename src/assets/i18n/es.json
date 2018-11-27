@@ -80,6 +80,9 @@
 	"NOFILESEL" : "No se seleccionó ningún fichero.",
 	"FAILSAVE" : "No se pudo guardar el fichero.",
 	"SETTINGSSAVED" : "Configuración Guardada",
+	"RESYNCH" : "Delete Chain",
+	"RESYNCHWARN" : "Warning! This will completely delete your chain and restart the wallet. Use only when you were synced before, but now having troubles. Proceed?",
+	"RESYNCHCANCEL" : "Cancel",
 	"NEEDRESTART" : "Configuración Guardada. Tu cartera ahora se cerrará automáticamente, por favor reinicia."
   },
    "SADDRESSES": {
