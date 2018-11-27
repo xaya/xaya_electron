@@ -423,9 +423,6 @@ export class GlobalService implements OnDestroy {
   getOverviewInfo()
   {
 
-
-  
-  
       //Lets prevent spamming on initial synchronization
 	  
 	  let _that = this;
@@ -450,16 +447,12 @@ export class GlobalService implements OnDestroy {
 		}, 6000);	
 	  }
 
-		
-	  
 	  //Could not be connected yet, but zeroMQ my trigger this functions
 	  if(this.client == null || this.client == undefined)
 	  {
 		  return null;
 	  }
-	  
-	  
-     
+	    
 	  var err = this._tErrorsChange;
 	  this.client.getBlockchainInfo().then(
 	  (help) =>  
@@ -471,6 +464,7 @@ export class GlobalService implements OnDestroy {
 		     console.log(_that.translate.instant('SOVERVIEW.CONNECTED'));
 		  }
 		  
+		  
 		  _that._tBlockChange.next(help.blocks);
           _that._tBlockMaxChange.next(help.headers);
 		  
@@ -479,13 +473,21 @@ export class GlobalService implements OnDestroy {
 			  _that.inSynch = true;
 		  }
 		  
+		  //Lets warn people that we have progress on initial synch
+		  if(help.blocks == 0)
+		  {
+			    setTimeout(function() 
+				{
+				   _that.getOverviewInfo();
+				   
+				}, 5000);				  
+		  }
+		  
+		  
 		  let tNetType = "Main Net";
 		  if(help.chain == "test")
 		  {
 			   tNetType = "Test Net";
-			   
-			  		   
-
 		  }
 		  
 		  _that._tNetTypeChange.next(tNetType);
