@@ -103,8 +103,7 @@
 					   <div class="col-sm-6">  
 					      <div class = "sstspace" *ngIf="this.usedefault==false"></div>
 						  <div class = "warntexset"><span style = "color: #ff0000">*</span> {{'SSETTINGS.WARN' | translate }}</div>
-						  <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas specialBUBut" (click)="backUpWallet(0); $event.stopPropagation();">{{'SSETTINGS.BACKUP' | translate }} [{{'SOVERVIEW.VAULTWALLET' | translate }}]</button>
-                          <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas specialBUBut" (click)="backUpWallet(1); $event.stopPropagation();">{{'SSETTINGS.BACKUP' | translate }} [{{'SOVERVIEW.GAMEWALLET' | translate}}]</button>
+						  <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas specialBUBut" (click)="backUpWallet(0); $event.stopPropagation();">{{'SSETTINGS.BACKUP' | translate }}</button>
 						  <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas specialBUBut" (click)="askIfResynch(); $event.stopPropagation();">{{'SSETTINGS.RESYNCH' | translate }}</button>
 						  <fieldset style = "text-align: center;">
                                <div class="form-group">

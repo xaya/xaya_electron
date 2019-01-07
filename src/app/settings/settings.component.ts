@@ -184,37 +184,23 @@ export class SettingsComponent {
 	
 	backUpWallet(type)
 	{
-		if(type == 0)
+		window.require('electron').remote.dialog.showSaveDialog({title: this.translate.instant('SSETTINGS.SELBUDIST'), defaultPath: '~/vault.dat',  filters: [{name: 'Wallet Data', extensions: ['dat']}]}, (filePath) => 
 		{
-			window.require('electron').remote.dialog.showSaveDialog({title: this.translate.instant('SSETTINGS.SELBUDIST'), defaultPath: '~/vault.dat',  filters: [{name: 'Wallet Data', extensions: ['dat']}]}, (filePath) => {
 
 			if (filePath === undefined)
 			{
 				swal(this.translate.instant('SOVERVIEW.ERROR'), this.translate.instant('SSETTINGS.NOFILESEL'), "error");
 				return;
 			}
-				
-				
-			this.globalService.walletBackUp(filePath, type);
 			
-			});	
-		}
-		else
-		{
-			window.require('electron').remote.dialog.showSaveDialog({title: this.translate.instant('SSETTINGS.SELBUDIST'), defaultPath: '~/game.dat',  filters: [{name: 'Wallet Data', extensions: ['dat']}]}, (filePath) => {
-
-			if (filePath === undefined)
-			{
-				swal(this.translate.instant('SOVERVIEW.ERROR'), this.translate.instant('SSETTINGS.NOFILESEL'), "error");
-				return;
-			}
-				
-				
 			
-			this.globalService.walletBackUp(filePath, type);
-			
-			});				
-		}	
+		this.globalService.walletBackUp(filePath, 0);
+		
+		filePath = filePath.replace(".dat","[game].dat");
+		
+		this.globalService.walletBackUp(filePath, 1);
+		
+		});	
 	}
 	
 	getCurrentWalletType()

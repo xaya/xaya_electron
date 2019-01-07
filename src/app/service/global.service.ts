@@ -724,6 +724,18 @@ export class GlobalService implements OnDestroy {
 	{
 	  return false;
 	}
+	
+    let rundaemon =  this.container.get('rundaemon');
+			
+	if( rundaemon == undefined ||  rundaemon == null)
+	{
+	   rundaemon = true;
+	} 		
+	
+	if(!rundaemon)
+	{
+		return true;
+	}
 
 	var _that = this;
 	this.client.stop().then(
@@ -751,32 +763,55 @@ export class GlobalService implements OnDestroy {
 	  return;
 	}
 
-
-	var _that = this;
-	this.client.stop().then(
-	  (help) =>  
-	  {
-		  
-		  window.require('electron').remote.getCurrentWindow().close();
-	  }
-	).catch(function(e) {
-		 
-		  window.require('electron').remote.getCurrentWindow().close();
-		 
-	});		  
+	
+    let rundaemon =  this.container.get('rundaemon');
+			
+	if( rundaemon == undefined ||  rundaemon == null)
+	{
+		rundaemon = true;
+	}  		
+	
+	if(!rundaemon)
+	{
+		window.require('electron').remote.getCurrentWindow().close();
+	}
+	else
+	{
+		var _that = this;
+		this.client.stop().then(
+		  (help) =>  
+		  {
+			  window.require('electron').remote.getCurrentWindow().close();
+		  }
+		).catch(function(e) {
+			 
+			  window.require('electron').remote.getCurrentWindow().close();
+			 
+		});		
+	}	
   }
   
   ngOnDestroy()
   {
 	
-	  this.client.stop().then(
-		  (help) =>  
-		  {
-			 
-		  }
-	  ).catch(function(e) {
-		    
-	  });	  
+      let rundaemon =  this.container.get('rundaemon');
+			
+	  if( rundaemon == undefined ||  rundaemon == null)
+	  {
+		rundaemon = true;
+	  } 	
+	
+	  if(rundaemon)
+	  {
+		  this.client.stop().then(
+			  (help) =>  
+			  {
+				 
+			  }
+		  ).catch(function(e) {
+				
+		  });	  
+	  }
   }
   
   getDefaultPort()
