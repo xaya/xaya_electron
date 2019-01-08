@@ -54,7 +54,8 @@
 	"CTORPC" : "Conectarse a RPC en el puerto ",
 	"CONNECTED" : "Conectado",
 	"PERROR": "Error de Permisos",
-	"ENCRYPTWARN" : "Por favor, encripta tu Cartera Segura"
+	"ENCRYPTWARN" : "Por favor, encripta tu Cartera Segura",
+	"UNICODE" : "Please, use ANSI characters for the datadirpath only"
   },
    "SSETTINGS": {
     "CONNECTIONSETTINGS": "Configuración de Conexión",

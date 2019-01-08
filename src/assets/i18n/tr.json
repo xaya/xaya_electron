@@ -83,7 +83,8 @@
 	"RESYNCH" : "Delete Chain",
 	"RESYNCHWARN" : "Warning! This will completely delete your chain and restart the wallet. Use only when you were synced before, but now having troubles. Proceed?",
 	"RESYNCHCANCEL" : "Cancel",
-	"NEEDRESTART" : "Ayarlar kaydedildi. Cüzdanınız şimdi otomatik olarak kapanacak, lütfen yeniden başlatın."
+	"NEEDRESTART" : "Ayarlar kaydedildi. Cüzdanınız şimdi otomatik olarak kapanacak, lütfen yeniden başlatın.",
+	"UNICODE" : "Please, use ANSI characters for the datadirpath only"
   },
    "SADDRESSES": {
     "SENDINGADDRESSES": "Gönderme Adresleri",

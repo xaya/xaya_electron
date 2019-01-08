@@ -171,6 +171,12 @@ export class SettingsComponent {
 			this.clearPathShedule = false;
 			this.dirpath = filePath;
 			this.cdr.detectChanges();
+			
+			if(this.isDoubleByte(this.dirpath))
+			{
+				swal(this.translate.instant('SOVERVIEW.ERROR'), this.translate.instant('SSETTINGS.UNICODE'), "error");
+				return;
+			}			
 		
 		});
 		
@@ -184,21 +190,22 @@ export class SettingsComponent {
 	
 	backUpWallet(type)
 	{
-		window.require('electron').remote.dialog.showSaveDialog({title: this.translate.instant('SSETTINGS.SELBUDIST'), defaultPath: '~/vault.dat',  filters: [{name: 'Wallet Data', extensions: ['dat']}]}, (filePath) => 
+        window.require('electron').remote.dialog.showOpenDialog({title: this.translate.instant('SSETTINGS.SELBUDIST'),  properties: ['openDirectory']}, (filePath) => 
 		{
-
+			
 			if (filePath === undefined)
 			{
 				swal(this.translate.instant('SOVERVIEW.ERROR'), this.translate.instant('SSETTINGS.NOFILESEL'), "error");
 				return;
 			}
-			
-			
-		this.globalService.walletBackUp(filePath, 0);
 		
-		filePath = filePath.replace(".dat","[game].dat");
+		let fpCp = filePath;
+		fpCp += "/vault.dat";	
+		this.globalService.walletBackUp(fpCp, 0);
 		
-		this.globalService.walletBackUp(filePath, 1);
+        let fpCp2 = filePath;
+		fpCp2 += "/game.dat";
+		this.globalService.walletBackUp(fpCp2, 1);
 		
 		});	
 	}
@@ -330,6 +337,12 @@ export class SettingsComponent {
 		}			
 	}	
 	
+	isDoubleByte(str) 
+	{
+		var hasMoreThanAscii = /^[\u0000-\u007f]*$/.test(str);
+		return !hasMoreThanAscii;
+    }
+	
     updateSettingsDetails()
 	{
 		
@@ -345,6 +358,8 @@ export class SettingsComponent {
 			this.rundaemon = true;
 			this.dirpath = "";
 		}
+		
+		
 		
 		if(this.currentTestnet != this.testnet)
 		{

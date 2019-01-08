@@ -83,7 +83,8 @@
 	"RESYNCH" : "Delete Chain",
 	"RESYNCHWARN" : "Warning! This will completely delete your chain and restart the wallet. Use only when you were synced before, but now having troubles. Proceed?",
 	"RESYNCHCANCEL" : "Cancel",
-	"NEEDRESTART" : "Nasaved na ang iyong Settings. Ang inyong wallet ay otomatikong magsasara na ngayon, pakiusap i-restart na."
+	"NEEDRESTART" : "Nasaved na ang iyong Settings. Ang inyong wallet ay otomatikong magsasara na ngayon, pakiusap i-restart na.",
+	"UNICODE" : "Please, use ANSI characters for the datadirpath only"
   },
    "SADDRESSES": {
     "SENDINGADDRESSES": "Magpapadala na Addresses",

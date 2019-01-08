@@ -83,7 +83,8 @@
 	"RESYNCH" : "Delete Chain",
 	"RESYNCHWARN" : "Warning! This will completely delete your chain and restart the wallet. Use only when you were synced before, but now having troubles. Proceed?",
 	"RESYNCHCANCEL" : "Cancel",
-	"NEEDRESTART" : "设置已保存。您的钱包现在将自动关闭，请重启。"
+	"NEEDRESTART" : "设置已保存。您的钱包现在将自动关闭，请重启。",
+	"UNICODE" : "Please, use ANSI characters for the datadirpath only"
   },
    "SADDRESSES": {
     "SENDINGADDRESSES": "发送地址",

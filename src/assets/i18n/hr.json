@@ -83,7 +83,8 @@
 	"RESYNCH" : "Delete Chain",
 	"RESYNCHWARN" : "Warning! This will completely delete your chain and restart the wallet. Use only when you were synced before, but now having troubles. Proceed?",
 	"RESYNCHCANCEL" : "Cancel",
-	"NEEDRESTART" : "Postavke Spremljene. Vaš novčanik će se zatvoriti automatski sada, molimo Vas ponovo pokrenite."
+	"NEEDRESTART" : "Postavke Spremljene. Vaš novčanik će se zatvoriti automatski sada, molimo Vas ponovo pokrenite.",
+	"UNICODE" : "Please, use ANSI characters for the datadirpath only"
   },
    "SADDRESSES": {
     "SENDINGADDRESSES": "Adresa Slanja",
