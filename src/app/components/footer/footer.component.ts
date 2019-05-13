@@ -12,6 +12,7 @@ export class FooterComponent implements OnInit {
   { 
   
    let _that = this;
+
  	window.onerror = function(error, url, line) 
 	{
 		_that.debugLogText  = error;

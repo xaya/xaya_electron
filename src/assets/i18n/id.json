@@ -16,7 +16,8 @@
 	"NAMECOINLIST": "Nama Saya",
 	"SEND": "Kirim",
 	"CONSOLE": "Konsol",
-	"EXIT": "Keluar"
+	"EXIT": "Keluar",
+	"CHAT": "XID"
   },
    "SOVERVIEW": {
     "OVERVIEW": "Tinjauan Umum",
@@ -29,7 +30,7 @@
 	"BLOCKPROGRESSION": "Perkembangan Blok",
 	"PRUNED" : "Apakah Disingkat?",
 	"DIFFICULTY" : "Tingkat Kesulitan",
-	"MEDIANTIME" : "Waktu Rata-rata",
+	"MEDIANTIME" : "Blok Waktu Rata-rata",
 	"SYNCHRONIZING" : "Mengsinkronisasikan...",
 	"VAULTWALLET" : "Dompet Simpanan",
 	"GAMEWALLET" : "Dompet Permainan",
@@ -165,5 +166,21 @@
 	"NOVALUES" : "Tidak ada nilai yang dimasukkan",
 	"ENTERVAL" : "Masukkan Nilai",
 	"RESPONSE" : "Respon"
+  },
+   "CHAT": {
+    "NAME": "Name",
+	"SUBMIT": "Assign Name To XID",
+	"SUCCESS1": "XID Name '",
+	"SUCCESS2": "' has been added",
+    "TITLE": "XID Name List Owned",
+	"SIGNERS": "Signers",
+	"RUNNING": "XID is running",
+	"NOT_RUNNING": "XID is not running",
+	"NOT_UPTODATE": "XID is not up to date",
+	"GENERATE_PASSWORD": "GET PASS",
+	"APPLICATION": "Application address",
+	"DONEPASS": "Password generated",
+	"WRONGWALLET": "Please select game wallet",
+	"GETFULLNAME": "GET NAME"
   }
 }

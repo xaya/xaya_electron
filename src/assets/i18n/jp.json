@@ -16,7 +16,8 @@
 	"NAMECOINLIST": "私の名前",
 	"SEND": "送信する",
 	"CONSOLE": "コンソール",
-	"EXIT": "終了"
+	"EXIT": "終了",
+	"CHAT": "XID"
   },
    "SOVERVIEW": {
     "OVERVIEW": "概要",
@@ -29,7 +30,7 @@
 	"BLOCKPROGRESSION": "ブロックの進行",
 	"PRUNED" : "剪定されていますか？",
 	"DIFFICULTY" : "難しさ",
-	"MEDIANTIME" : "メジアン時間",
+	"MEDIANTIME" : "ブロック メジアン時間",
 	"SYNCHRONIZING" : "同期...",
 	"VAULTWALLET" : "Vault 財布",
 	"GAMEWALLET" : "ゲーム 財布",
@@ -165,5 +166,21 @@
 	"NOVALUES" : "入力された値はありません。",
 	"ENTERVAL" : "値を入力",
 	"RESPONSE" : "応答"
+  },
+   "CHAT": {
+    "NAME": "Name",
+	"SUBMIT": "Assign Name To XID",
+	"SUCCESS1": "XID Name '",
+	"SUCCESS2": "' has been added",
+    "TITLE": "XID Name List Owned",
+	"SIGNERS": "Signers",
+	"RUNNING": "XID is running",
+	"NOT_RUNNING": "XID is not running",
+	"NOT_UPTODATE": "XID is not up to date",
+	"GENERATE_PASSWORD": "GET PASS",
+	"APPLICATION": "Application address",
+	"DONEPASS": "Password generated",
+	"WRONGWALLET": "Please select game wallet",
+	"GETFULLNAME": "GET NAME"
   }
 }

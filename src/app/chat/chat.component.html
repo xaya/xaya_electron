@@ -1,0 +1,83 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+
+		    <div class="col-md-12">
+              <div class="card">
+			          <div class="card-body">
+                      <h4 style = "color: #ffffff;">{{this.chatStatus}}</h4>
+					  </div>
+			  </div>
+			</div>
+		
+		    <div class="col-md-2"></div>								  
+				  <div class="col-md-8">
+					<mat-form-field class="example-full-width specialnwidth">
+						<input matInput placeholder="{{'CHAT.APPLICATION' | translate }}"  [value]="this.application" (input)="this.application = $event.target.value">
+					  </mat-form-field>
+				  </div>
+		    <div class="col-md-2"></div>			
+		
+			<div class="col-md-12">
+				<div class="card">
+				  <div class="card-body">
+					  <form name = "addressform">
+						  <div class="row">
+							  <div class="col-md-2"></div>								  
+                                <div class="col-md-10">
+								<mat-form-field>
+								  <mat-select name = "curselectors" placeholder="{{'CHAT.NAME' | translate }}" [(ngModel)]="this.namespace">
+									<mat-option *ngFor="let namespc of namespaces" [(value)]="namespc.value">
+									  {{ namespc.viewValue }}
+									</mat-option>
+								  </mat-select>
+								</mat-form-field>
+                              </div>	
+							  <div class="col-md-2"></div>							  
+						  </div>
+						  <div class="col-md-12">
+						    <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBas" (click)="submitTheName(); $event.stopPropagation();">{{'CHAT.SUBMIT' | translate }}</button>
+						  </div>
+					  </form>
+				  </div>
+			  </div>
+			</div>	
+
+			
+			<div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title ">{{'CHAT.TITLE' | translate }}</h4>
+                      <p class="card-category"></p>
+                  </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table">
+                              <thead class=" text-primary">
+                                  <th>
+                                      {{'CHAT.NAME' | translate }}
+                                  </th>
+                                  <th>
+                                      {{'CHAT.SIGNERS' | translate }}
+                                  </th>								  
+                              <tbody>
+                                  <tr *ngFor="let row of chatNameTableData">
+                                      <td class = "">{{row.name}}</td>
+                                      <td class = "">{{row.signers}}</td>	
+                                      <td>
+									  <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBasSmall" (click)="this.GeneratePassword(row.name); $event.stopPropagation();">{{'CHAT.GENERATE_PASSWORD' | translate }}</button>
+									  </td>	
+                                      <td>
+									  <button mat-raised-button type="submit" class="btn btn-danger pull-right buttonBasSmall" (click)="this.GetFullName(row.name); $event.stopPropagation();">{{'CHAT.GETFULLNAME' | translate }}</button>
+									  </td>										  
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+            </div>
+			
+        </div>
+    </div>
+</div>

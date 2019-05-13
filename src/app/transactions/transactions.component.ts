@@ -153,9 +153,6 @@ export class TransactionsComponent implements OnInit  {
 	
 	async initContinue()
 	{
-
-	 
-		
         let _that = this;
 		
 		/* Needs this to prevent table filling 2 times due tu simultanious change event updates, seems like angular bug(?)*/
@@ -238,18 +235,11 @@ export class TransactionsComponent implements OnInit  {
 			this.transactionsTable.push(newEntry);
 
 		}    
-		
-		
-		
-		
-	    return "";
-		
+	    return "";	
 	}	
 
     ngOnInit()
 	{ 
-	
-
 	   this.walletChangeSubscription = this.globalService.walletChanged$.subscribe
 	   (
 		value => {
@@ -268,10 +258,7 @@ export class TransactionsComponent implements OnInit  {
 		  this.cdr.detectChanges();		
 
 	   });	   
-	   
-
     }
-	
 	
     ngOnDestroy()
 	{

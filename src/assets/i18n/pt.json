@@ -16,7 +16,8 @@
 	"NAMECOINLIST": "Os meus Nomes",
 	"SEND": "Enviar",
 	"CONSOLE": "Consola",
-	"EXIT": "Sair"
+	"EXIT": "Sair",
+	"CHAT": "XID"
   },
    "SOVERVIEW": {
     "OVERVIEW": "Vista Geral",
@@ -29,7 +30,7 @@
 	"BLOCKPROGRESSION": "Progressão dos Blocos",
 	"PRUNED" : "Está depurado?",
 	"DIFFICULTY" : "Dificuldade",
-	"MEDIANTIME" : "Tempo",
+	"MEDIANTIME" : "Bloco Tempo",
 	"SYNCHRONIZING" : "Sincronizando...",
 	"VAULTWALLET" : "Carteira Vault",
 	"GAMEWALLET" : "Carteira de Jogo",
@@ -165,5 +166,21 @@
 	"NOVALUES" : "Não foram inseridos nenhuns valores.",
 	"ENTERVAL" : "Insira valor",
 	"RESPONSE" : "Resposta"
+  },
+   "CHAT": {
+    "NAME": "Name",
+	"SUBMIT": "Assign Name To XID",
+	"SUCCESS1": "XID Name '",
+	"SUCCESS2": "' has been added",
+    "TITLE": "XID Name List Owned",
+	"SIGNERS": "Signers",
+	"RUNNING": "XID is running",
+	"NOT_RUNNING": "XID is not running",
+	"NOT_UPTODATE": "XID is not up to date",
+	"GENERATE_PASSWORD": "GET PASS",
+	"APPLICATION": "Application address",
+	"DONEPASS": "Password generated",
+	"WRONGWALLET": "Please select game wallet",
+	"GETFULLNAME": "GET NAME"
   }
 }

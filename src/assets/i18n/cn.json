@@ -16,7 +16,8 @@
 	"NAMECOINLIST": "我的名字",
 	"SEND": "发送",
 	"CONSOLE": "控制台",
-	"EXIT": "退出"
+	"EXIT": "退出",
+	"CHAT": "XID"
   },
    "SOVERVIEW": {
     "OVERVIEW": "概览",
@@ -29,7 +30,7 @@
 	"BLOCKPROGRESSION": "区块进度",
 	"PRUNED" : "是否删减?",
 	"DIFFICULTY" : "难度",
-	"MEDIANTIME" : "平均时间",
+	"MEDIANTIME" : "区块 平均时间",
 	"SYNCHRONIZING" : "同步中...",
 	"VAULTWALLET" : "保险库钱包",
 	"GAMEWALLET" : "游戏钱包",
@@ -165,5 +166,21 @@
 	"NOVALUES" : "没有输入任何值。",
 	"ENTERVAL" : "输入值",
 	"RESPONSE" : "响应"
+  },
+   "CHAT": {
+    "NAME": "Name",
+	"SUBMIT": "Assign Name To XID",
+	"SUCCESS1": "XID Name '",
+	"SUCCESS2": "' has been added",
+    "TITLE": "XID Name List Owned",
+	"SIGNERS": "Signers",
+	"RUNNING": "XID is running",
+	"NOT_RUNNING": "XID is not running",
+	"NOT_UPTODATE": "XID is not up to date",
+	"GENERATE_PASSWORD": "GET PASS",
+	"APPLICATION": "Application address",
+	"DONEPASS": "Password generated",
+	"WRONGWALLET": "Please select game wallet",
+	"GETFULLNAME": "GET NAME"
   }
 }

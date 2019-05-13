@@ -16,7 +16,8 @@
 	"NAMECOINLIST": "Pangalan ko",
 	"SEND": "Naipadala na",
 	"CONSOLE": "Mga Console",
-	"EXIT": "Lumabas"
+	"EXIT": "Lumabas",
+	"CHAT": "XID"
   },
    "SOVERVIEW": {
     "OVERVIEW": "Pangkahalatang Ideya",
@@ -29,7 +30,7 @@
 	"BLOCKPROGRESSION": "Pagpapatuloy ng Block",
 	"PRUNED" : "Ay maaaring matanggal?",
 	"DIFFICULTY" : "Sobrang hirap",
-	"MEDIANTIME" : "Kalagitnaan ng oras",
+	"MEDIANTIME" : "Block Kalagitnaan ng oras",
 	"SYNCHRONIZING" : "Nagsi-Synchronize na...",
 	"VAULTWALLET" : "Wallet ng Vault mo",
 	"GAMEWALLET" : "Wallet ng Game mo",
@@ -165,5 +166,21 @@
 	"NOVALUES" : "Walang halaga ang nailagay.",
 	"ENTERVAL" : "Ilagay ang halaga",
 	"RESPONSE" : "Responde"
+  },
+   "CHAT": {
+    "NAME": "Name",
+	"SUBMIT": "Assign Name To XID",
+	"SUCCESS1": "XID Name '",
+	"SUCCESS2": "' has been added",
+    "TITLE": "XID Name List Owned",
+	"SIGNERS": "Signers",
+	"RUNNING": "XID is running",
+	"NOT_RUNNING": "XID is not running",
+	"NOT_UPTODATE": "XID is not up to date",
+	"GENERATE_PASSWORD": "GET PASS",
+	"APPLICATION": "Application address",
+	"DONEPASS": "Password generated",
+	"WRONGWALLET": "Please select game wallet",
+	"GETFULLNAME": "GET NAME"
   }
 }

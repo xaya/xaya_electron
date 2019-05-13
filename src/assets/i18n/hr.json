@@ -16,7 +16,8 @@
 	"NAMECOINLIST": "Moja imena",
 	"SEND": "Poslati",
 	"CONSOLE": "Konzola",
-	"EXIT": "Izlaz"
+	"EXIT": "Izlaz",
+	"CHAT": "XID"
   },
    "SOVERVIEW": {
     "OVERVIEW": "Pregled",
@@ -29,7 +30,7 @@
 	"BLOCKPROGRESSION": "Progresija bloka",
 	"PRUNED" : "Je obrezana?",
 	"DIFFICULTY" : "Težina",
-	"MEDIANTIME" : "Srednje vrijeme",
+	"MEDIANTIME" : "Blok vrijeme",
 	"SYNCHRONIZING" : "Sinkronizacija...",
 	"VAULTWALLET" : "Trezor novčanik",
 	"GAMEWALLET" : "Novčanik za igre",
@@ -165,5 +166,21 @@
 	"NOVALUES" : "Vrijednosti nisu unesene.",
 	"ENTERVAL" : "Unesite vrijednost",
 	"RESPONSE" : "Odgovor"
+  },
+   "CHAT": {
+    "NAME": "Name",
+	"SUBMIT": "Assign Name To XID",
+	"SUCCESS1": "XID Name '",
+	"SUCCESS2": "' has been added",
+    "TITLE": "XID Name List Owned",
+	"SIGNERS": "Signers",
+	"RUNNING": "XID is running",
+	"NOT_RUNNING": "XID is not running",
+	"NOT_UPTODATE": "XID is not up to date",
+	"GENERATE_PASSWORD": "GET PASS",
+	"APPLICATION": "Application address",
+	"DONEPASS": "Password generated",
+	"WRONGWALLET": "Please select game wallet",
+	"GETFULLNAME": "GET NAME"
   }
 }

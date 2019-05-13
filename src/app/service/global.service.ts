@@ -23,6 +23,7 @@ export class GlobalService implements OnDestroy {
   
   private clientMain: Client;
   private clientVault: Client;
+  private clientChatDaemon: Client;
   public inSynch: boolean = false;
   private encryptStatus: number = -1;
   private firsTimeConnected: boolean = false;
@@ -70,6 +71,7 @@ export class GlobalService implements OnDestroy {
   private timestemp:number  =0;
   private stopZeroMQSpam: boolean = false;
   
+  private execChatFile;
   private subscriber;
   
 
@@ -495,9 +497,21 @@ export class GlobalService implements OnDestroy {
 		  
 		  _that._tPrunedChange.next(help.pruned);
 		  _that._tDifficultyChange.next(help.difficulty);
-		  _that._tMedianTimeChange.next(_that.timeConverter(help.mediantime));
-		  return null;
 		  
+		  _that.client.getBlockHash(help.blocks).then(
+	     (hash) =>  
+	     {
+		    	_that.client.getBlock(hash,1).then(
+	            (blockinfo) =>  
+	            {
+					_that._tMedianTimeChange.next(_that.timeConverter(blockinfo.time));
+					return null;
+				}
+				) 
+				return null;
+	     }
+		 ) 	
+         return null;		 
 	  }
 	  ).catch(function(e) 
 	  {
@@ -563,6 +577,75 @@ export class GlobalService implements OnDestroy {
 	  
   }  
   
+  async AuthWithWallet(name, application)
+  {
+	  
+	  if(this.walletType != "game")
+	  {
+	   swal(this.translate.instant('CHAT.WRONGWALLET'), this.translate.instant('CHAT.WRONGWALLET'), "error");
+	   return;
+	  }
+	  
+	  
+      let response = await this.clientChatDaemon.authwithwallet({"name": name, "application": application, "data": {}}).catch(function(e) 
+	  {
+			 return JSON.stringify(e);
+      });		
+
+      swal(this.translate.instant('CHAT.DONEPASS'), response.data, "success");	  
+  }
+  
+  async getChatNameList(names)
+  {
+	  let namesAndSIgners = [];
+	  
+	  for(var d = 0; d < names.length;d++)
+	  {
+		  let shortsr = names[d].value.substring(2);
+		  let response = await this.clientChatDaemon.getnamestate({"name": shortsr}).catch(function(e) 
+	      {
+			 return JSON.stringify(e);
+          });	
+		  
+		  
+		  
+		  let entry = [];
+		  if(response.data.signers.length != 0)
+		  {
+			  entry.push(shortsr);
+			  entry.push(response.data.signers[0].addresses[0]);
+			  namesAndSIgners.push(entry);
+		  }
+		  
+	  }
+	  
+	  return namesAndSIgners;
+  }
+  
+  async AddNewChatName(nname)
+  {
+      let addressval = await this.client.getNewAddress("", "legacy").catch(function(e) 
+	  {
+			 return JSON.stringify(e);
+      });	
+
+	  
+      var g = {"g": [addressval]};
+	  var s = {"s": g};
+	  var id = {"id": s};
+	  var objToSend = {"g": id};
+	  
+		  
+	  let response = await this.client.name_update(nname, JSON.stringify(objToSend)).catch(function(e) 
+	  {
+				 return JSON.stringify(e);
+	  });	
+	  
+	  console.log(JSON.stringify(objToSend));
+	  console.log(JSON.stringify(response));
+	  
+      return response;	  
+  }
   
   async AddNewName(nname, nvalue)
   {
@@ -603,7 +686,32 @@ export class GlobalService implements OnDestroy {
 	 
   }
   
- 
+  async GetChatStatus()
+  {
+	  if(this.execChatFile == null)
+	  {
+		  return this.translate.instant('CHAT.NOT_RUNNING');
+	  }
+	  else
+	  {
+		  
+		  let response = await this.clientChatDaemon.getcurrentstate().catch(function(e) 
+		  {
+				 return "Error";
+		  });	
+		  
+		  if(response.state != "up-to-date")
+		  {
+			  let response2 = await this.client.getBlockchainInfo().catch(function(e) 
+			  {
+					 return "Error";
+			  });	
+			  return this.translate.instant('CHAT.NOT_UPTODATE') + " " + response.height + "/" + response2.blocks;
+		  }
+		
+		  return this.translate.instant('CHAT.RUNNING');  
+	  }
+  }
   
   async consoleCommand(command) :Promise<string>
   {
@@ -812,6 +920,8 @@ export class GlobalService implements OnDestroy {
 				
 		  });	  
 	  }
+	  
+	  this.closeChatApplication();
   }
   
   getDefaultPort()
@@ -892,7 +1002,7 @@ export class GlobalService implements OnDestroy {
 	});
 	 
 	this.subscriber.connect('tcp://127.0.0.1:28332');
-	this.subscriber.subscribe('raw');	  
+	this.subscriber.subscribe('raw');
   }
   
   reconnectTheClient()
@@ -1065,7 +1175,9 @@ export class GlobalService implements OnDestroy {
 		setTimeout(function() 
 		{
 		_that.getOverviewInfo();
-		}, 1000);
+		_that.openChatApplication(pData[0], pData[1], port, host);	
+		
+		}, 5000);
 	
 	}, 1000);		
 		
@@ -1089,12 +1201,71 @@ export class GlobalService implements OnDestroy {
 	  else
 	  {
 		   this._walletChange.next(name);
-	  }
-
-	  
-	  
+	  }  
   }
   
+  openChatApplication(_username, _password, _port, _host)
+  {
+    const execFile = window.require('child_process').execFile;
+	var _that = this;
+	
+	if(this.execChatFile == null)
+	{
+        let _that = this;
+        const path = window.require('path');
+	    let basepath = window.require('electron').remote.app.getPath('appData');
+	
+	    let chatDataDir = path.join(basepath, './XAYA-Electron/xiddatadir/');
+		let chatExePath = window.require('electron').remote.app.getAppPath() + '\\daemon\\' + "xid.exe";
+		
+		if (!window.require('electron').remote.getCurrentWindow().serve) 
+		{
+           chatExePath = window.require('electron').remote.app.getAppPath() + '\\..\\daemon\\' + "xid.exe";	
+		}
+		
+		let eargs1 = '--xaya_rpc_url=http://'+_username+':'+_password+'@'+_host+':'+_port + "/wallet/game.dat";
+        let eargs2 = '--datadir=' + chatDataDir;
+        let eargs3 = '--game_rpc_port=8400';
+		let eargs4 = '--allow_wallet'
+		
+		this.execChatFile = execFile(chatExePath, [eargs1, eargs2, eargs3,eargs4], {maxBuffer: 1024 * 2000000}, (error, stdout, stderr) => 
+		{
+			if (error) 
+			{
+				console.log('chat stderr', stderr);
+				_that.execChatFile = null;
+				//swal(this.translate.instant('ERROR'),  error + "<<>>" + stdout + "<<>>" + stderr, "error");
+				setTimeout(function() 
+		        {
+		        _that.openChatApplication(_username, _password, _port, _host);	
+		        }, 5000);
+				
+				
+				return;
+			}
+
+			_that.execChatFile.on('exit', function (code) 
+			{ 
+			 _that.execChatFile = null;
+			 return;
+			});
+		});	 
+		
+		_that.clientChatDaemon = new Client({ version: '0.15.1', network: 'chat', host: _host, password: "", port: 8400, username: ""});
+	}		  
+  }
+  
+  closeChatApplication()
+  {
+	 if(this.execChatFile != null)
+	 {
+		 this.execChatFile.stdin.end();
+		 this.execChatFile.stdout.destroy();
+		 this.execChatFile.stderr.destroy();
+		 this.execChatFile.kill();
+		 this.execChatFile = null;
+	 }
+  }
   
   getUnlockedText()
   {

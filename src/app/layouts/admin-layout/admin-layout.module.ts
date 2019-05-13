@@ -9,6 +9,7 @@ import { SendComponent } from '../../send/send.component';
 import { TransactionsComponent } from '../../transactions/transactions.component';
 import { NamecoinComponent } from '../../namecoin/namecoin.component';
 import { NamecoinlistComponent } from '../../namecoinlist/namecoinlist.component';
+import { ChatComponent } from '../../chat/chat.component';
 import { SettingsComponent } from '../../settings/settings.component';
 import { ConsoleComponent } from '../../console/console.component';
 
@@ -47,6 +48,7 @@ import {
     SendComponent,
     TransactionsComponent,
     NamecoinComponent,
+	ChatComponent,
 	NamecoinlistComponent,
     SettingsComponent,
     ConsoleComponent,

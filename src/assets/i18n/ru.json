@@ -16,7 +16,8 @@
 	"NAMECOINLIST": "Список Имён",
 	"SEND": "Отправить",
 	"CONSOLE": "Консоль",
-	"EXIT": "Выход"
+	"EXIT": "Выход",
+	"CHAT": "XID"
   },
   "SOVERVIEW": {
     "OVERVIEW": "Обзор",
@@ -29,7 +30,7 @@
 	"BLOCKPROGRESSION": "Прогресс блоков",
 	"PRUNED" : "Отрезана?",
 	"DIFFICULTY" : "Сложность",
-	"MEDIANTIME" : "Время медианы",
+	"MEDIANTIME" : "Время блока",
 	"SYNCHRONIZING" : "Синхронизирует",
 	"VAULTWALLET" : "Сберегательный Кошелёк",
 	"GAMEWALLET" : "Игровой Кошелёк",
@@ -164,5 +165,21 @@
 	"NOVALUES" : "Значения не были введены",
 	"ENTERVAL" : "Введите значение",
 	"RESPONSE" : "Ответ"
+  },
+   "CHAT": {
+    "NAME": "Name",
+	"SUBMIT": "Assign Name To XID",
+	"SUCCESS1": "XID Name '",
+	"SUCCESS2": "' has been added",
+    "TITLE": "XID Name List Owned",
+	"SIGNERS": "Signers",
+	"RUNNING": "XID is running",
+	"NOT_RUNNING": "XID is not running",
+	"NOT_UPTODATE": "XID is not up to date",
+	"GENERATE_PASSWORD": "GET PASS",
+	"APPLICATION": "Application address",
+	"DONEPASS": "Password generated",
+	"WRONGWALLET": "Please select game wallet",
+	"GETFULLNAME": "GET NAME"
   }
 }
