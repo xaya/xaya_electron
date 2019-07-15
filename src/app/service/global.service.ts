@@ -1385,21 +1385,9 @@ export class GlobalService implements OnDestroy {
 	  let shellName = "shell.vbs";
       const main = window.require('electron').remote.require('./main.js');
 	  
-     if(!main.isProcess64())
-	 {
-		 shellName = "shellx86.vbs";
-	 }
-	  
-	  
 	  if(testnet == false)
 	  {
 		  shellName = "shell_main.vbs";
-		  
-		  if(!main.isProcess64())
-		  {
-		 	 shellName = "shell_mainx86.vbs";
-		  }		  
-          
 		  main.SetMainNetTray();		  
 		  
 	  }
