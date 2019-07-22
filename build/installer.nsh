@@ -7,11 +7,14 @@
     WriteRegExpandStr HKCU "${INSTALL_REGISTRY_KEY}" InstallLocation "C:\Program Files\Xaya"
 !macroend
 
-/*
-COMMENT FOR NOW, KEEP FOR LATER USE
-WHEN WILL BE ADDING EXTERNAL SYNCH 
-DATA
+!macro customInstall
+ MessageBox MB_YESNO "Would you like to predownload the blockchain data? This could save you several hours of syncing the blockchain" IDYES true IDNO false
+	true:
+	  ExecWait '"$INSTDIR\resources\installer\downloadchain.cmd" "$INSTDIR\resources\installer\"'  
+	false:
+!macroend
 
+/*
 !include nsDialogs.nsh
 !include LogicLib.nsh
 
@@ -26,11 +29,11 @@ Var /global SOURCEXAYAFULL
 Var /global BROWSESOURCE
 Var /global BROWSEDEST
 Var /global SOURCETEXT
+Var /global SOURCETEXTFF
 Var /global DESTTEXT
 Var /global pathVar
 
 Var Dialog
-Page custom nsDialogsPage nsDialogsPageLeave
 
 Function nsDialogsPage
 
@@ -72,6 +75,9 @@ Function nsDialogsPageLeave
         Abort
     ${EndIf}
 	
+	GetDlgItem $0 $HWNDPARENT 1
+    EnableWindow $0 0
+	
 	StrCpy $SOURCEXAYAORV "\appdata.orv"
     StrCpy $SOURCEXAYAFULL "$SOURCEXAYAPARTIAL$SOURCEXAYAORV"
 	
@@ -80,8 +86,34 @@ Function nsDialogsPageLeave
 		FileWrite $9 $pathVar
 		FileClose $9
 	${EndIf}
-
+	
+	StrCpy $SOURCETEXTFF "$pathVar\xaya_20190715.zip"
+	
+	MessageBox MB_YESNO "Pre-download wallet blockchain data?" IDYES true IDNO false
+	true:
+	  StrCpy $2 "$SOURCETEXT\xaya_20190715.zip"
+	  inetc::get /POPUP "" /CAPTION "xaya_20190715.zip" "http://xaya.io/downloads/xaya_20190716.zip" $SOURCETEXTFF /END
+	  Pop $0 # return value = exit code, "OK" if OK
+      	  
+	  ${If} $0 == "OK"
+		nsisunz::Unzip $SOURCETEXTFF $pathVar		
+	  ${EndIf}
+	  
+	   MessageBox MB_OK "Download Status: $0"
+	   
+	false:
+	  GetDlgItem $0 $HWNDPARENT 1
+      EnableWindow $0 1	  
+	  	  
+	  StrCpy $R9 2
+      Call RelGotoPage
 FunctionEnd
 
 Section
-SectionEnd*/
+SectionEnd
+
+Page License
+Page Directory
+Page InstFiles
+Page custom nsDialogsPage nsDialogsPageLeave
+Page Finish*/
