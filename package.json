@@ -1,6 +1,6 @@
 {
   "name": "XAYA-Electron",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "XAYA",
   "homepage": "https://github.com/xaya/xaya_electron",
   "author": {
@@ -103,7 +103,7 @@
     "electron": "1.8.8",
     "electron-builder": "^20.40.2",
     "electron-reload": "^1.4.0",
-    "extend": "^3.0.1",
+    "extend": "^3.0.2",
     "fs-extra": "5.0.0",
     "jasmine-core": "2.99.1",
     "jasmine-spec-reporter": "4.2.1",

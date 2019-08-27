@@ -230,6 +230,29 @@ export class TransactionsComponent implements OnInit  {
 			
 			tr = Math.round(tr * 1000000000000) / 1000000000000;
 			
+            let valuenn = trnm;
+			
+			if(trnm != undefined)
+			{
+				let sCopy = valuenn;
+				for(let s  =0; s < valuenn.length; s += 30)
+				{
+					let tempStr = valuenn.substr(s * 30, 30);
+					
+					if(tempStr.indexOf(' ') < 0)
+					{
+						 let position = (s+1 * 30);
+						 
+						 if(position < sCopy.length)
+						 {
+							 sCopy = [sCopy.slice(0, position), " +\n\r", sCopy.slice(position)].join('');
+						 }    					
+					}
+				}
+				
+				trnm = sCopy;	
+			}
+			
 			var formattedTime =this.timeConverter(transactionArray[d].time);
 			let newEntry = {"time" : formattedTime, "address": transactionArray[d].address, "name" : trnm, "category" : transactionArray[d].category, "amount" : tr, "confirmations" : transactionArray[d].confirmations, "txid" : transactionArray[d].txid  };	
 			this.transactionsTable.push(newEntry);

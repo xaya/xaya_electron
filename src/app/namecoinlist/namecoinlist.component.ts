@@ -24,6 +24,7 @@ export class NamecoinlistComponent implements OnInit {
 
 
      public nameAddressTableData;
+	 public nameAddressTableDataDisplay;
 	 private sResult:string = "";
 	 private walletChangeSubscription: ISubscription;
 	 private timeChangeSubscription: ISubscription;
@@ -49,6 +50,7 @@ export class NamecoinlistComponent implements OnInit {
 		}
 		
 		this.nameAddressTableData = [];
+		this.nameAddressTableDataDisplay = [];
 		this.updateGuard = true;
 		
 		setTimeout(function() 
@@ -77,7 +79,7 @@ export class NamecoinlistComponent implements OnInit {
 					 
 					 if(position < sCopy.length)
 					 {
-						 sCopy = [sCopy.slice(0, position), " +", sCopy.slice(position)].join('');
+						 sCopy = [sCopy.slice(0, position), " +\n\r", sCopy.slice(position)].join('');
 					 }    					
 				}
 			}
@@ -85,8 +87,28 @@ export class NamecoinlistComponent implements OnInit {
 			valuenn = sCopy;
 			
 			let newEntry = {"name": addressArray[d][0], "value" : valuenn, address: addressArray[d][2]};
-		    this.nameAddressTableData.push(newEntry);					
-	
+		    this.nameAddressTableData.push(newEntry);		
+			
+            valuenn = newEntry["name"];
+			sCopy = valuenn;
+			for(let s  =0; s < valuenn.length; s += 50)
+			{
+				let tempStr = valuenn.substr(s * 50, 50);
+				
+				if(tempStr.indexOf(' ') < 0)
+				{
+                     let position = (s+1 * 50);
+					 
+					 if(position < sCopy.length)
+					 {
+						 sCopy = [sCopy.slice(0, position), " +\n\r", sCopy.slice(position)].join('');
+					 }    					
+				}
+			}
+			
+			newEntry["name"] = sCopy;			
+			
+	        this.nameAddressTableDataDisplay.push(newEntry);
 		}		
 		
 	
@@ -235,6 +257,7 @@ export class NamecoinlistComponent implements OnInit {
 	{ 
 	
         this.nameAddressTableData = [];
+		this.nameAddressTableDataDisplay = [];
 		
 		 this.walletChangeSubscription = this.globalService.walletChanged$.subscribe
 		 (
