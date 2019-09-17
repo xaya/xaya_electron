@@ -5,6 +5,15 @@
     SetRegView 32
     WriteRegExpandStr HKLM "${INSTALL_REGISTRY_KEY}" InstallLocation "C:\Program Files\Xaya"
     WriteRegExpandStr HKCU "${INSTALL_REGISTRY_KEY}" InstallLocation "C:\Program Files\Xaya"
+	
+	${nsProcess::FindProcess} "xayad.exe" $R0
+	${If} $R0 == 0
+		DetailPrint "Xaya daemon is running. Closing it down before going further."
+	${Else}      
+	${EndIf}    
+
+	${nsProcess::Unload}	
+	
 !macroend
 
 !macro customInstall
