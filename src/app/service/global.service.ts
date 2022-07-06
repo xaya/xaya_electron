@@ -351,7 +351,6 @@ export class GlobalService implements OnDestroy {
 	  {
 
 		  this.lastBalanceVault =  help.balance;
-		  		  
        
 	  }
 	  ).catch(function(e) 
@@ -368,7 +367,6 @@ export class GlobalService implements OnDestroy {
 		  (help) =>  
 		  {
 			  this.lastBalanceGame =  help.balance;
-			  
 			  
 			  if( this.walletType == "default")
 			  {
@@ -695,8 +693,8 @@ export class GlobalService implements OnDestroy {
 	  else
 	  {
 		  
-		  let response = await this.clientChatDaemon.getcurrentstate().catch(function(e) 
-		  {
+          let response = await this.clientChatDaemon.getnamestate({"name": "ryumaster"}).catch(function(e) 
+	      {
 				 return "Error";
 		  });	
 		  
@@ -1214,6 +1212,9 @@ export class GlobalService implements OnDestroy {
         let _that = this;
         const path = window.require('path');
 	    let basepath = window.require('electron').remote.app.getPath('appData');
+        
+        basepath = basepath.replace(/[^\x00-\x7F]/g, "n");
+        
 	
 	    let chatDataDir = path.join(basepath, './XAYA-Electron/xiddatadir/');
 		let chatExePath = window.require('electron').remote.app.getAppPath() + '\\daemon\\' + "xid.exe";
@@ -1232,7 +1233,7 @@ export class GlobalService implements OnDestroy {
 		{
 			if (error) 
 			{
-				console.log('chat stderr', stderr);
+				//console.log('cerr: ' + stderr);
 				_that.execChatFile = null;
 				//swal(this.translate.instant('ERROR'),  error + "<<>>" + stdout + "<<>>" + stderr, "error");
 				setTimeout(function() 

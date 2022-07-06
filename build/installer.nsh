@@ -1,3 +1,5 @@
+RequestExecutionLevel admin
+
 !macro preInit
     SetRegView 64
     WriteRegExpandStr HKLM "${INSTALL_REGISTRY_KEY}" InstallLocation "C:\Program Files\Xaya"
@@ -12,15 +14,19 @@
 	${Else}      
 	${EndIf}    
 
-	${nsProcess::Unload}	
-	
+	${nsProcess::Unload}		
 !macroend
 
 !macro customInstall
+
+ MessageBox MB_OK "Chain files folder will get cleaned for 1.4.2, its recommended to predownload it next step" IDOK 
+    ExecWait '"$INSTDIR\resources\installer\cleanupchain.cmd"'  
+
  MessageBox MB_YESNO "Would you like to predownload the blockchain data? This could save you several hours of syncing the blockchain. If you are upgrading, press NO." IDYES true IDNO false
 	true:
 	  ExecWait '"$INSTDIR\resources\installer\downloadchain.cmd" "$INSTDIR\resources\installer\"'  
 	false:
+      DetailPrint "Continue"
 !macroend
 
 /*

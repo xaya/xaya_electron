@@ -32,7 +32,7 @@ export class DashboardComponent {
 	
 	private subscription2: ISubscription;
 	
-	private lastNum: any;
+	private lastNum: number;
 	
 	
     private tErrorsSs: ISubscription;
@@ -199,17 +199,37 @@ export class DashboardComponent {
 			precision  =0;
 		}		
 		
-		if(precision == 0)
+		if (typeof num === 'string') 
 		{
-			return num.toFixed(8);
+			var realNum =  parseFloat(num);
+			
+			if(precision == 0)
+			{
+				return realNum.toFixed(8);
+			}
+			if(precision == 1)
+			{
+				return (realNum * 1000).toFixed(5);
+			}
+			if(precision == 2)
+			{
+				return (realNum * 1000000).toFixed(2);
+			}			
 		}
-		if(precision == 1)
+		else
 		{
-			return (num * 1000).toFixed(5);
-		}
-		if(precision == 2)
-		{
-			return (num * 1000000).toFixed(2);
+			if(precision == 0)
+			{
+				return num.toFixed(8);
+			}
+			if(precision == 1)
+			{
+				return (num * 1000).toFixed(5);
+			}
+			if(precision == 2)
+			{
+				return (num * 1000000).toFixed(2);
+			}
 		}
 		
 	}
