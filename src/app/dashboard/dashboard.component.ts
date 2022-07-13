@@ -74,7 +74,7 @@ export class DashboardComponent {
 		
 		if(precision == null || precision == undefined)
 		{
-			precision  =0;
+			precision = 0;
 		}	
 
         if(precision == 0)
