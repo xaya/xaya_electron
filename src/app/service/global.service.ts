@@ -1160,12 +1160,14 @@ export class GlobalService implements OnDestroy {
 	const path = window.require('path');
 	let basepath = window.require('electron').remote.app.getPath('appData');
 	let filenameCheck = path.join(basepath, './Xaya/');
+    let filenameCheckWallets = path.join(basepath, './Xaya/wallets/');
 	
 	if (!fs.existsSync(filenameCheck)) 
 	{
-		swal("Can not detect daemon folder. Please take screenshot and report to konstantin@xaya.io or forum.xaya.io; Ошибка обнаружения папки с даемоном, пожалуйста, вышлите скриншот на адрес konstantin@xaya или forum.xaya.io", "error", "error")
+		swal("Can not detect daemon folder. Please take screenshot and report to Discord", "error", "error")
 	}	
 	
+    
 	
 	_that.clientMain = new Client({ network: 'mainnet', wallet: "vault.dat", host: host, password: pData[1], port: port, username: pData[0]});
 	_that.clientVault= new Client({ network: 'mainnet', wallet: "game.dat", host: host, password: pData[1], port: port, username: pData[0]});
@@ -1174,6 +1176,14 @@ export class GlobalService implements OnDestroy {
 		{
 		_that.getOverviewInfo();
 		_that.openChatApplication(pData[0], pData[1], port, host);	
+        
+        // After Bitcoin Core update, we need to create wallets manually if missing
+        if (!fs.existsSync(filenameCheckWallets)) 
+	    {
+            this.client.createWallet("vault.dat");
+            this.client.createWallet("game.dat");
+        }
+        
 		
 		}, 5000);
 	
