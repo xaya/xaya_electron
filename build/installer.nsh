@@ -19,7 +19,7 @@ RequestExecutionLevel admin
 
 !macro customInstall
 
- MessageBox MB_OK "Chain files folder will get cleaned for 1.4.2, its recommended to predownload it next step" IDOK 
+ MessageBox MB_OK "Chain files folder will get cleaned for 1.4.3, its recommended to predownload it next step" IDOK 
     ExecWait '"$INSTDIR\resources\installer\cleanupchain.cmd"'  
 
  MessageBox MB_YESNO "Would you like to predownload the blockchain data? This could save you several hours of syncing the blockchain. If you are upgrading, press NO." IDYES true IDNO false

@@ -1180,8 +1180,8 @@ export class GlobalService implements OnDestroy {
         // After Bitcoin Core update, we need to create wallets manually if missing
         if (!fs.existsSync(filenameCheckWallets)) 
 	    {
-            this.client.createWallet("vault.dat");
-            this.client.createWallet("game.dat");
+            _that.client.createWallet("vault.dat");
+            _that.client.createWallet("game.dat");
         }
         
 		
